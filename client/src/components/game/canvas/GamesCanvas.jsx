@@ -53,7 +53,7 @@ function GamesCanvas() {
           y * cellSize,
           cellSize,
           'green',
-          'red',
+          'red'
         );
         id++;
         tiles.push(square);
@@ -75,16 +75,15 @@ function GamesCanvas() {
     });
   };
 
-
   const hoverOverTile = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
-  
+
     tilesRef.current.forEach((tile) => {
       const distanceToTile = Math.sqrt(
         Math.pow(offsetX - (tile.xpos + tile.size / 2), 2) +
-        Math.pow(offsetY - (tile.ypos + tile.size / 2), 2)
+          Math.pow(offsetY - (tile.ypos + tile.size / 2), 2)
       );
-  
+
       if (distanceToTile < tile.size / 2) {
         // Mouse is hovering over this tile
         tile.isHovered = true;
@@ -97,26 +96,30 @@ function GamesCanvas() {
 
   const clickOnTile = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
-  
+
     for (const tile of tilesRef.current) {
+      tile.isActive = false;
       const distanceToTile = Math.sqrt(
         Math.pow(offsetX - (tile.xpos + tile.size / 2), 2) +
-        Math.pow(offsetY - (tile.ypos + tile.size / 2), 2)
+          Math.pow(offsetY - (tile.ypos + tile.size / 2), 2)
       );
-  
+
       if (distanceToTile < tile.size / 2) {
         // Mouse is hovering over this tile
         console.log('tile.isHovered = true;');
-        tile.isActive = true;
-        return; // Exit the function after the first tile that meets the condition
+        tile.isActive = !tile.isActive;
       }
     }
-  }; 
-
+    return;
+  };
 
   return (
     <main className='grid h-full w-full bg-red-200 border-solid border-yellow-300 border-4'>
-      <canvas ref={canvasRef} onMouseMove={hoverOverTile} onMouseDown={clickOnTile} />
+      <canvas
+        ref={canvasRef}
+        onMouseMove={hoverOverTile}
+        onMouseDown={clickOnTile}
+      />
     </main>
   );
 }
