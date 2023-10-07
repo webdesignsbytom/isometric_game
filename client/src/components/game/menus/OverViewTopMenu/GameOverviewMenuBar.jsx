@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 // Context
-import { PlayerContext } from '../../../context/PlayerContext';
+import { PlayerContext } from '../../../../context/PlayerContext';
 
-function GameMenuBar() {
+function GameOverviewMenuBar() {
   const { player } = useContext(PlayerContext);
+  
   return (
     <section className='grid h-[30px] grid-flow-col justify-between max-h-[30px] w-full bg-green-300 border-solid border-2 border-amber-800 px-1'>
       {/* World data */}
@@ -29,4 +30,4 @@ function GameMenuBar() {
   );
 }
 
-export default GameMenuBar;
+export default GameOverviewMenuBar;

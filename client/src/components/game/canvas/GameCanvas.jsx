@@ -1,13 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 // Objects
 import { Tile } from './Tile';
 
-function GamesCanvas() {
+function GameCanvas() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const tilesRef = useRef([]);
-
-  const [hoveredTileId, setHoveredTileId] = useState(null);
 
   const maxGridXLength = 10;
   const maxGridYLength = 10;
@@ -114,14 +112,12 @@ function GamesCanvas() {
   };
 
   return (
-    <main className='grid h-full w-full bg-red-200 border-solid border-yellow-300 border-4'>
-      <canvas
-        ref={canvasRef}
-        onMouseMove={hoverOverTile}
-        onMouseDown={clickOnTile}
-      />
-    </main>
+    <canvas
+      ref={canvasRef}
+      onMouseMove={hoverOverTile}
+      onMouseDown={clickOnTile}
+    />
   );
 }
 
-export default GamesCanvas;
+export default GameCanvas;
