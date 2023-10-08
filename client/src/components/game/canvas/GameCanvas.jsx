@@ -13,7 +13,9 @@ function GameCanvas() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const tilesRef = useRef([]);
+  const buildingsRef = useRef(player.buildingsData.buildingsArray);
 
+  console.log('buildingsRef', buildingsRef);
   const maxGridXLength = 10;
   const maxGridYLength = 10;
 
@@ -71,6 +73,15 @@ function GameCanvas() {
 
   const drawCanvasElements = () => {
     drawTileGrid();
+    drawBuildingElements()
+  };
+
+  const drawBuildingElements = () => {
+    const context = contextRef.current;
+
+    buildingsRef.current.forEach((building) => {
+      building.drawBuilding(context); // Pass whether the tile is hovered
+    });
   };
 
   const drawTileGrid = () => {
@@ -118,7 +129,7 @@ function GameCanvas() {
     }
 
     // Redraw the canvas to update the colors
-    drawTileGrid();
+    drawCanvasElements()
   };
 
   const drawImageUnderMouse = (offsetX, offsetY) => {

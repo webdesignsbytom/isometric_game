@@ -11,6 +11,8 @@ const PlayerContextProvider = ({ children }) => {
   const [buildingToPlace, setBuildingToPlace] = useState(false);
   const mouseItemRef = useRef(null);
   const testRef = useRef(null);
+  
+  console.log('player', player);
 
   const buyBuilding = (building) => {
     let mouse;
