@@ -1,8 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 // Objects
 import { Tile } from './Tile';
+// Context
+import { ToggleContext } from '../../../context/ToggleContext';
 
 function GameCanvas() {
+  const { quickOpenBuildingsMenu } = useContext(ToggleContext)
+
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const tilesRef = useRef([]);
@@ -21,7 +25,7 @@ function GameCanvas() {
 
     // Set canvas height
     const width = window.innerWidth;
-    const height = window.innerHeight;
+    const height = window.innerHeight - 32;
     canvas.width = width;
     canvas.height = height;
 
@@ -109,6 +113,8 @@ function GameCanvas() {
       tile.isActive = false;
     });
 
+    quickOpenBuildingsMenu()
+    
     isProcessingClick = true;
 
     const { offsetX, offsetY } = nativeEvent;
