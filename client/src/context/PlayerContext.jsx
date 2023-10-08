@@ -11,7 +11,6 @@ const PlayerContextProvider = ({ children }) => {
   const mouseItemRef = useRef(null);
 
   const buyBuilding = (building) => {
-    console.log('BBB', building);
     let mouse;
 
     let playerBuildings = player.buildingsData.buildingsArray;
@@ -28,13 +27,10 @@ const PlayerContextProvider = ({ children }) => {
       },
     });
 
-    console.log('XXX', building.imageUrl);
-
     mouseItemRef.current = building;
     setBuildingToPlace(true);
   };
 
-  console.log('player', player);
   return (
     <PlayerContext.Provider
       value={{

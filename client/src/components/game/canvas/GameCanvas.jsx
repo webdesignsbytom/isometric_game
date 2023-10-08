@@ -13,7 +13,6 @@ function GameCanvas() {
   const contextRef = useRef(null);
   const tilesRef = useRef([]);
 
-  console.log('mouseItemRef', mouseItemRef);
   const maxGridXLength = 10;
   const maxGridYLength = 10;
 
@@ -45,7 +44,6 @@ function GameCanvas() {
 
     createTileGrid(originX, originY);
     drawCanvasElements();
-    console.log('OOOOOOOOOOOOOOOOOOOOo');
   }, [mouseItemRef]);
 
   const createTileGrid = (originX, originY) => {
@@ -74,7 +72,6 @@ function GameCanvas() {
   }
 
   const drawTileGrid = () => {
-    console.log('AAAAAAAAAAAA');
     const context = contextRef.current;
 
     tilesRef.current.forEach((tile) => {
@@ -119,13 +116,13 @@ function GameCanvas() {
   const drawImageUnderMouse = (offsetX, offsetY) => {
     const context = contextRef.current;
     const mouseItem = mouseItemRef.current;
-    console.log('mouse item: ', mouseItem);
+    
     clearCanvas();
+
     // Create a new Image object to load the PNG
     const image = new Image();
     image.src = mouseItem.imageUrl
 
-    console.log('image', image);
     // Handle drawing the image when it's loaded
     image.onload = () => {
       // Calculate the position to draw the image centered under the mouse cursor
