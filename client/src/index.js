@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import UserContextProvider from './context/UserContext';
 import ToggleContextProvider from './context/ToggleContext';
 import PlayerContextProvider from './context/PlayerContext';
+import CanvasContextProvider from './context/CanvasContext';
 // Styles
 import './styles/index.css';
 import './styles/backgrounds.css';
@@ -17,7 +18,9 @@ root.render(
     <UserContextProvider>
       <PlayerContextProvider>
         <ToggleContextProvider>
-          <App />
+          <CanvasContextProvider>
+            <App />
+          </CanvasContextProvider>
         </ToggleContextProvider>
       </PlayerContextProvider>
     </UserContextProvider>

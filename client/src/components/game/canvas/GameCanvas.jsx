@@ -3,14 +3,18 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { Tile } from './Tile';
 // Context
 import { ToggleContext } from '../../../context/ToggleContext';
+import { CanvasContext } from '../../../context/CanvasContext';
+import { PlayerContext } from '../../../context/PlayerContext';
 
 function GameCanvas() {
-  const { quickOpenBuildingsMenu } = useContext(ToggleContext)
+  const { quickOpenBuildingsMenu } = useContext(ToggleContext);
+  const { player, setPlayer, mouseItemRef, buildingToPlace } = useContext(PlayerContext);
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const tilesRef = useRef([]);
 
+  console.log('mouseItemRef', mouseItemRef);
   const maxGridXLength = 10;
   const maxGridYLength = 10;
 
@@ -41,8 +45,9 @@ function GameCanvas() {
     contextRef.current = context;
 
     createTileGrid(originX, originY);
-    drawTileGrid();
-  }, []);
+    drawCanvasElements();
+    console.log('OOOOOOOOOOOOOOOOOOOOo');
+  }, [mouseItemRef]);
 
   const createTileGrid = (originX, originY) => {
     let id = 1;
@@ -65,7 +70,12 @@ function GameCanvas() {
     tilesRef.current = tilesArray;
   };
 
+  const drawCanvasElements = () => {
+    drawTileGrid()
+  }
+
   const drawTileGrid = () => {
+    console.log('AAAAAAAAAAAA');
     const context = contextRef.current;
 
     tilesRef.current.forEach((tile) => {
@@ -73,8 +83,12 @@ function GameCanvas() {
     });
   };
 
-  const hoverOverTile = ({ nativeEvent }) => {
+  const hoverMouseFunctions = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
+
+    if (buildingToPlace) {
+      drawImageUnderMouse(offsetX, offsetY)
+    }
 
     const tiles = tilesRef.current;
 
@@ -103,6 +117,30 @@ function GameCanvas() {
     drawTileGrid();
   };
 
+  const drawImageUnderMouse = (offsetX, offsetY) => {
+    const context = contextRef.current;
+    const mouseItem = mouseItemRef.current;
+    console.log('mouse item: ', mouseItem);
+    clearCanvas();
+    // Create a new Image object to load the PNG
+    const image = new Image();
+    image.src = mouseItem.imageUrl
+
+    console.log('image', image);
+    // Handle drawing the image when it's loaded
+    image.onload = () => {
+      // Calculate the position to draw the image centered under the mouse cursor
+      const drawX = offsetX - image.width / 2;
+      const drawY = offsetY - image.height / 2;
+  
+      // Draw the image on the canvas at the calculated position
+      context.drawImage(image, drawX, drawY);
+  
+      // Redraw the canvas to update the colors
+      drawCanvasElements();
+    };
+  };
+
   const clickOnTile = ({ nativeEvent }) => {
     if (isProcessingClick) {
       return; // Ignore additional click events while processing one
@@ -113,14 +151,13 @@ function GameCanvas() {
       tile.isActive = false;
     });
 
-    quickOpenBuildingsMenu()
-    
+    quickOpenBuildingsMenu();
+
     isProcessingClick = true;
 
     const { offsetX, offsetY } = nativeEvent;
 
     for (const tile of tilesRef.current) {
-
       // Convert mouse coordinates to isometric coordinates
       const isoX = (offsetX - tile.offX) / tile.tileColumnOffset;
       const isoY = (offsetY - tile.offY) / tile.tileRowOffset;
@@ -149,10 +186,18 @@ function GameCanvas() {
     isProcessingClick = false;
   };
 
+  const clearCanvas = () => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+  
+    // Clear the entire canvas
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  };
+
   return (
     <canvas
       ref={canvasRef}
-      onMouseMove={hoverOverTile}
+      onMouseMove={hoverMouseFunctions}
       onMouseDown={clickOnTile}
     />
   );

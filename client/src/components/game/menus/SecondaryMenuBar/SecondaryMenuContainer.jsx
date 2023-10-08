@@ -10,7 +10,7 @@ function SecondaryMenuContainer() {
     useContext(ToggleContext);
 
   return (
-    <div>
+    <div className='overflow-hidden'>
       {buildingsMenuSelected && <BuildingsMenuBar />}
       {techMenuSelected && <TechMenuBar />}
       {troopsMenuSelected && <TroopsMenuBar />}
