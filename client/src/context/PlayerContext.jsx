@@ -2,7 +2,6 @@ import React, { useContext, useRef } from 'react';
 import { useEffect, useState } from 'react';
 // Data
 import { tempPlayerData } from '../utils/TempData';
-import { CanvasContext } from './CanvasContext';
 // Context
 export const PlayerContext = React.createContext();
 

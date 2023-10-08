@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { Tile } from './Tile';
 // Context
 import { ToggleContext } from '../../../context/ToggleContext';
-import { CanvasContext } from '../../../context/CanvasContext';
 import { PlayerContext } from '../../../context/PlayerContext';
 
 function GameCanvas() {
