@@ -1,123 +1,145 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // Objects
 import { Tile } from './Tile';
 
 function GameCanvas() {
   const canvasRef = useRef(null);
-  const contextRef = useRef(null);
-  const tilesRef = useRef([]);
+  const [selectedTile, setSelectedTile] = useState({ x: -1, y: -1 });
 
-  const maxGridXLength = 10;
-  const maxGridYLength = 10;
+  const tileColumnOffset = 64; // pixels
+  const tileRowOffset = 32; // pixels
+  const Xtiles = 10;
+  const Ytiles = 10;
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    var rect = canvas.parentNode.getBoundingClientRect();
+    const updateCanvasSize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
 
-    // Set the canvas dimensions without scaling
-    canvas.width = rect.width;
-    canvas.height = rect.height - 8; // thickness of border
+      const originX = width / 2 - (Xtiles * tileColumnOffset) / 2;
+      const originY = height / 2;
+      return { originX, originY };
+    };
 
-    context.scale(1, 1);
-    context.lineCap = 'round';
-    context.strokeStyle = 'black';
-    context.lineWidth = 5;
+    const { originX, originY } = updateCanvasSize();
 
-    contextRef.current = context;
-
-    // Draw grid and initialize squares
-    createCanvasGrid();
-    updateAndRefreshCanvas();
-  }, []);
-
-  const createCanvasGrid = () => {
-    const canvas = canvasRef.current;
-    const context = contextRef.current;
-
-    let tiles = [];
-
-    // Set size
-    const cellSize = 50;
-    // Id number
-    let id = 1;
-
-    for (let x = 0; x < maxGridXLength; x++) {
-      for (let y = 0; y < maxGridYLength; y++) {
-        const square = new Tile(
-          id,
-          x * cellSize,
-          y * cellSize,
-          cellSize,
-          'green',
-          'red'
-        );
-        id++;
-        tiles.push(square);
-      }
-    }
-    // Add to ref array of square
-    tilesRef.current = tiles;
-  };
-
-  const updateAndRefreshCanvas = () => {
-    const canvas = canvasRef.current;
-    const context = contextRef.current;
-
-    requestAnimationFrame(updateAndRefreshCanvas);
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
-    tilesRef.current.forEach((tile) => {
-      tile.draw(context); // Pass whether the tile is hovered
+    window.addEventListener('resize', () => {
+      const { originX, originY } = updateCanvasSize();
+      redrawTiles(context, originX, originY);
     });
-  };
 
-  const hoverOverTile = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent;
+    // window.addEventListener('mousemove', (e) => {
+    //   e.pageX -= tileColumnOffset / 2 - originX;
+    //   e.pageY -= tileRowOffset / 2 - originY;
+    //   const tileX = Math.round(
+    //     e.pageX / tileColumnOffset - e.pageY / tileRowOffset
+    //   );
+    //   const tileY = Math.round(
+    //     e.pageX / tileColumnOffset + e.pageY / tileRowOffset
+    //   );
 
-    tilesRef.current.forEach((tile) => {
-      const distanceToTile = Math.sqrt(
-        Math.pow(offsetX - (tile.xpos + tile.size / 2), 2) +
-          Math.pow(offsetY - (tile.ypos + tile.size / 2), 2)
-      );
+    //   setSelectedTile({ x: tileX, y: tileY });
+    //   redrawTiles(context, originX, originY);
+    // });
 
-      if (distanceToTile < tile.size / 2) {
-        // Mouse is hovering over this tile
-        tile.isHovered = true;
-        return;
+    window.addEventListener('click', () => {
+      setSelectedTile({ x: -1, y: -1 });
+      redrawTiles(context, originX, originY);
+    });
+
+    const drawLine = (x1, y1, x2, y2, color) => {
+      context.strokeStyle = color;
+      context.beginPath();
+      context.lineWidth = 1;
+      context.moveTo(x1, y1);
+      context.lineTo(x2, y2);
+      context.stroke();
+    };
+
+    const drawTile = (Xi, Yi, offX, offY) => {
+      // Draw tile interior
+      context.beginPath();
+      if (Xi === selectedTile.x && Yi === selectedTile.y) {
+        context.fillStyle = 'yellow';
       } else {
-        tile.isHovered = false;
+        context.fillStyle = 'green';
       }
-    });
-  };
+      context.moveTo(offX, offY + tileRowOffset / 2);
+      context.lineTo(offX + tileColumnOffset / 2, offY);
+      context.lineTo(offX + tileColumnOffset, offY + tileRowOffset / 2);
+      context.lineTo(offX + tileColumnOffset / 2, offY + tileRowOffset);
+      context.closePath();
+      context.stroke();
+      context.fill();
 
-  const clickOnTile = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent;
-
-    for (const tile of tilesRef.current) {
-      tile.isActive = false;
-      const distanceToTile = Math.sqrt(
-        Math.pow(offsetX - (tile.xpos + tile.size / 2), 2) +
-          Math.pow(offsetY - (tile.ypos + tile.size / 2), 2)
+      // Draw tile outline
+      const color = '#999';
+      drawLine(
+        offX,
+        offY + tileRowOffset / 2,
+        offX + tileColumnOffset / 2,
+        offY,
+        color
+      );
+      drawLine(
+        offX + tileColumnOffset / 2,
+        offY,
+        offX + tileColumnOffset,
+        offY + tileRowOffset / 2,
+        color
+      );
+      drawLine(
+        offX + tileColumnOffset,
+        offY + tileRowOffset / 2,
+        offX + tileColumnOffset / 2,
+        offY + tileRowOffset,
+        color
+      );
+      drawLine(
+        offX + tileColumnOffset / 2,
+        offY + tileRowOffset,
+        offX,
+        offY + tileRowOffset / 2,
+        color
       );
 
-      if (distanceToTile < tile.size / 2) {
-        // Mouse is hovering over this tile
-        console.log('tile.isHovered = true;');
-        tile.isActive = !tile.isActive;
+      if (showCoordinates) {
+        context.fillStyle = 'orange';
+        context.fillText(
+          Xi + ', ' + Yi,
+          offX + tileColumnOffset / 2 - 9,
+          offY + tileRowOffset / 2 + 3
+        );
       }
-    }
-    return;
-  };
+    };
 
-  return (
-    <canvas
-      ref={canvasRef}
-      onMouseMove={hoverOverTile}
-      onMouseDown={clickOnTile}
-    />
-  );
+    const redrawTiles = (context, originX, originY) => {
+      for (let Xi = Xtiles - 1; Xi >= 0; Xi--) {
+        for (let Yi = 0; Yi < Ytiles; Yi++) {
+          const offX =
+            (Xi * tileColumnOffset) / 2 + (Yi * tileColumnOffset) / 2 + originX;
+          const offY =
+            (Yi * tileRowOffset) / 2 - (Xi * tileRowOffset) / 2 + originY;
+          drawTile(Xi, Yi, offX, offY);
+        }
+      }
+    };
+
+    const showCoordinates = true;
+
+    redrawTiles(context, originX, originY);
+
+    return () => {
+      window.removeEventListener('resize', updateCanvasSize);
+    };
+  }, [selectedTile]);
+
+  return <canvas ref={canvasRef} id='isocanvas' />;
 }
 
 export default GameCanvas;
