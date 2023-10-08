@@ -24,9 +24,13 @@ export class Building {
   };
 
   update(context, offsetX, offsetY) {
-    console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
-    this.offX = offsetX
-    this.offY = offsetY;
+    this.offX = offsetX - this.tileColumnOffset / 2;
+    this.offY = offsetY - this.tileRowOffset / 2;
     this.drawBuilding(context);
+  }
+
+  setPosition(context, xpos, ypos) {
+    this.offX = xpos;
+    this.offY = ypos;
   }
 }

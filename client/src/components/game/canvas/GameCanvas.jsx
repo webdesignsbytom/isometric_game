@@ -9,8 +9,7 @@ import { maxGridYAxisLength } from '../../../utils/gameData/Constants';
 
 function GameCanvas() {
   const { quickOpenBuildingsMenu } = useContext(ToggleContext);
-  const { player, mouseItemRef, mouseBuildingRef } =
-    useContext(PlayerContext);
+  const { player, mouseBuildingRef } = useContext(PlayerContext);
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
@@ -18,13 +17,13 @@ function GameCanvas() {
 
   const buildingsRef = useRef(player.buildingsData.buildingsArray);
 
-  console.log('1. buildingsRef', buildingsRef);
   const maxGridXLength = maxGridYAxisLength;
   const maxGridYLength = maxGridYAxisLength;
 
   const tileColumnOffset = 64; // pixels
   const tileRowOffset = 32; // pixels
 
+  // Don't allow clicking on two tiles
   let isProcessingClick = false;
 
   useEffect(() => {
@@ -52,8 +51,7 @@ function GameCanvas() {
     drawCanvasElements();
   }, []);
 
-  console.log('1. mouseBuildingRef', mouseBuildingRef);
-
+  // Create tiles
   const createTileGrid = (originX, originY) => {
     let id = 1;
     let tilesArray = [];
@@ -75,6 +73,7 @@ function GameCanvas() {
     tilesRef.current = tilesArray;
   };
 
+  // Main draw loop
   const drawCanvasElements = () => {
     drawTileGrid();
     drawBuildingElements();
@@ -93,20 +92,24 @@ function GameCanvas() {
     const context = contextRef.current;
 
     tilesRef.current.forEach((tile) => {
-      tile.drawTile(context); 
+      tile.drawTile(context);
     });
   };
 
   const hoverMouseFunctions = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
     const context = contextRef.current;
-    clearCanvas()
+    clearCanvas();
+    drawCanvasElements();
+
     const mouseBuildingAvailable = mouseBuildingRef.current;
     const tiles = tilesRef.current;
 
+    // Draw building under mouse
     if (mouseBuildingAvailable) {
-      mouseBuildingAvailable.update(context, offsetX, offsetY)
+      mouseBuildingAvailable.update(context, offsetX, offsetY);
     }
+
     // Initially, assume no tiles are hovered
     tiles.forEach((tile) => {
       tile.isHovered = false;
@@ -127,77 +130,91 @@ function GameCanvas() {
     if (hoveredTile) {
       hoveredTile.isHovered = true;
     }
-    // Redraw the canvas to update the colors
-    drawCanvasElements();
-  };
-
-  const drawImageUnderMouse = (offsetX, offsetY) => {
-    const context = contextRef.current;
-    const mouseItem = mouseItemRef.current;
-
-    clearCanvas();
-
-    // Create a new Image object to load the PNG
-    const image = new Image();
-    image.src = mouseItem.imageUrl;
-
-    // Handle drawing the image when it's loaded
-    image.onload = () => {
-      // Calculate the position to draw the image centered under the mouse cursor
-      const drawX = offsetX - image.width / 2;
-      const drawY = offsetY - image.height / 2;
-
-      // Draw the image on the canvas at the calculated position
-      context.drawImage(image, drawX, drawY);
-
-      // Redraw the canvas to update the colors
-      drawCanvasElements();
-    };
   };
 
   const clickOnTile = ({ nativeEvent }) => {
+    const { offsetX, offsetY } = nativeEvent;
+
     if (isProcessingClick) {
       return; // Ignore additional click events while processing one
     }
+
     const tiles = tilesRef.current;
 
     tiles.forEach((tile) => {
       tile.isActive = false;
     });
 
-    quickOpenBuildingsMenu();
+    const context = contextRef.current;
+    const mouseBuildingAvailable = mouseBuildingRef.current;
 
-    isProcessingClick = true;
+    // Draw building under mouse
+    if (mouseBuildingAvailable) {
+      console.log('UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU');
+      // update pos
+      for (const tile of tiles) {
+        // Convert mouse coordinates to isometric coordinates
+        const isoX = (offsetX - tile.offX) / tile.tileColumnOffset;
+        const isoY = (offsetY - tile.offY) / tile.tileRowOffset;
 
-    const { offsetX, offsetY } = nativeEvent;
+        // Check if the mouse is within the bounds of the tile
+        if (
+          isoX >= 0 &&
+          isoY >= 0 &&
+          isoX <= 1 &&
+          isoY <= 1 &&
+          isoX + isoY <= 1
+        ) {
+          // Mouse is clicking on this tile
+          console.log('Tile clicked');
+          //tile.isActive = true;
+          mouseBuildingAvailable.setPosition(context, tile.offX, tile.offY);
 
-    for (const tile of tilesRef.current) {
-      // Convert mouse coordinates to isometric coordinates
-      const isoX = (offsetX - tile.offX) / tile.tileColumnOffset;
-      const isoY = (offsetY - tile.offY) / tile.tileRowOffset;
-
-      // Check if the mouse is within the bounds of the tile
-      if (
-        isoX >= 0 &&
-        isoY >= 0 &&
-        isoX <= 1 &&
-        isoY <= 1 &&
-        isoX + isoY <= 1
-      ) {
-        // Mouse is clicking on this tile
-        console.log('Tile clicked');
-        tile.isActive = true;
-
-        // Break out of the loop to prevent further tiles from being clicked
-        break;
+          // Break out of the loop to prevent further tiles from being clicked
+          break;
+        }
       }
+
+      let buildingsArray = buildingsRef.current
+      buildingsArray.push(mouseBuildingAvailable)
+
+      console.log('EEEEEEEEEEEEEEEEEEEEEEEEE');
+      // add to user array
+      // delete from ref
+      mouseBuildingRef.current = null
+    } else {
+      quickOpenBuildingsMenu();
+
+      isProcessingClick = true;
+
+      for (const tile of tilesRef.current) {
+        // Convert mouse coordinates to isometric coordinates
+        const isoX = (offsetX - tile.offX) / tile.tileColumnOffset;
+        const isoY = (offsetY - tile.offY) / tile.tileRowOffset;
+
+        // Check if the mouse is within the bounds of the tile
+        if (
+          isoX >= 0 &&
+          isoY >= 0 &&
+          isoX <= 1 &&
+          isoY <= 1 &&
+          isoX + isoY <= 1
+        ) {
+          // Mouse is clicking on this tile
+          console.log('Tile clicked');
+          tile.isActive = true;
+
+          // Break out of the loop to prevent further tiles from being clicked
+          break;
+        }
+      }
+
+      // Redraw the canvas to update the colors
+      drawTileGrid();
+
+      // Allow processing of the next click event
+      isProcessingClick = false;
     }
-
-    // Redraw the canvas to update the colors
-    drawTileGrid();
-
-    // Allow processing of the next click event
-    isProcessingClick = false;
   };
 
   const clearCanvas = () => {
