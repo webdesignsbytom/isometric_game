@@ -1,8 +1,10 @@
 export class Tile {
-  constructor(id, xpos, ypos, size, fillColor, borderColor) {
+  constructor(id, xpos, offX, ypos, offY, size, fillColor, borderColor) {
     this.id = id;
     this.xpos = xpos;
+    this.offX = offX;
     this.ypos = ypos;
+    this.offY = offY;
     this.size = size;
     this.fillColor = fillColor;
     this.borderColor = borderColor;
@@ -12,6 +14,20 @@ export class Tile {
     this.tileColumnOffset = 64;
     this.tileRowOffset = 32;
   }
+
+  drawTile = (context) => {
+    console.log('OOOOOOOOOOOOOOOOOOOOOOO');
+    // Draw tile interior
+    context.beginPath();
+    context.fillStyle = 'yellow';
+    context.moveTo(this.offX, this.offY + this.tileRowOffset / 2);
+    context.lineTo(this.offX + this.tileColumnOffset / 2, this.offY);
+    context.lineTo(this.offX + this.tileColumnOffset, this.offY + this.tileRowOffset / 2);
+    context.lineTo(this.offX + this.tileColumnOffset / 2, this.offY + this.tileRowOffset);
+    context.closePath();
+    context.stroke();
+    context.fill();
+  };
 
   draw(context) {
     // Calculate isometric coordinates
