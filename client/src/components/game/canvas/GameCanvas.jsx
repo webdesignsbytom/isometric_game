@@ -10,105 +10,137 @@ function GameCanvas() {
   const maxGridXLength = 10;
   const maxGridYLength = 10;
 
+  const tileColumnOffset = 64; // pixels
+  const tileRowOffset = 32; // pixels
+
+  let isProcessingClick = false;
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    var rect = canvas.parentNode.getBoundingClientRect();
+    // Set canvas height
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
 
-    // Set the canvas dimensions without scaling
-    canvas.width = rect.width;
-    canvas.height = rect.height - 8; // thickness of border
+    // Set tiles to build from center
+    const originX = width / 2 - (maxGridXLength * tileColumnOffset) / 2;
+    const originY = height / 2;
 
     context.scale(1, 1);
     context.lineCap = 'round';
     context.strokeStyle = 'black';
-    context.lineWidth = 5;
+    context.lineWidth = 2;
 
     contextRef.current = context;
 
-    // Draw grid and initialize squares
-    createCanvasGrid();
-    updateAndRefreshCanvas();
+    createTileGrid(originX, originY);
+    drawTileGrid();
   }, []);
 
-  const createCanvasGrid = () => {
-    const canvas = canvasRef.current;
-    const context = contextRef.current;
-
-    let tiles = [];
-
-    // Set size
-    const cellSize = 50;
-    // Id number
+  const createTileGrid = (originX, originY) => {
     let id = 1;
+    let tilesArray = [];
 
-    for (let x = 0; x < maxGridXLength; x++) {
-      for (let y = 0; y < maxGridYLength; y++) {
-        const square = new Tile(
-          id,
-          x * cellSize,
-          y * cellSize,
-          cellSize,
-          'green',
-          'red'
-        );
+    for (let Xi = maxGridXLength - 1; Xi >= 0; Xi--) {
+      for (let Yi = 0; Yi < maxGridYLength; Yi++) {
+        const offX =
+          (Xi * tileColumnOffset) / 2 + (Yi * tileColumnOffset) / 2 + originX;
+        const offY =
+          (Yi * tileRowOffset) / 2 - (Xi * tileRowOffset) / 2 + originY;
+
+        const tile = new Tile(id, offX, offY, 'red', 'green');
+        tilesArray.push(tile);
+
         id++;
-        tiles.push(square);
       }
     }
-    // Add to ref array of square
-    tilesRef.current = tiles;
+
+    tilesRef.current = tilesArray;
   };
 
-  const updateAndRefreshCanvas = () => {
-    const canvas = canvasRef.current;
+  const drawTileGrid = () => {
     const context = contextRef.current;
 
-    requestAnimationFrame(updateAndRefreshCanvas);
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
     tilesRef.current.forEach((tile) => {
-      tile.draw(context); // Pass whether the tile is hovered
+      tile.drawTile(context); // Pass whether the tile is hovered
     });
   };
 
   const hoverOverTile = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
 
-    tilesRef.current.forEach((tile) => {
-      const distanceToTile = Math.sqrt(
-        Math.pow(offsetX - (tile.xpos + tile.size / 2), 2) +
-          Math.pow(offsetY - (tile.ypos + tile.size / 2), 2)
-      );
+    const tiles = tilesRef.current;
 
-      if (distanceToTile < tile.size / 2) {
-        // Mouse is hovering over this tile
-        tile.isHovered = true;
-        return;
-      } else {
-        tile.isHovered = false;
-      }
+    // Initially, assume no tiles are hovered
+    tiles.forEach((tile) => {
+      tile.isHovered = false;
     });
+
+    // Find the tile that the mouse is over and set it as hovered
+    const hoveredTile = tiles.find((tile) => {
+      // Convert mouse coordinates to isometric coordinates
+      const isoX = (offsetX - tile.offX) / tile.tileColumnOffset;
+      const isoY = (offsetY - tile.offY) / tile.tileRowOffset;
+
+      // Check if the mouse is within the bounds of the tile
+      return (
+        isoX >= 0 && isoY >= 0 && isoX <= 1 && isoY <= 1 && isoX + isoY <= 1
+      );
+    });
+
+    if (hoveredTile) {
+      hoveredTile.isHovered = true;
+    }
+
+    // Redraw the canvas to update the colors
+    drawTileGrid();
   };
 
   const clickOnTile = ({ nativeEvent }) => {
+    if (isProcessingClick) {
+      return; // Ignore additional click events while processing one
+    }
+    const tiles = tilesRef.current;
+
+    tiles.forEach((tile) => {
+      tile.isActive = false;
+    });
+
+    isProcessingClick = true;
+
     const { offsetX, offsetY } = nativeEvent;
 
     for (const tile of tilesRef.current) {
-      tile.isActive = false;
-      const distanceToTile = Math.sqrt(
-        Math.pow(offsetX - (tile.xpos + tile.size / 2), 2) +
-          Math.pow(offsetY - (tile.ypos + tile.size / 2), 2)
-      );
 
-      if (distanceToTile < tile.size / 2) {
-        // Mouse is hovering over this tile
-        console.log('tile.isHovered = true;');
-        tile.isActive = !tile.isActive;
+      // Convert mouse coordinates to isometric coordinates
+      const isoX = (offsetX - tile.offX) / tile.tileColumnOffset;
+      const isoY = (offsetY - tile.offY) / tile.tileRowOffset;
+
+      // Check if the mouse is within the bounds of the tile
+      if (
+        isoX >= 0 &&
+        isoY >= 0 &&
+        isoX <= 1 &&
+        isoY <= 1 &&
+        isoX + isoY <= 1
+      ) {
+        // Mouse is clicking on this tile
+        console.log('Tile clicked');
+        tile.isActive = true;
+
+        // Break out of the loop to prevent further tiles from being clicked
+        break;
       }
     }
-    return;
+
+    // Redraw the canvas to update the colors
+    drawTileGrid();
+
+    // Allow processing of the next click event
+    isProcessingClick = false;
   };
 
   return (
