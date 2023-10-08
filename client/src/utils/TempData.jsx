@@ -18,8 +18,26 @@ buildingImage2.src = building2.imageUrl;
 
 // const tempBuilding1 = new Building(1, building1.name, buildingImage1, 100, 100, 100, 100);
 // const tempBuilding2 = new Building(2, building2.name, buildingImage2, 300, 300, 100, 100);
-const tempBuilding1 = new Building(1, building1.name, buildingImage1, 100, 100);
-const tempBuilding2 = new Building(2, building2.name, buildingImage2, 300, 300);
+const tempBuilding1 = new Building(
+  1,
+  building1.name,
+  buildingImage1,
+  100,
+  100,
+  100,
+  'gold',
+  building1.incomeSeconds
+);
+const tempBuilding2 = new Building(
+  2,
+  building2.name,
+  buildingImage2,
+  300,
+  300,
+  100,
+  'gold',
+  building1.incomeSeconds
+);
 
 export const tempPlayerData = {
   playerName: 'Tom',

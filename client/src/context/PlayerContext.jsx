@@ -13,23 +13,36 @@ const PlayerContextProvider = ({ children }) => {
   const mouseBuildingRef = useRef(null);
 
   const buyBuilding = (building) => {
-    mouseItemRef.current = building;
+    if (
+      building.currencyType === 'gold' &&
+      building.cost > player.currencyData.gold
+    ) {
+      console.log('CANNOT AFFORD ITEM');
+    } else if (
+      building.currencyType === 'gems' &&
+      building.cost > player.currencyData.gems
+    ) {
+      console.log('CANNOT AFFORD ITEM');
+    } else {
+      mouseItemRef.current = building;
 
-    const mouseBuilding = new Image();
-    mouseBuilding.src = building.imageUrl;
+      const mouseBuilding = new Image();
+      mouseBuilding.src = building.imageUrl;
 
-    mouseBuilding.onload = () => {
-      const selectedBuilding = new Building(
-        1,
-        building.name,
-        mouseBuilding,
-        100,
-        100
-      );
+      mouseBuilding.onload = () => {
+        const selectedBuilding = new Building(
+          1,
+          building.name,
+          mouseBuilding,
+          100,
+          100,
+          building.cost,
+          building.currencyType
+        );
 
-      console.log('Building RRRRRRRRR', selectedBuilding);
-      mouseBuildingRef.current = selectedBuilding;
-    };
+        mouseBuildingRef.current = selectedBuilding;
+      };
+    }
   };
 
   return (

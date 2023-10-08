@@ -1,14 +1,18 @@
 export class Building {
-  constructor(id, name, imageX, offX, offY, width, height) {
+  constructor(id, name, imageUrl, offX, offY, cost, currencyType, incomeSeconds) {
     this.id = id;
     this.name = name;
-    this.image = imageX;
+    this.image = imageUrl;
     this.offX = offX;
     this.offY = offY;
-    this.width = width;
-    this.height = height;
+    this.cost = cost;
+    this.currencyType = currencyType;
     this.tileColumnOffset = 64;
     this.tileRowOffset = 32;
+    this.isUnderConstruction = false;
+    this.isCompleted = false;
+    this.payoutReady = false;
+    this.payoutCollectionTime = new Date(Date.now() + incomeSeconds);
   }
 
   drawBuilding = (context) => {
@@ -32,5 +36,10 @@ export class Building {
   setPosition(context, xpos, ypos) {
     this.offX = xpos;
     this.offY = ypos;
+  }
+
+  collectPayout(){
+    console.log('OOOOOOOOO');
+    this.payoutReady = false;
   }
 }
