@@ -12,7 +12,6 @@ export class Building {
   }
 
   drawBuilding = (context) => {
-    console.log('IIIIIIIIIIIIIIIIIIIIIIIIIII');
     // Draw tile interior
     // Draw the building image with the same width and height as the tile
     context.drawImage(
@@ -23,4 +22,11 @@ export class Building {
       this.tileRowOffset
     );
   };
+
+  update(context, offsetX, offsetY) {
+    console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
+    this.offX = offsetX
+    this.offY = offsetY;
+    this.drawBuilding(context);
+  }
 }

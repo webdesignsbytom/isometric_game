@@ -8,46 +8,28 @@ export const PlayerContext = React.createContext();
 
 const PlayerContextProvider = ({ children }) => {
   const [player, setPlayer] = useState(tempPlayerData);
-  const [buildingToPlace, setBuildingToPlace] = useState(false);
+
   const mouseItemRef = useRef(null);
-  const testRef = useRef(null);
-  
-  console.log('player', player);
+  const mouseBuildingRef = useRef(null);
 
   const buyBuilding = (building) => {
-    let mouse;
-
-    let playerBuildings = player.buildingsData.buildingsArray;
-    let playerBuildingNum = player.buildingsData.buildingsOwned;
-
-    playerBuildings.push(building);
-    playerBuildingNum++;
-
-    setPlayer({
-      ...player,
-      buildingsData: {
-        buildingsOwned: playerBuildingNum,
-        buildingsArray: playerBuildings,
-      },
-    });
-
     mouseItemRef.current = building;
-    setBuildingToPlace(true);
 
-    const imageX = new Image();
-    imageX.src = building.imageUrl;
+    const mouseBuilding = new Image();
+    mouseBuilding.src = building.imageUrl;
 
-    const building2 = new Building(
-      1,
-      building.name,
-      imageX,
-      100,
-      100,
-      100,
-      100
-    );
-    console.log('Building', building2);
-    testRef.current = building2;
+    mouseBuilding.onload = () => {
+      const selectedBuilding = new Building(
+        1,
+        building.name,
+        mouseBuilding,
+        100,
+        100
+      );
+
+      console.log('Building RRRRRRRRR', selectedBuilding);
+      mouseBuildingRef.current = selectedBuilding;
+    };
   };
 
   return (
@@ -57,8 +39,7 @@ const PlayerContextProvider = ({ children }) => {
         setPlayer,
         buyBuilding,
         mouseItemRef,
-        buildingToPlace,
-        testRef,
+        mouseBuildingRef,
         // Buildings
       }}
     >

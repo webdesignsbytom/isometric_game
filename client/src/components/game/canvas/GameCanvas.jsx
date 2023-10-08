@@ -4,20 +4,23 @@ import { Tile } from './Tile';
 // Context
 import { ToggleContext } from '../../../context/ToggleContext';
 import { PlayerContext } from '../../../context/PlayerContext';
+// Data
+import { maxGridYAxisLength } from '../../../utils/gameData/Constants';
 
 function GameCanvas() {
   const { quickOpenBuildingsMenu } = useContext(ToggleContext);
-  const { player, setPlayer, mouseItemRef, buildingToPlace, testRef } =
+  const { player, mouseItemRef, mouseBuildingRef } =
     useContext(PlayerContext);
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const tilesRef = useRef([]);
+
   const buildingsRef = useRef(player.buildingsData.buildingsArray);
 
-  console.log('buildingsRef', buildingsRef);
-  const maxGridXLength = 10;
-  const maxGridYLength = 10;
+  console.log('1. buildingsRef', buildingsRef);
+  const maxGridXLength = maxGridYAxisLength;
+  const maxGridYLength = maxGridYAxisLength;
 
   const tileColumnOffset = 64; // pixels
   const tileRowOffset = 32; // pixels
@@ -47,9 +50,10 @@ function GameCanvas() {
 
     createTileGrid(originX, originY);
     drawCanvasElements();
-  }, [mouseItemRef]);
+  }, []);
 
-  console.log('testRef', testRef);
+  console.log('1. mouseBuildingRef', mouseBuildingRef);
+
   const createTileGrid = (originX, originY) => {
     let id = 1;
     let tilesArray = [];
@@ -73,14 +77,15 @@ function GameCanvas() {
 
   const drawCanvasElements = () => {
     drawTileGrid();
-    drawBuildingElements()
+    drawBuildingElements();
   };
 
   const drawBuildingElements = () => {
     const context = contextRef.current;
+    const buildings = buildingsRef.current;
 
-    buildingsRef.current.forEach((building) => {
-      building.drawBuilding(context); // Pass whether the tile is hovered
+    buildings.forEach((building) => {
+      building.drawBuilding(context);
     });
   };
 
@@ -88,25 +93,20 @@ function GameCanvas() {
     const context = contextRef.current;
 
     tilesRef.current.forEach((tile) => {
-      tile.drawTile(context); // Pass whether the tile is hovered
+      tile.drawTile(context); 
     });
-
-    const buildingFound = testRef.current;
-    console.log('buildingFound', buildingFound);
-    if (buildingFound) {
-      buildingFound.drawBuilding(context);
-    }
   };
 
   const hoverMouseFunctions = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
-
-    if (buildingToPlace) {
-      drawImageUnderMouse(offsetX, offsetY);
-    }
-
+    const context = contextRef.current;
+    clearCanvas()
+    const mouseBuildingAvailable = mouseBuildingRef.current;
     const tiles = tilesRef.current;
 
+    if (mouseBuildingAvailable) {
+      mouseBuildingAvailable.update(context, offsetX, offsetY)
+    }
     // Initially, assume no tiles are hovered
     tiles.forEach((tile) => {
       tile.isHovered = false;
@@ -127,9 +127,8 @@ function GameCanvas() {
     if (hoveredTile) {
       hoveredTile.isHovered = true;
     }
-
     // Redraw the canvas to update the colors
-    drawCanvasElements()
+    drawCanvasElements();
   };
 
   const drawImageUnderMouse = (offsetX, offsetY) => {
