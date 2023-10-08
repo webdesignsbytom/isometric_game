@@ -7,7 +7,8 @@ import { PlayerContext } from '../../../context/PlayerContext';
 
 function GameCanvas() {
   const { quickOpenBuildingsMenu } = useContext(ToggleContext);
-  const { player, setPlayer, mouseItemRef, buildingToPlace } = useContext(PlayerContext);
+  const { player, setPlayer, mouseItemRef, buildingToPlace, testRef } =
+    useContext(PlayerContext);
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
@@ -46,6 +47,7 @@ function GameCanvas() {
     drawCanvasElements();
   }, [mouseItemRef]);
 
+  console.log('testRef', testRef);
   const createTileGrid = (originX, originY) => {
     let id = 1;
     let tilesArray = [];
@@ -68,8 +70,8 @@ function GameCanvas() {
   };
 
   const drawCanvasElements = () => {
-    drawTileGrid()
-  }
+    drawTileGrid();
+  };
 
   const drawTileGrid = () => {
     const context = contextRef.current;
@@ -77,13 +79,19 @@ function GameCanvas() {
     tilesRef.current.forEach((tile) => {
       tile.drawTile(context); // Pass whether the tile is hovered
     });
+
+    const buildingFound = testRef.current;
+    console.log('buildingFound', buildingFound);
+    if (buildingFound) {
+      buildingFound.drawBuilding(context);
+    }
   };
 
   const hoverMouseFunctions = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
 
     if (buildingToPlace) {
-      drawImageUnderMouse(offsetX, offsetY)
+      drawImageUnderMouse(offsetX, offsetY);
     }
 
     const tiles = tilesRef.current;
@@ -116,22 +124,22 @@ function GameCanvas() {
   const drawImageUnderMouse = (offsetX, offsetY) => {
     const context = contextRef.current;
     const mouseItem = mouseItemRef.current;
-    
+
     clearCanvas();
 
     // Create a new Image object to load the PNG
     const image = new Image();
-    image.src = mouseItem.imageUrl
+    image.src = mouseItem.imageUrl;
 
     // Handle drawing the image when it's loaded
     image.onload = () => {
       // Calculate the position to draw the image centered under the mouse cursor
       const drawX = offsetX - image.width / 2;
       const drawY = offsetY - image.height / 2;
-  
+
       // Draw the image on the canvas at the calculated position
       context.drawImage(image, drawX, drawY);
-  
+
       // Redraw the canvas to update the colors
       drawCanvasElements();
     };
@@ -185,7 +193,7 @@ function GameCanvas() {
   const clearCanvas = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-  
+
     // Clear the entire canvas
     context.clearRect(0, 0, canvas.width, canvas.height);
   };
