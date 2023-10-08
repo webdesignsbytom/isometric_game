@@ -1,20 +1,20 @@
 export class Tile {
-  constructor(id, xpos, ypos, size, fillColor, borderColor) {
+  constructor(id, offX, offY, fillColor, borderColor) {
     this.id = id;
-    this.xpos = xpos;
-    this.ypos = ypos;
-    this.size = size;
+    this.offX = offX;
+    this.offY = offY;
     this.fillColor = fillColor;
     this.borderColor = borderColor;
     this.isHovered = false;
     this.isActive = false;
     this.isOwned = false;
+    this.tileColumnOffset = 64;
+    this.tileRowOffset = 32;
   }
 
-  draw(context) {
-    context.strokeStyle = this.borderColor;
-    context.lineWidth = 2;
-    context.strokeRect(this.xpos, this.ypos, this.size, this.size);
+  drawTile = (context) => {
+    // Draw tile interior
+    context.beginPath();
 
     if (this.isActive) {
       context.fillStyle = 'yellow';
@@ -24,11 +24,12 @@ export class Tile {
       context.fillStyle = this.fillColor;
     }
 
-    context.fillRect(
-      this.xpos + 2,
-      this.ypos + 2,
-      this.size - 4,
-      this.size - 4
-    );
-  }
+    context.moveTo(this.offX, this.offY + this.tileRowOffset / 2);
+    context.lineTo(this.offX + this.tileColumnOffset / 2, this.offY);
+    context.lineTo(this.offX + this.tileColumnOffset, this.offY + this.tileRowOffset / 2);
+    context.lineTo(this.offX + this.tileColumnOffset / 2, this.offY + this.tileRowOffset);
+    context.closePath();
+    context.stroke();
+    context.fill();
+  };
 }
