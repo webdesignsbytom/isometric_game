@@ -75,11 +75,11 @@ function GameCanvas() {
 
   // Main draw loop
   const drawCanvasElements = () => {
-    console.log('AAAAAAAAAAA');
     drawTileGrid();
     drawBuildingElements();
 
-    requestAnimationFrame(drawCanvasElements);
+    // Cause moue building to be under grid
+    // requestAnimationFrame(drawCanvasElements);
   };
 
   const drawBuildingElements = () => {
@@ -90,12 +90,13 @@ function GameCanvas() {
       building.drawBuilding(context);
 
       if (building.payoutCollectionTime <= new Date()) {
-        console.log('PPPPPPPPPPPPPPP');
+        // console.log('PPPPPPPPPPPPPPP');
       }
     });
   };
 
   const drawTileGrid = () => {
+    console.log('TILEEEEEEEEEEEEEEEEEEEESSSSSSSSSS');
     const context = contextRef.current;
 
     tilesRef.current.forEach((tile) => {
@@ -114,6 +115,7 @@ function GameCanvas() {
 
     // Draw building under mouse
     if (mouseBuildingAvailable) {
+      console.log('MOUSEEEEEEEEEEEEEEEEEEEEEEEEE');
       mouseBuildingAvailable.update(context, offsetX, offsetY);
     }
 
@@ -256,7 +258,7 @@ function GameCanvas() {
       }
 
       // Redraw the canvas to update the colors
-      drawTileGrid();
+      // drawTileGrid();
 
       // Allow processing of the next click event
       isProcessingClick = false;
