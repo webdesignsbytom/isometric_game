@@ -12,7 +12,6 @@ function SecondaryMenuContainer() {
   return (
     <div className='overflow-hidden'>
       {buildingsMenuSelected && <BuildingsMenuBar />}
-      {techMenuSelected && <TechMenuBar />}
       {troopsMenuSelected && <TroopsMenuBar />}
     </div>
   );

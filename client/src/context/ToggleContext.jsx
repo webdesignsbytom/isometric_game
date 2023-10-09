@@ -43,6 +43,7 @@ const ToggleContextProvider = ({ children }) => {
       setBuildingsMenuSelected(false);
       setTechMenuSelected(true);
       setTroopsMenuSelected(false);
+      setDisplayMainMenuBar(false)
     }
     if (name === 'troops') {
       setBuildingsMenuSelected(false);
@@ -58,6 +59,10 @@ const ToggleContextProvider = ({ children }) => {
     setTechMenuSelected(false);
     setTroopsMenuSelected(false);
   };
+
+  const closeTechMenu = () => {
+    setTechMenuSelected(false)
+  }
 
   return (
     <ToggleContext.Provider
@@ -78,6 +83,7 @@ const ToggleContextProvider = ({ children }) => {
         troopsMenuSelected,
         // buildings menu
         quickOpenBuildingsMenu,
+        closeTechMenu
       }}
     >
       {children}

@@ -37,6 +37,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 3000,
+    imageHeight: 60,
     imageUrl: Bld1,
   },
   {
@@ -49,6 +50,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld2,
   },
   {
@@ -61,6 +63,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld3,
   },
   {
@@ -73,6 +76,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld4,
   },
   {
@@ -85,6 +89,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld5,
   },
   {
@@ -97,6 +102,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld6,
   },
   {
@@ -109,6 +115,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld7,
   },
   {
@@ -121,6 +128,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld8,
   },
   {
@@ -133,6 +141,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld9,
   },
   {
@@ -145,6 +154,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld10,
   },
   {
@@ -157,6 +167,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld11,
   },
   {
@@ -169,6 +180,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld12,
   },
   {
@@ -181,6 +193,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld13,
   },
   {
@@ -193,6 +206,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Bld14,
   },
   {
@@ -205,6 +219,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Cafe1,
   },
   {
@@ -217,6 +232,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Home1,
   },
   {
@@ -229,6 +245,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Home2,
   },
   {
@@ -241,6 +258,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
     incomeSeconds: 60000,
+    imageHeight: 60,
     imageUrl: Home3,
   },
   {
@@ -253,6 +271,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: null,
     incomeSeconds: null,
+    imageHeight: 60,
     imageUrl: Park1,
   },
   {
@@ -265,6 +284,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: null,
     incomeSeconds: null,
+    imageHeight: 60,
     imageUrl: Park2,
   },
   {
@@ -277,6 +297,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: null,
     incomeSeconds: null,
+    imageHeight: 60,
     imageUrl: Park3,
   },
   {
@@ -289,6 +310,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: null,
     incomeSeconds: null,
+    imageHeight: 60,
     imageUrl: Park4,
   },
   {
@@ -301,6 +323,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: null,
     incomeSeconds: null,
+    imageHeight: 60,
     imageUrl: Park5,
   },
   {
@@ -313,6 +336,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: null,
     incomeSeconds: null,
+    imageHeight: 60,
     imageUrl: Park6,
   },
   {
@@ -325,6 +349,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: null,
     incomeSeconds: null,
+    imageHeight: 60,
     imageUrl: Park7,
   },
   {
@@ -337,6 +362,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: null,
     incomeSeconds: null,
+    imageHeight: 60,
     imageUrl: Park8,
   },
   {
@@ -349,6 +375,7 @@ export const BuildingsMenuArray = [
     incomeCurrency: 'gold',
     incomePeriod: null,
     incomeSeconds: null,
+    imageHeight: 60,
     imageUrl: Park9,
   },
 ];
