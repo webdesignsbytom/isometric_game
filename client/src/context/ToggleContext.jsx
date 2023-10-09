@@ -6,6 +6,7 @@ export const ToggleContext = React.createContext();
 const ToggleContextProvider = ({ children }) => {
   const [toggleNavigation, setToggleNavigation] = useState(false);
   const [displayMainMenuBar, setDisplayMainMenuBar] = useState(false);
+  const [playerDataModel, setPlayerDataModel] = useState(true);
   // Secondary menus
   const [selectedSecondaryMenu, setSelectedSecondaryMenu] = useState(false);
   const [buildingsMenuSelected, setBuildingsMenuSelected] = useState(false);
@@ -83,7 +84,8 @@ const ToggleContextProvider = ({ children }) => {
         troopsMenuSelected,
         // buildings menu
         quickOpenBuildingsMenu,
-        closeTechMenu
+        closeTechMenu,
+        playerDataModel
       }}
     >
       {children}
