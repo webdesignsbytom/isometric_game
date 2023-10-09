@@ -32,7 +32,7 @@ export const createTileGrid = (
 export const drawBuildingElements = (contextRef, buildingsRef, goldCoinRef) => {
   const context = contextRef.current;
   const buildings = buildingsRef.current;
-  console.log('buildings', buildings);
+
   buildings.forEach((building) => {
     if (building.payoutCollectionTime <= new Date()) {
       building.payoutReady = true;
@@ -65,16 +65,16 @@ export const completeBuildingPurchaseGems = (
 ) => {
   let fundsAvailable = player.currencyData;
 
+  // Funds
   let gems = fundsAvailable.gems;
   let cost = mouseBuildingAvailable.cost;
   let newAmount = gems - cost;
-
   fundsAvailable.gems = newAmount;
+  // Buildings
   let array = buildingsRef.current;
   array.push(mouseBuildingAvailable);
-
-  console.log('array: ', array);
   buildingsRef.current = array;
+
   setPlayer({
     ...player,
     currencyData: fundsAvailable,
@@ -88,19 +88,16 @@ export const completeBuildingPurchaseGold = (
   buildingsRef
 ) => {
   let fundsAvailable = player.currencyData;
-
+  // Funds
   let gold = fundsAvailable.gold;
   let cost = mouseBuildingAvailable.cost;
   let newAmount = gold - cost;
-
+  // Buildings
   fundsAvailable.gold = newAmount;
-  console.log('mouseBuildingAvailable', mouseBuildingAvailable);
   let array = buildingsRef.current;
-  console.log('1 array: ', array);
   array.push(mouseBuildingAvailable);
-  console.log('2 array: ', array);
-
   buildingsRef.current = array;
+
   setPlayer({
     ...player,
     currencyData: fundsAvailable,

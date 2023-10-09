@@ -52,7 +52,7 @@ const ToggleContextProvider = ({ children }) => {
   };
 
   const quickOpenBuildingsMenu = () => {
-    setDisplayMainMenuBar(true)
+    setDisplayMainMenuBar(true);
     setSelectedSecondaryMenu(true);
     setBuildingsMenuSelected(true);
     setTechMenuSelected(false);
@@ -77,7 +77,7 @@ const ToggleContextProvider = ({ children }) => {
         techMenuSelected,
         troopsMenuSelected,
         // buildings menu
-        quickOpenBuildingsMenu
+        quickOpenBuildingsMenu,
       }}
     >
       {children}

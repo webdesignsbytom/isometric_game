@@ -1,5 +1,14 @@
 export class Building {
-  constructor(id, name, imageUrl, offX, offY, cost, currencyType, incomeSeconds) {
+  constructor(
+    id,
+    name,
+    imageUrl,
+    offX,
+    offY,
+    cost,
+    currencyType,
+    incomeSeconds
+  ) {
     this.id = id;
     this.name = name;
     this.image = imageUrl;
@@ -26,12 +35,7 @@ export class Building {
       this.tileRowOffset
     );
     if (this.payoutReady) {
-      console.log('XXXXXXXXXXXXXXXXXXXXXX');
-      context.drawImage(
-        goldCoinRef.current,
-        this.offX + 15,
-        this.offY - 25,
-      );
+      context.drawImage(goldCoinRef.current, this.offX + 15, this.offY - 25);
     }
   };
 
@@ -46,8 +50,7 @@ export class Building {
     this.offY = ypos;
   }
 
-  collectPayout(){
-    console.log('OOOOOOOOO');
+  collectPayout() {
     this.payoutReady = false;
   }
 }

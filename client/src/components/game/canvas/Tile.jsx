@@ -26,8 +26,14 @@ export class Tile {
 
     context.moveTo(this.offX, this.offY + this.tileRowOffset / 2);
     context.lineTo(this.offX + this.tileColumnOffset / 2, this.offY);
-    context.lineTo(this.offX + this.tileColumnOffset, this.offY + this.tileRowOffset / 2);
-    context.lineTo(this.offX + this.tileColumnOffset / 2, this.offY + this.tileRowOffset);
+    context.lineTo(
+      this.offX + this.tileColumnOffset,
+      this.offY + this.tileRowOffset / 2
+    );
+    context.lineTo(
+      this.offX + this.tileColumnOffset / 2,
+      this.offY + this.tileRowOffset
+    );
     context.closePath();
     context.stroke();
     context.fill();

@@ -8,9 +8,13 @@ export const PlayerContext = React.createContext();
 
 const PlayerContextProvider = ({ children }) => {
   const [player, setPlayer] = useState(tempPlayerData);
+  const [cantAffordBuilding, setCantAffordBuilding] = useState(false);
+  console.log('11 cantAffordBuilding', cantAffordBuilding);
 
   const mouseItemRef = useRef(null);
   const mouseBuildingRef = useRef(null);
+
+  const cantAfford = useRef(false);
 
   const buyBuilding = (building) => {
     if (
@@ -18,11 +22,13 @@ const PlayerContextProvider = ({ children }) => {
       building.cost > player.currencyData.gold
     ) {
       console.log('CANNOT AFFORD ITEM');
+      setCantAffordBuilding(true);
     } else if (
       building.currencyType === 'gems' &&
       building.cost > player.currencyData.gems
     ) {
       console.log('CANNOT AFFORD ITEM');
+      setCantAffordBuilding(true);
     } else {
       mouseItemRef.current = building;
 
@@ -46,6 +52,9 @@ const PlayerContextProvider = ({ children }) => {
     }
   };
 
+  const closeCantAffordBuildingModal = () => {
+    setCantAffordBuilding(false);
+  };
   return (
     <PlayerContext.Provider
       value={{
@@ -55,6 +64,8 @@ const PlayerContextProvider = ({ children }) => {
         mouseItemRef,
         mouseBuildingRef,
         // Buildings
+        cantAffordBuilding,
+        closeCantAffordBuildingModal,
       }}
     >
       {children}

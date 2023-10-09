@@ -20,16 +20,18 @@ function GameCanvas() {
   const { quickOpenBuildingsMenu } = useContext(ToggleContext);
   const { player, setPlayer, mouseBuildingRef } = useContext(PlayerContext);
 
+  // Canvas and animations
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const tilesRef = useRef([]);
+  const buildingsRef = useRef(player.buildingsData.buildingsArray);
   const goldCoinRef = useRef(null);
 
-  const buildingsRef = useRef(player.buildingsData.buildingsArray);
-
+  // Grid sizes
   const maxGridXLength = maxGridYAxisLength;
   const maxGridYLength = maxGridYAxisLength;
 
+  // Isometric offset
   const tileColumnOffset = 64; // pixels
   const tileRowOffset = 32; // pixels
 
@@ -57,10 +59,11 @@ function GameCanvas() {
 
     contextRef.current = context;
 
+    // Create images needed for game
     const goldCoin = new Image();
     goldCoin.src = Gold;
-
     goldCoinRef.current = goldCoin;
+
     // Create tiles
     createTileGrid(
       originX,
@@ -72,12 +75,15 @@ function GameCanvas() {
       tilesRef
     );
 
+    // Draw game on canvas
     drawCanvasElements();
   }, []);
 
   // Main draw loop
   const drawCanvasElements = () => {
+    // Draw tiles first
     drawTileGrid(contextRef, tilesRef);
+    // Draw buildings on top
     drawBuildingElements(contextRef, buildingsRef, goldCoinRef);
 
     // Cause moue building to be under grid
@@ -86,24 +92,29 @@ function GameCanvas() {
 
   const hoverMouseFunctions = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
+
     const context = contextRef.current;
+
     clearCanvas(canvasRef);
+
     drawCanvasElements();
 
+    // Check for building to place
     const mouseBuildingAvailable = mouseBuildingRef.current;
+    // Tiles
     const tiles = tilesRef.current;
 
-    // Draw building under mouse
+    // Draw building under mouse position
     if (mouseBuildingAvailable) {
       mouseBuildingAvailable.update(context, offsetX, offsetY);
     }
 
-    // Initially, assume no tiles are hovered
+    // Initially, assume no tiles are hovered over
     tiles.forEach((tile) => {
       tile.isHovered = false;
     });
 
-    // Find the tile that the mouse is over and set it as hovered
+    // Check for hovered tiles
     const hoveredTile = tiles.find((tile) => {
       // Convert mouse coordinates to isometric coordinates
       const isoX = (offsetX - tile.offX) / tile.tileColumnOffset;
@@ -120,25 +131,27 @@ function GameCanvas() {
     }
   };
 
-  const clickOnTile = ({ nativeEvent }) => {
+  const clickOnTileFunctions = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
 
+    // Ignore additional click events while processing one
     if (isProcessingClick) {
-      return; // Ignore additional click events while processing one
+      return;
     }
 
     const tiles = tilesRef.current;
 
+    // Set active tile
     tiles.forEach((tile) => {
       tile.isActive = false;
     });
 
+    // Contexts
     const context = contextRef.current;
     const mouseBuildingAvailable = mouseBuildingRef.current;
 
-    // Draw building under mouse
+    // If placing building
     if (mouseBuildingAvailable) {
-      // update pos
       for (const tile of tiles) {
         // Convert mouse coordinates to isometric coordinates
         const isoX = (offsetX - tile.offX) / tile.tileColumnOffset;
@@ -152,12 +165,10 @@ function GameCanvas() {
           isoY <= 1 &&
           isoX + isoY <= 1
         ) {
-          // Mouse is clicking on this tile
-          console.log('Tile clicked');
-          //tile.isActive = true;
+          // Set building to tile position
           mouseBuildingAvailable.setPosition(context, tile.offX, tile.offY);
 
-          console.log('XXX mouseBuildingAvailable', mouseBuildingAvailable);
+          // Buy with gems
           if (mouseBuildingAvailable.currencyType === 'gems') {
             completeBuildingPurchaseGems(
               player,
@@ -166,7 +177,7 @@ function GameCanvas() {
               buildingsRef
             );
           }
-
+          // Buy with gold
           if (mouseBuildingAvailable.currencyType === 'gold') {
             completeBuildingPurchaseGold(
               player,
@@ -180,17 +191,15 @@ function GameCanvas() {
         }
       }
 
-      // add to user array
-      // let buildingsArray = buildingsRef.current;
-      // buildingsArray.push(mouseBuildingAvailable);
-
-      // delete from ref
+      // delete building from ref
       mouseBuildingRef.current = null;
     } else {
+      // Open building menu
       quickOpenBuildingsMenu();
 
       isProcessingClick = true;
 
+      // Set tile as selected
       for (const tile of tilesRef.current) {
         // Convert mouse coordinates to isometric coordinates
         const isoX = (offsetX - tile.offX) / tile.tileColumnOffset;
@@ -204,8 +213,6 @@ function GameCanvas() {
           isoY <= 1 &&
           isoX + isoY <= 1
         ) {
-          // Mouse is clicking on this tile
-          console.log('Tile clicked');
           tile.isActive = true;
 
           // Break out of the loop to prevent further tiles from being clicked
@@ -213,29 +220,20 @@ function GameCanvas() {
         }
       }
 
-      // Redraw the canvas to update the colors
-      // drawTileGrid();
-      clearCanvas()
+      // Redraw the canvas
+      clearCanvas(canvasRef);
       drawCanvasElements();
+
       // Allow processing of the next click event
       isProcessingClick = false;
     }
   };
 
-  const clearCanvas = () => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-
-    // Clear the entire canvas
-    context.clearRect(0, 0, canvas.width, canvas.height);
-  };
-
-  console.log('buildingref', buildingsRef);
   return (
     <canvas
       ref={canvasRef}
       onMouseMove={hoverMouseFunctions}
-      onMouseDown={clickOnTile}
+      onMouseDown={clickOnTileFunctions}
     />
   );
 }
