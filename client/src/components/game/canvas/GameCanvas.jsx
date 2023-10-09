@@ -1,11 +1,18 @@
 import React, { useContext, useEffect, useRef } from 'react';
-// Objects
-import { Tile } from './Tile';
 // Context
 import { ToggleContext } from '../../../context/ToggleContext';
 import { PlayerContext } from '../../../context/PlayerContext';
 // Data
 import { maxGridYAxisLength } from '../../../utils/gameData/Constants';
+// Functions
+import {
+  clearCanvas,
+  createTileGrid,
+  drawBuildingElements,
+  drawTileGrid,
+} from '../functions/Functions';
+// Images
+import Gold from '../../../assets/images/game/currency/goldCoin.png';
 
 function GameCanvas() {
   const { quickOpenBuildingsMenu } = useContext(ToggleContext);
@@ -14,6 +21,7 @@ function GameCanvas() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const tilesRef = useRef([]);
+  const goldCoinRef = useRef(null);
 
   const buildingsRef = useRef(player.buildingsData.buildingsArray);
 
@@ -47,67 +55,37 @@ function GameCanvas() {
 
     contextRef.current = context;
 
-    createTileGrid(originX, originY);
+    const goldCoin = new Image();
+    goldCoin.src = Gold
+
+    goldCoinRef.current = goldCoin;
+    // Create tiles
+    createTileGrid(
+      originX,
+      originY,
+      maxGridXLength,
+      maxGridYLength,
+      tileColumnOffset,
+      tileRowOffset,
+      tilesRef
+    );
+
     drawCanvasElements();
   }, []);
 
-  // Create tiles
-  const createTileGrid = (originX, originY) => {
-    let id = 1;
-    let tilesArray = [];
-
-    for (let Xi = maxGridXLength - 1; Xi >= 0; Xi--) {
-      for (let Yi = 0; Yi < maxGridYLength; Yi++) {
-        const offX =
-          (Xi * tileColumnOffset) / 2 + (Yi * tileColumnOffset) / 2 + originX;
-        const offY =
-          (Yi * tileRowOffset) / 2 - (Xi * tileRowOffset) / 2 + originY;
-
-        const tile = new Tile(id, offX, offY, 'red', 'green');
-        tilesArray.push(tile);
-
-        id++;
-      }
-    }
-
-    tilesRef.current = tilesArray;
-  };
-
   // Main draw loop
   const drawCanvasElements = () => {
-    drawTileGrid();
-    drawBuildingElements();
+    drawTileGrid(contextRef, tilesRef);
+    drawBuildingElements(contextRef, buildingsRef, goldCoinRef);
 
     // Cause moue building to be under grid
     // requestAnimationFrame(drawCanvasElements);
   };
 
-  const drawBuildingElements = () => {
-    const context = contextRef.current;
-    const buildings = buildingsRef.current;
-
-    buildings.forEach((building) => {
-      building.drawBuilding(context);
-
-      if (building.payoutCollectionTime <= new Date()) {
-        // console.log('PPPPPPPPPPPPPPP');
-      }
-    });
-  };
-
-  const drawTileGrid = () => {
-    console.log('TILEEEEEEEEEEEEEEEEEEEESSSSSSSSSS');
-    const context = contextRef.current;
-
-    tilesRef.current.forEach((tile) => {
-      tile.drawTile(context);
-    });
-  };
-
   const hoverMouseFunctions = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
     const context = contextRef.current;
-    clearCanvas();
+    clearCanvas(canvasRef);
     drawCanvasElements();
 
     const mouseBuildingAvailable = mouseBuildingRef.current;
@@ -184,19 +162,19 @@ function GameCanvas() {
 
             console.log('fundsAvailable', fundsAvailable);
 
-            let gems = fundsAvailable.gems
+            let gems = fundsAvailable.gems;
             console.log('gems', gems);
-            let cost = mouseBuildingAvailable.cost
+            let cost = mouseBuildingAvailable.cost;
             console.log('cost', cost);
-            let newAmount = gems - cost
+            let newAmount = gems - cost;
             console.log('newAmount', newAmount);
 
             fundsAvailable.gems = newAmount;
 
             setPlayer({
               ...player,
-              currencyData: fundsAvailable
-            })
+              currencyData: fundsAvailable,
+            });
           }
 
           if (mouseBuildingAvailable.currencyType === 'gold') {
@@ -204,19 +182,19 @@ function GameCanvas() {
 
             console.log('fundsAvailable', fundsAvailable);
 
-            let gold = fundsAvailable.gold
+            let gold = fundsAvailable.gold;
             console.log('gold', gold);
-            let cost = mouseBuildingAvailable.cost
+            let cost = mouseBuildingAvailable.cost;
             console.log('cost', cost);
-            let newAmount = gold - cost
+            let newAmount = gold - cost;
             console.log('newAmount', newAmount);
 
             fundsAvailable.gold = newAmount;
 
             setPlayer({
               ...player,
-              currencyData: fundsAvailable
-            })
+              currencyData: fundsAvailable,
+            });
           }
           // Break out of the loop to prevent further tiles from being clicked
           break;
@@ -251,7 +229,6 @@ function GameCanvas() {
           console.log('Tile clicked');
           tile.isActive = true;
 
-
           // Break out of the loop to prevent further tiles from being clicked
           break;
         }
@@ -263,14 +240,6 @@ function GameCanvas() {
       // Allow processing of the next click event
       isProcessingClick = false;
     }
-  };
-
-  const clearCanvas = () => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-
-    // Clear the entire canvas
-    context.clearRect(0, 0, canvas.width, canvas.height);
   };
 
   return (

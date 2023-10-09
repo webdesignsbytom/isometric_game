@@ -36,7 +36,7 @@ export const BuildingsMenuArray = [
     incomeAmount: 10,
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
-    incomeSeconds: 60000,
+    incomeSeconds: 1000,
     imageUrl: Bld1,
   },
   {

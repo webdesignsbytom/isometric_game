@@ -7,12 +7,12 @@ function BuildingItem({ building }) {
   return (
     <article
       onClick={() => buyBuilding(building)}
-      className='grid w-[130px] outline outline-1 outline-black rounded-lg'
+      className='grid h-full w-[120px] outline outline-1 outline-black bg-gray-100 rounded-lg active:scale-95 hover:brightness-105 cursor-pointer'
     >
-      <div>{building.title}</div>
+      <div className='px-[2px] text-sm font-semibold'><h6>{building.title}</h6></div>
       <div className='grid items-center justify-center'>
         <img
-          className='w-[80px] h-[80px] object-contain'
+          className='w-[50px] h-[50px] object-contain'
           src={building.imageUrl}
           alt={building.title}
         />
@@ -20,7 +20,7 @@ function BuildingItem({ building }) {
       <div className='text-center'>
         {building.currencyType === 'gold' && <span>🪙</span>}
         {building.currencyType === 'gems' && <span>💎</span>}
-        {building.cost}
+        <span className='font-semibold'>{building.cost}</span>
       </div>
     </article>
   );

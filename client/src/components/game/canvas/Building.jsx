@@ -15,7 +15,7 @@ export class Building {
     this.payoutCollectionTime = new Date(Date.now() + incomeSeconds);
   }
 
-  drawBuilding = (context) => {
+  drawBuilding = (context, goldCoinRef) => {
     // Draw tile interior
     // Draw the building image with the same width and height as the tile
     context.drawImage(
@@ -25,6 +25,14 @@ export class Building {
       this.tileColumnOffset,
       this.tileRowOffset
     );
+    if (this.payoutReady) {
+      console.log('XXXXXXXXXXXXXXXXXXXXXX');
+      context.drawImage(
+        goldCoinRef.current,
+        this.offX + 15,
+        this.offY - 25,
+      );
+    }
   };
 
   update(context, offsetX, offsetY) {
