@@ -7,7 +7,8 @@ export class Building {
     offY,
     cost,
     currencyType,
-    incomeSeconds
+    incomeSeconds,
+    incomeAmount
   ) {
     this.id = id;
     this.name = name;
@@ -21,6 +22,8 @@ export class Building {
     this.isUnderConstruction = false;
     this.isCompleted = false;
     this.payoutReady = false;
+    this.incomeSeconds = incomeSeconds;
+    this.incomeAmount = incomeAmount;
     this.payoutCollectionTime = new Date(Date.now() + incomeSeconds);
   }
 
@@ -35,6 +38,7 @@ export class Building {
       this.tileRowOffset
     );
     if (this.payoutReady) {
+      console.log('PPPPPPPPPPPP');
       context.drawImage(goldCoinRef.current, this.offX + 15, this.offY - 25);
     }
   };
@@ -51,6 +55,12 @@ export class Building {
   }
 
   collectPayout() {
+    console.log('TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
     this.payoutReady = false;
+    this.payoutCollectionTime = new Date(Date.now() + this.incomeSeconds);
+  }
+
+  updatePosition() {
+    console.log('IIIIIIIIIIIIIIIIIIIII');
   }
 }

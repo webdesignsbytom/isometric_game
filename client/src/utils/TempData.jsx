@@ -26,7 +26,8 @@ const tempBuilding1 = new Building(
   100,
   100,
   'gold',
-  building1.incomeSeconds
+  building1.incomeSeconds,
+  building1.incomeAmount
 );
 const tempBuilding2 = new Building(
   2,
@@ -36,7 +37,8 @@ const tempBuilding2 = new Building(
   300,
   100,
   'gold',
-  building1.incomeSeconds
+  building2.incomeSeconds,
+  building2.incomeAmount
 );
 
 export const tempPlayerData = {

@@ -36,7 +36,7 @@ export const BuildingsMenuArray = [
     incomeAmount: 10,
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
-    incomeSeconds: 1000,
+    incomeSeconds: 3000,
     imageUrl: Bld1,
   },
   {
@@ -48,7 +48,7 @@ export const BuildingsMenuArray = [
     incomeAmount: 10,
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
-    incomeSeconds: 10000,
+    incomeSeconds: 60000,
     imageUrl: Bld2,
   },
   {
@@ -60,7 +60,7 @@ export const BuildingsMenuArray = [
     incomeAmount: 10,
     incomeCurrency: 'gold',
     incomePeriod: '1 minute',
-    incomeSeconds: 10000,
+    incomeSeconds: 60000,
     imageUrl: Bld3,
   },
   {

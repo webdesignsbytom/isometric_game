@@ -41,7 +41,8 @@ const PlayerContextProvider = ({ children }) => {
           100,
           building.cost,
           building.currencyType,
-          building.incomeSeconds
+          building.incomeSeconds,
+          building.incomeAmount
         );
 
         mouseBuildingRef.current = selectedBuilding;

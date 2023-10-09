@@ -131,7 +131,7 @@ function GameCanvas() {
     }
   };
 
-  const clickOnTileFunctions = ({ nativeEvent }) => {
+  const mouseClickFunctions = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
 
     // Ignore additional click events while processing one
@@ -139,6 +139,9 @@ function GameCanvas() {
       return;
     }
 
+    // Contexts
+    const context = contextRef.current;
+    const mouseBuildingAvailable = mouseBuildingRef.current;
     const tiles = tilesRef.current;
 
     // Set active tile
@@ -146,9 +149,7 @@ function GameCanvas() {
       tile.isActive = false;
     });
 
-    // Contexts
-    const context = contextRef.current;
-    const mouseBuildingAvailable = mouseBuildingRef.current;
+    // If building is ready to collect
 
     // If placing building
     if (mouseBuildingAvailable) {
@@ -194,7 +195,47 @@ function GameCanvas() {
       // delete building from ref
       mouseBuildingRef.current = null;
     } else {
+      // Moving mouse
       // Open building menu
+      for (const building of buildingsRef.current) {
+        let foundBuilding = false;
+
+        if (building.payoutReady) {
+          // Check if the mouse coordinates are within the bounds of the building
+          if (
+            offsetX >= building.offX &&
+            offsetX <= building.offX + building.tileColumnOffset &&
+            offsetY >= building.offY &&
+            offsetY <= building.offY + building.tileRowOffset
+          ) {
+            // Collect the payout from the building
+            // building.payoutReady = false;
+            building.collectPayout();
+            building.drawBuilding(context, goldCoinRef);
+            // Redraw the canvas
+            console.log('BUILDING', building);
+            clearCanvas(canvasRef);
+            drawCanvasElements();
+
+            let fundsAvailable = player.currencyData;
+            let income = building.incomeAmount;
+            console.log('incline', income);
+            let current = fundsAvailable.gold;
+            console.log('current', current);
+            let newAmount = income + current;
+            console.log('newAmount: ', newAmount);
+            
+            fundsAvailable.gold = newAmount;
+
+            setPlayer({
+              ...player,
+              currencyData: fundsAvailable,
+            });
+
+            return;
+          }
+        }
+      }
       quickOpenBuildingsMenu();
 
       isProcessingClick = true;
@@ -233,7 +274,7 @@ function GameCanvas() {
     <canvas
       ref={canvasRef}
       onMouseMove={hoverMouseFunctions}
-      onMouseDown={clickOnTileFunctions}
+      onMouseDown={mouseClickFunctions}
     />
   );
 }

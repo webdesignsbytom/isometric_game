@@ -39,6 +39,7 @@ export const drawBuildingElements = (contextRef, buildingsRef, goldCoinRef) => {
     }
     building.drawBuilding(context, goldCoinRef);
   });
+  
 };
 
 export const drawTileGrid = (contextRef, tilesRef) => {
@@ -52,7 +53,6 @@ export const drawTileGrid = (contextRef, tilesRef) => {
 export const clearCanvas = (canvasRef) => {
   const canvas = canvasRef.current;
   const context = canvas.getContext('2d');
-
   // Clear the entire canvas
   context.clearRect(0, 0, canvas.width, canvas.height);
 };
@@ -104,15 +104,3 @@ export const completeBuildingPurchaseGold = (
   });
 };
 
-export const drawCanvasElements = (
-  contextRef,
-  buildingsRef,
-  goldCoinRef,
-  tilesRef
-) => {
-  drawTileGrid(contextRef, tilesRef);
-  drawBuildingElements(contextRef, buildingsRef, goldCoinRef);
-
-  // Cause moue building to be under grid
-  // requestAnimationFrame(drawCanvasElements);
-};
