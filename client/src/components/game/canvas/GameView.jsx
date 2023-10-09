@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext } from 'react';
 // Components
 import OpenMenuButton from '../menus/MainMenu/OpenMenuButton';
 import GameCanvas from './GameCanvas';
