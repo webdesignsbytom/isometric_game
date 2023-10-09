@@ -7,6 +7,8 @@ import { maxGridYAxisLength } from '../../../utils/gameData/Constants';
 // Functions
 import {
   clearCanvas,
+  completeBuildingPurchaseGems,
+  completeBuildingPurchaseGold,
   createTileGrid,
   drawBuildingElements,
   drawTileGrid,
@@ -56,7 +58,7 @@ function GameCanvas() {
     contextRef.current = context;
 
     const goldCoin = new Image();
-    goldCoin.src = Gold
+    goldCoin.src = Gold;
 
     goldCoinRef.current = goldCoin;
     // Create tiles
@@ -93,7 +95,6 @@ function GameCanvas() {
 
     // Draw building under mouse
     if (mouseBuildingAvailable) {
-      console.log('MOUSEEEEEEEEEEEEEEEEEEEEEEEEE');
       mouseBuildingAvailable.update(context, offsetX, offsetY);
     }
 
@@ -156,45 +157,23 @@ function GameCanvas() {
           //tile.isActive = true;
           mouseBuildingAvailable.setPosition(context, tile.offX, tile.offY);
 
-          console.log('mouseBuildingAvailable', mouseBuildingAvailable);
+          console.log('XXX mouseBuildingAvailable', mouseBuildingAvailable);
           if (mouseBuildingAvailable.currencyType === 'gems') {
-            let fundsAvailable = player.currencyData;
-
-            console.log('fundsAvailable', fundsAvailable);
-
-            let gems = fundsAvailable.gems;
-            console.log('gems', gems);
-            let cost = mouseBuildingAvailable.cost;
-            console.log('cost', cost);
-            let newAmount = gems - cost;
-            console.log('newAmount', newAmount);
-
-            fundsAvailable.gems = newAmount;
-
-            setPlayer({
-              ...player,
-              currencyData: fundsAvailable,
-            });
+            completeBuildingPurchaseGems(
+              player,
+              mouseBuildingAvailable,
+              setPlayer,
+              buildingsRef
+            );
           }
 
           if (mouseBuildingAvailable.currencyType === 'gold') {
-            let fundsAvailable = player.currencyData;
-
-            console.log('fundsAvailable', fundsAvailable);
-
-            let gold = fundsAvailable.gold;
-            console.log('gold', gold);
-            let cost = mouseBuildingAvailable.cost;
-            console.log('cost', cost);
-            let newAmount = gold - cost;
-            console.log('newAmount', newAmount);
-
-            fundsAvailable.gold = newAmount;
-
-            setPlayer({
-              ...player,
-              currencyData: fundsAvailable,
-            });
+            completeBuildingPurchaseGold(
+              player,
+              mouseBuildingAvailable,
+              setPlayer,
+              buildingsRef
+            );
           }
           // Break out of the loop to prevent further tiles from being clicked
           break;
@@ -202,8 +181,8 @@ function GameCanvas() {
       }
 
       // add to user array
-      let buildingsArray = buildingsRef.current;
-      buildingsArray.push(mouseBuildingAvailable);
+      // let buildingsArray = buildingsRef.current;
+      // buildingsArray.push(mouseBuildingAvailable);
 
       // delete from ref
       mouseBuildingRef.current = null;
@@ -236,12 +215,22 @@ function GameCanvas() {
 
       // Redraw the canvas to update the colors
       // drawTileGrid();
-
+      clearCanvas()
+      drawCanvasElements();
       // Allow processing of the next click event
       isProcessingClick = false;
     }
   };
 
+  const clearCanvas = () => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+
+    // Clear the entire canvas
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  };
+
+  console.log('buildingref', buildingsRef);
   return (
     <canvas
       ref={canvasRef}
