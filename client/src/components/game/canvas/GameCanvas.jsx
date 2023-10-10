@@ -18,7 +18,7 @@ import Gold from '../../../assets/images/game/currency/goldCoin.png';
 
 function GameCanvas() {
   const { quickOpenBuildingsMenu } = useContext(ToggleContext);
-  const { player, setPlayer, mouseBuildingRef } = useContext(PlayerContext);
+  const { player, setPlayer, mouseBuildingRef, buildingIDNumberRef } = useContext(PlayerContext);
 
   // Canvas and animations
   const canvasRef = useRef(null);
@@ -106,7 +106,7 @@ function GameCanvas() {
 
     // Draw building under mouse position
     if (mouseBuildingAvailable) {
-      mouseBuildingAvailable.update(context, offsetX, offsetY);
+      mouseBuildingAvailable.update(context, offsetX, offsetY - 10);
     }
 
     // Initially, assume no tiles are hovered over
@@ -175,7 +175,8 @@ function GameCanvas() {
               player,
               mouseBuildingAvailable,
               setPlayer,
-              buildingsRef
+              buildingsRef,
+              buildingIDNumberRef
             );
           }
           // Buy with gold
@@ -184,7 +185,8 @@ function GameCanvas() {
               player,
               mouseBuildingAvailable,
               setPlayer,
-              buildingsRef
+              buildingsRef,
+              buildingIDNumberRef
             );
           }
           // Break out of the loop to prevent further tiles from being clicked
@@ -242,6 +244,7 @@ function GameCanvas() {
 
       // Set tile as selected
       for (const tile of tilesRef.current) {
+        console.log('tile', tile);
         // Convert mouse coordinates to isometric coordinates
         const isoX = (offsetX - tile.offX) / tile.tileColumnOffset;
         const isoY = (offsetY - tile.offY) / tile.tileRowOffset;
@@ -275,6 +278,7 @@ function GameCanvas() {
       ref={canvasRef}
       onMouseMove={hoverMouseFunctions}
       onMouseDown={mouseClickFunctions}
+      className='cursor-pointer'
     />
   );
 }

@@ -12,6 +12,7 @@ const PlayerContextProvider = ({ children }) => {
 
   const mouseItemRef = useRef(null);
   const mouseBuildingRef = useRef(null);
+  const buildingIDNumberRef = useRef(1);
 
   const buyBuilding = (building) => {
     if (
@@ -29,22 +30,30 @@ const PlayerContextProvider = ({ children }) => {
     } else {
       mouseItemRef.current = building;
 
-      const mouseBuilding = new Image();
-      mouseBuilding.src = building.imageUrl;
+      const mouseBuildingImage = new Image();
+      mouseBuildingImage.src = building.imageUrl;
 
-      mouseBuilding.onload = () => {
+      mouseBuildingImage.onload = () => {
         const selectedBuilding = new Building(
-          1,
-          building.name,
-          mouseBuilding,
-          100,
-          100,
-          building.cost,
-          building.currencyType,
-          building.incomeSeconds,
-          building.incomeAmount
+          buildingIDNumberRef.current, // ID
+          building.name, // building name lowercase
+          building.title, // building name For Show
+          mouseBuildingImage, // Image
+          building.description, //description
+          building.gridSize, // gridSize
+          building.cost, // Cost
+          building.currencyType, // Gems/Gold
+          building.incomeSeconds, // Time to produce
+          building.incomeAmount, // Amount to produce
+          building.incomeCurrency, // Gems/Gold to produce
+          building.incomePeriod, // Text version of time
+          building.constructionTime, // seconds to build
+          building.constructionTimePeriod, // Text seconds to build
+          building.constructionImage, // Construction image
+          100, // X pos
+          100, // Y pos
+          building.imageHeight, // Image height
         );
-
         mouseBuildingRef.current = selectedBuilding;
       };
     }
@@ -64,6 +73,7 @@ const PlayerContextProvider = ({ children }) => {
         // Buildings
         cantAffordBuilding,
         closeCantAffordBuildingModal,
+        buildingIDNumberRef,
       }}
     >
       {children}

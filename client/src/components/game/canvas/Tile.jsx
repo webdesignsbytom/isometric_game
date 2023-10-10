@@ -1,9 +1,9 @@
 export class Tile {
-  constructor(id, offX, offY, fillColor, borderColor) {
+  constructor(id, offX, offY, fillColour, borderColor) {
     this.id = id;
     this.offX = offX;
     this.offY = offY;
-    this.fillColor = fillColor;
+    this.fillColour = fillColour;
     this.borderColor = borderColor;
     this.isHovered = false;
     this.isActive = false;
@@ -21,7 +21,7 @@ export class Tile {
     } else if (this.isHovered) {
       context.fillStyle = 'blue';
     } else {
-      context.fillStyle = this.fillColor;
+      context.fillStyle = this.fillColour;
     }
 
     context.moveTo(this.offX, this.offY + this.tileRowOffset / 2);

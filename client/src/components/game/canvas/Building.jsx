@@ -2,31 +2,49 @@ export class Building {
   constructor(
     id,
     name,
+    title,
     imageUrl,
-    offX,
-    offY,
+    description,
+    gridSize,
     cost,
     currencyType,
     incomeSeconds,
-    incomeAmount
+    incomeAmount,
+    incomeCurrency,
+    incomePeriod,
+    constructionTime,
+    constructionTimePeriod,
+    constructionImage,
+    offX,
+    offY,
+    imageHeight
   ) {
     this.id = id;
     this.name = name;
+    this.title = title;
     this.image = imageUrl;
-    this.offX = offX;
-    this.offY = offY;
+    this.description = description;
+    this.gridSize = gridSize;
     this.cost = cost;
     this.currencyType = currencyType;
+    this.incomeSeconds = incomeSeconds;
+    this.incomeAmount = incomeAmount;
+    this.incomeCurrency = incomeCurrency;
+    this.incomePeriod = incomePeriod;
+    this.constructionTime = constructionTime;
+    this.constructionTimePeriod = constructionTimePeriod;
+this.constructionImage = constructionImage
+    this.offX = offX;
+    this.offY = offY;
+    this.imageHeight = imageHeight;
+    // Permanent initialization
     this.tileColumnOffset = 64;
     this.tileRowOffset = 32;
     this.isUnderConstruction = false;
-    this.isCompleted = false;
     this.payoutReady = false;
-    this.incomeSeconds = incomeSeconds;
-    this.incomeAmount = incomeAmount;
     this.payoutCollectionTime = new Date(Date.now() + incomeSeconds);
   }
-
+  
   drawBuilding = (context, goldCoinRef) => {
     // Draw tile interior
     // Draw the building image with the same width and height as the tile
@@ -35,7 +53,7 @@ export class Building {
       this.offX,
       this.offY,
       this.tileColumnOffset,
-      this.tileRowOffset
+      this.imageHeight
     );
     if (this.payoutReady) {
       console.log('PPPPPPPPPPPP');

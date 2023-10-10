@@ -19,7 +19,7 @@ export const createTileGrid = (
       const offY =
         (Yi * tileRowOffset) / 2 - (Xi * tileRowOffset) / 2 + originY;
 
-      const tile = new Tile(id, offX, offY, 'red', 'green');
+      const tile = new Tile(id, offX, offY, '#e0b336', 'black');
       tilesArray.push(tile);
 
       id++;
@@ -39,7 +39,6 @@ export const drawBuildingElements = (contextRef, buildingsRef, goldCoinRef) => {
     }
     building.drawBuilding(context, goldCoinRef);
   });
-  
 };
 
 export const drawTileGrid = (contextRef, tilesRef) => {
@@ -61,10 +60,16 @@ export const completeBuildingPurchaseGems = (
   player,
   mouseBuildingAvailable,
   setPlayer,
-  buildingsRef
+  buildingsRef,
+  buildingIDNumberRef
 ) => {
+  // Increase building owned id
+  let idNum = buildingIDNumberRef.current;
+  idNum++;
+  
+  buildingIDNumberRef.current = idNum;
+  // Pay for building
   let fundsAvailable = player.currencyData;
-
   // Funds
   let gems = fundsAvailable.gems;
   let cost = mouseBuildingAvailable.cost;
@@ -85,8 +90,15 @@ export const completeBuildingPurchaseGold = (
   player,
   mouseBuildingAvailable,
   setPlayer,
-  buildingsRef
+  buildingsRef,
+  buildingIDNumberRef
 ) => {
+  // Increase building owned id
+  let idNum = buildingIDNumberRef.current;
+  idNum++;
+  buildingIDNumberRef.current = idNum;
+
+  // Pay for building
   let fundsAvailable = player.currencyData;
   // Funds
   let gold = fundsAvailable.gold;
@@ -96,6 +108,7 @@ export const completeBuildingPurchaseGold = (
   fundsAvailable.gold = newAmount;
   let array = buildingsRef.current;
   array.push(mouseBuildingAvailable);
+
   buildingsRef.current = array;
 
   setPlayer({
@@ -103,4 +116,3 @@ export const completeBuildingPurchaseGold = (
     currencyData: fundsAvailable,
   });
 };
-
