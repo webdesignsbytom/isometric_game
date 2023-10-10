@@ -1,5 +1,7 @@
 import { Building } from '../components/game/canvas/Building';
 import { BuildingsMenuArray } from './gameData/BuildingsData';
+// Images
+import PlayerImg from '../assets/images/game/player/user.png'
 
 export const tempUserData = {
   id: 1,
@@ -48,6 +50,7 @@ export const tempPlayerData = {
     townName: 'Rascleville',
   },
   playerLevel: 1,
+  playerImage: PlayerImg,
   currencyData: {
     gold: 1000,
     gems: 500,
