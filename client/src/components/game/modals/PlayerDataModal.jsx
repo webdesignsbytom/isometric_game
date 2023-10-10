@@ -24,14 +24,26 @@ function PlayerDataModal() {
           </section>
           <section>
             <div>{player.playerName}</div>
-            <div>Level {player.playerLevel}</div>
-            <div>{currentLevelData.xpRequired}</div>
+            <div>
+              <span className='text-sm font-semibold leading-4'>Level </span>
+              <span className='text-sm font-semibold leading-4'>
+                {player.playerLevel}
+              </span>
+            </div>
+            <div>
+              <span className='text-ss font-semibold leading-4'>
+                XP REQUIRED
+              </span>
+              <span className='text-sm font-semibold leading-4'>
+                {currentLevelData.xpRequired}
+              </span>
+            </div>
           </section>
         </div>
         <section className='px-2'>
           <div className='bg-red-500 w-[100px] h-[11px] grid items-center justify-start outline outline-1 outline-black rounded overflow-hidden'>
             <div
-              className={`bg-blue-600 h-[9px]`}
+              className={`bg-blue-600 h-[9px] outline outline-1 outline-black rounded mt-[0.1px]`}
               style={{ width: xpCompleted }}
             ></div>
           </div>
