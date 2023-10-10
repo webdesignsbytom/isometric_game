@@ -1,5 +1,8 @@
 // Data
-import { ownedTileColourHex, unownedTileColourHex } from '../../../utils/gameData/Constants';
+import {
+  ownedTileColourHex,
+  unownedTileColourHex,
+} from '../../../utils/gameData/Constants';
 // Components
 import { Tile } from '../canvas/Tile';
 
@@ -46,9 +49,15 @@ export const createTileGrid = (
       const preownedTile = TileGrid[gridNum][2];
 
       if (preownedTile) {
-        const tile = new Tile(id, offX, offY, ownedTileColourHex, 'black', preownedTile);
+        const tile = new Tile(
+          id,
+          offX,
+          offY,
+          ownedTileColourHex,
+          'black',
+          preownedTile
+        );
         tilesArray.push(tile);
-
       } else {
         const tile = new Tile(
           id,
@@ -153,4 +162,99 @@ export const completeBuildingPurchaseGold = (
     ...player,
     currencyData: fundsAvailable,
   });
+};
+
+export const purchaseAndPlaceNewBuilding = (
+  tiles,
+  offsetX,
+  offsetY,
+  mouseBuildingAvailable,
+  context,
+  player,
+  setPlayer,
+  buildingsRef,
+  buildingIDNumberRef,
+  mouseBuildingRef
+) => {
+  for (const tile of tiles) {
+    // Convert mouse coordinates to isometric coordinates
+    const isoX = (offsetX - tile.offX) / tile.tileColumnOffset;
+    const isoY = (offsetY - tile.offY) / tile.tileRowOffset;
+
+    // Check if the mouse is within the bounds of the tile
+    if (isoX >= 0 && isoY >= 0 && isoX <= 1 && isoY <= 1 && isoX + isoY <= 1) {
+      // Set building to tile position
+      mouseBuildingAvailable.setPosition(context, tile.offX, tile.offY);
+
+      // Buy with gems
+      if (mouseBuildingAvailable.currencyType === 'gems') {
+        completeBuildingPurchaseGems(
+          player,
+          mouseBuildingAvailable,
+          setPlayer,
+          buildingsRef,
+          buildingIDNumberRef
+        );
+      }
+      // Buy with gold
+      if (mouseBuildingAvailable.currencyType === 'gold') {
+        completeBuildingPurchaseGold(
+          player,
+          mouseBuildingAvailable,
+          setPlayer,
+          buildingsRef,
+          buildingIDNumberRef
+        );
+      }
+      // Break out of the loop to prevent further tiles from being clicked
+      break;
+    }
+  }
+  // delete building from ref
+  mouseBuildingRef.current = null;
+};
+
+export const collectFromBuildingAndUpdateFunds = (
+  offsetX,
+  offsetY,
+  building,
+  context,
+  goldCoinRef,
+  canvasRef,
+  drawCanvasElements,
+  player,
+  setPlayer
+) => {
+  if (building.payoutReady) {
+    // Check if the mouse coordinates are within the bounds of the building
+    if (
+      offsetX >= building.offX &&
+      offsetX <= building.offX + building.tileColumnOffset &&
+      offsetY >= building.offY &&
+      offsetY <= building.offY + building.tileRowOffset
+    ) {
+      // Collect the payout from the building
+      // building.payoutReady = false;
+      building.collectPayout();
+      building.drawBuilding(context, goldCoinRef);
+
+      // Redraw the canvas
+      clearCanvas(canvasRef);
+      drawCanvasElements();
+
+      let fundsAvailable = player.currencyData;
+      let income = building.incomeAmount;
+      let current = fundsAvailable.gold;
+      let newAmount = income + current;
+
+      fundsAvailable.gold = newAmount;
+
+      setPlayer({
+        ...player,
+        currencyData: fundsAvailable,
+      });
+
+      return;
+    }
+  }
 };
