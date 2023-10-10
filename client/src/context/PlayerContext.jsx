@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 // Data
-import { tempPlayerData } from '../utils/TempData';
+import { tempPlayerData } from '../utils/gameData/PlayerData';
 import { Building } from '../components/game/canvas/Building';
 import { PlayerLevelsArray } from '../utils/gameData/PlayerLevels';
 // Context
@@ -50,6 +50,7 @@ const PlayerContextProvider = ({ children }) => {
           mouseBuildingImage, // Image
           building.description, //description
           building.gridSize, // gridSize
+          building.xpForPurchasing, // xp for
           building.cost, // Cost
           building.currencyType, // Gems/Gold
           building.incomeSeconds, // Time to produce

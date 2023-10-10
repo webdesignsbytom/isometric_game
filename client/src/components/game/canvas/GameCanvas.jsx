@@ -171,8 +171,8 @@ function GameCanvas() {
       );
     } else {
       for (const building of buildingsRef.current) {
-        collectFromBuildingAndUpdateFunds
-          (offsetX,
+        collectFromBuildingAndUpdateFunds(
+          offsetX,
           offsetY,
           building,
           context,
@@ -180,7 +180,8 @@ function GameCanvas() {
           canvasRef,
           drawCanvasElements,
           player,
-          setPlayer);
+          setPlayer
+        );
       }
 
       quickOpenBuildingsMenu();
@@ -216,7 +217,7 @@ function GameCanvas() {
       isProcessingClick = false;
     }
   };
-
+  console.log('Player', player);
   return (
     <canvas
       ref={canvasRef}

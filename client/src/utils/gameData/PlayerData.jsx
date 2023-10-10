@@ -1,7 +1,7 @@
-import { Building } from '../components/game/canvas/Building';
-import { BuildingsMenuArray } from './gameData/BuildingsData';
+import { Building } from '../../components/game/canvas/Building';
+import { BuildingsMenuArray } from './BuildingsData';
 // Images
-import PlayerImg from '../assets/images/game/player/user.png';
+import PlayerImg from '../../assets/images/game/player/user.png';
 
 export const tempUserData = {
   id: 1,
@@ -27,6 +27,7 @@ const tempBuilding1 = new Building(
   buildingImage1, // Image
   building1.description, //description
   building1.gridSize, // gridSize
+  building1.xpForPurchasing, // xp for purchase
   building1.cost, // Cost
   building1.currencyType, // Gems/Gold
   building1.incomeSeconds, // Time to produce
@@ -47,6 +48,7 @@ const tempBuilding2 = new Building(
   buildingImage2, // Image
   building2.description, //description
   building2.gridSize, // gridSize
+  building2.xpForPurchasing, // xp for
   building2.cost, // Cost
   building2.currencyType, // Gems/Gold
   building2.incomeSeconds, // Time to produce

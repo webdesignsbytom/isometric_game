@@ -6,6 +6,7 @@ export class Building {
     imageUrl,
     description,
     gridSize,
+    xpForPurchasing,
     cost,
     currencyType,
     incomeSeconds,
@@ -25,6 +26,7 @@ export class Building {
     this.image = imageUrl;
     this.description = description;
     this.gridSize = gridSize;
+    this.xpForPurchasing = xpForPurchasing;
     this.cost = cost;
     this.currencyType = currencyType;
     this.incomeSeconds = incomeSeconds;
@@ -33,7 +35,7 @@ export class Building {
     this.incomePeriod = incomePeriod;
     this.constructionTime = constructionTime;
     this.constructionTimePeriod = constructionTimePeriod;
-this.constructionImage = constructionImage
+    this.constructionImage = constructionImage;
     this.offX = offX;
     this.offY = offY;
     this.imageHeight = imageHeight;
@@ -44,7 +46,7 @@ this.constructionImage = constructionImage
     this.payoutReady = false;
     this.payoutCollectionTime = new Date(Date.now() + incomeSeconds);
   }
-  
+
   drawBuilding = (context, goldCoinRef) => {
     // Draw tile interior
     // Draw the building image with the same width and height as the tile

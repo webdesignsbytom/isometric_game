@@ -127,9 +127,17 @@ export const completeBuildingPurchaseGems = (
   array.push(mouseBuildingAvailable);
   buildingsRef.current = array;
 
+  let currentXp = player.currentXp;
+  console.log('currentXp: ', currentXp);
+  console.log('mouseBuildingAvailable', mouseBuildingAvailable);
+  let buildingXp = mouseBuildingAvailable.xpForPurchasing;
+
+  let newTotalXp = currentXp + buildingXp;
+
   setPlayer({
     ...player,
     currencyData: fundsAvailable,
+    currentXp: newTotalXp,
   });
 };
 
@@ -158,9 +166,15 @@ export const completeBuildingPurchaseGold = (
 
   buildingsRef.current = array;
 
+  let currentXp = player.currentXp;
+  let buildingXp = mouseBuildingAvailable.xpForPurchasing;
+
+  let newTotalXp = currentXp + buildingXp;
+
   setPlayer({
     ...player,
     currencyData: fundsAvailable,
+    currentXp: newTotalXp,
   });
 };
 
@@ -249,9 +263,15 @@ export const collectFromBuildingAndUpdateFunds = (
 
       fundsAvailable.gold = newAmount;
 
+      let currentXp = player.currentXp;
+      let earnXp = 1;
+
+      let newTotalXp = currentXp + earnXp;
+
       setPlayer({
         ...player,
         currencyData: fundsAvailable,
+        currentXp: newTotalXp,
       });
 
       return;
