@@ -1,14 +1,23 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 // Data
 import { tempPlayerData } from '../utils/TempData';
 import { Building } from '../components/game/canvas/Building';
+import { PlayerLevelsArray } from '../utils/gameData/PlayerLevels';
 // Context
 export const PlayerContext = React.createContext();
 
 const PlayerContextProvider = ({ children }) => {
   const [player, setPlayer] = useState(tempPlayerData);
   const [cantAffordBuilding, setCantAffordBuilding] = useState(false);
+  const [playerLevelsData, setPlayerLevelsData] = useState(PlayerLevelsArray);
+  const [currentLevelData, setCurrentLevelData] = useState(PlayerLevelsArray);
+
+  useEffect(() => {
+    const currentLevelNum = player.playerLevel
+    const foundLevel = playerLevelsData.find(e => e.level === currentLevelNum)
+    setCurrentLevelData(foundLevel)
+  }, [])
 
   const mouseItemRef = useRef(null);
   const mouseBuildingRef = useRef(null);
@@ -52,7 +61,7 @@ const PlayerContextProvider = ({ children }) => {
           building.constructionImage, // Construction image
           100, // X pos
           100, // Y pos
-          building.imageHeight, // Image height
+          building.imageHeight // Image height
         );
         mouseBuildingRef.current = selectedBuilding;
       };
@@ -74,6 +83,7 @@ const PlayerContextProvider = ({ children }) => {
         cantAffordBuilding,
         closeCantAffordBuildingModal,
         buildingIDNumberRef,
+        currentLevelData
       }}
     >
       {children}

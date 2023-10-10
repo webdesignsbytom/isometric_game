@@ -69,6 +69,7 @@ export const tempPlayerData = {
   },
   playerLevel: 1,
   playerImage: PlayerImg,
+  currentXp: 25,
   currencyData: {
     gold: 1000,
     gems: 500,

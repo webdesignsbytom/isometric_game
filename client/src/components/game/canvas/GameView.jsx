@@ -15,7 +15,6 @@ import BuyTileModal from '../modals/BuyTileModal';
 function GameView() {
   const { displayMainMenuBar, techMenuSelected, playerDataModel, buyTileScreenToggle } = useContext(ToggleContext);
   const { cantAffordBuilding } = useContext(PlayerContext);
-  console.log('xx cantAffordBuilding', cantAffordBuilding);
 
   return (
     <main className='relative grid h-full w-full bg-red-200 border-solid border-yellow-300 border-4'>
