@@ -10,9 +10,10 @@ import { PlayerContext } from '../../../context/PlayerContext';
 import CantAffordBuilding from '../modals/CantAffordBuilding';
 import TechMenuBar from '../menus/SecondaryMenuBar/TechMenuBar';
 import PlayerDataModal from '../modals/PlayerDataModal';
+import BuyTileModal from '../modals/BuyTileModal';
 
 function GameView() {
-  const { displayMainMenuBar, techMenuSelected, playerDataModel } = useContext(ToggleContext);
+  const { displayMainMenuBar, techMenuSelected, playerDataModel, buyTileScreenToggle } = useContext(ToggleContext);
   const { cantAffordBuilding } = useContext(PlayerContext);
   console.log('xx cantAffordBuilding', cantAffordBuilding);
 
@@ -22,6 +23,7 @@ function GameView() {
       {cantAffordBuilding && <CantAffordBuilding />}
       {techMenuSelected && <TechMenuBar />}
       {playerDataModel && <PlayerDataModal />}
+      {buyTileScreenToggle && <BuyTileModal />}
       {displayMainMenuBar ? <MainMenuBar /> : <OpenMenuButton />}
     </main>
   );

@@ -17,8 +17,9 @@ import {
 import Gold from '../../../assets/images/game/currency/goldCoin.png';
 
 function GameCanvas() {
-  const { quickOpenBuildingsMenu } = useContext(ToggleContext);
-  const { player, setPlayer, mouseBuildingRef, buildingIDNumberRef } = useContext(PlayerContext);
+  const { quickOpenBuildingsMenu, openBuyTileModal } = useContext(ToggleContext);
+  const { player, setPlayer, mouseBuildingRef, buildingIDNumberRef } =
+    useContext(PlayerContext);
 
   // Canvas and animations
   const canvasRef = useRef(null);
@@ -193,15 +194,13 @@ function GameCanvas() {
           break;
         }
       }
-
       // delete building from ref
       mouseBuildingRef.current = null;
+      
     } else {
       // Moving mouse
       // Open building menu
       for (const building of buildingsRef.current) {
-        let foundBuilding = false;
-
         if (building.payoutReady) {
           // Check if the mouse coordinates are within the bounds of the building
           if (
@@ -214,19 +213,16 @@ function GameCanvas() {
             // building.payoutReady = false;
             building.collectPayout();
             building.drawBuilding(context, goldCoinRef);
+
             // Redraw the canvas
-            console.log('BUILDING', building);
             clearCanvas(canvasRef);
             drawCanvasElements();
 
             let fundsAvailable = player.currencyData;
             let income = building.incomeAmount;
-            console.log('incline', income);
             let current = fundsAvailable.gold;
-            console.log('current', current);
             let newAmount = income + current;
-            console.log('newAmount: ', newAmount);
-            
+
             fundsAvailable.gold = newAmount;
 
             setPlayer({
@@ -244,11 +240,9 @@ function GameCanvas() {
 
       // Set tile as selected
       for (const tile of tilesRef.current) {
-        console.log('tile', tile);
         // Convert mouse coordinates to isometric coordinates
         const isoX = (offsetX - tile.offX) / tile.tileColumnOffset;
         const isoY = (offsetY - tile.offY) / tile.tileRowOffset;
-
         // Check if the mouse is within the bounds of the tile
         if (
           isoX >= 0 &&
@@ -258,12 +252,13 @@ function GameCanvas() {
           isoX + isoY <= 1
         ) {
           tile.isActive = true;
-
+          if (!tile.isOwned) {
+            openBuyTileModal()
+          }
           // Break out of the loop to prevent further tiles from being clicked
           break;
         }
       }
-
       // Redraw the canvas
       clearCanvas(canvasRef);
       drawCanvasElements();

@@ -1,3 +1,6 @@
+// Data
+import { ownedTileColourHex, unownedTileColourHex } from '../../../utils/gameData/Constants';
+// Components
 import { Tile } from '../canvas/Tile';
 
 export const createTileGrid = (
@@ -9,6 +12,25 @@ export const createTileGrid = (
   tileRowOffset,
   tilesRef
 ) => {
+  // Create preowned tiles array
+  const numRows = 20;
+  const numCols = 15;
+  const centerSize = 5;
+
+  const TileGrid = [];
+
+  for (let row = 1; row <= numRows; row++) {
+    for (let col = 1; col <= numCols; col++) {
+      const isCenter =
+        row >= (numRows - centerSize) / 2 &&
+        row <= (numRows + centerSize) / 2 &&
+        col >= (numCols - centerSize) / 2 &&
+        col <= (numCols + centerSize) / 2;
+
+      TileGrid.push([row, col, isCenter]);
+    }
+  }
+
   let id = 1;
   let tilesArray = [];
 
@@ -19,9 +41,25 @@ export const createTileGrid = (
       const offY =
         (Yi * tileRowOffset) / 2 - (Xi * tileRowOffset) / 2 + originY;
 
-      const tile = new Tile(id, offX, offY, '#e0b336', 'black');
-      tilesArray.push(tile);
+      let gridNum = id - 1;
+      // True or false
+      const preownedTile = TileGrid[gridNum][2];
 
+      if (preownedTile) {
+        const tile = new Tile(id, offX, offY, ownedTileColourHex, 'black', preownedTile);
+        tilesArray.push(tile);
+
+      } else {
+        const tile = new Tile(
+          id,
+          offX,
+          offY,
+          unownedTileColourHex,
+          'black',
+          preownedTile
+        );
+        tilesArray.push(tile);
+      }
       id++;
     }
   }
@@ -66,7 +104,7 @@ export const completeBuildingPurchaseGems = (
   // Increase building owned id
   let idNum = buildingIDNumberRef.current;
   idNum++;
-  
+
   buildingIDNumberRef.current = idNum;
   // Pay for building
   let fundsAvailable = player.currencyData;

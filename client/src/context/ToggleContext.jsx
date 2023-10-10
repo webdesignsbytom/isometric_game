@@ -7,6 +7,7 @@ const ToggleContextProvider = ({ children }) => {
   const [toggleNavigation, setToggleNavigation] = useState(false);
   const [displayMainMenuBar, setDisplayMainMenuBar] = useState(false);
   const [playerDataModel, setPlayerDataModel] = useState(true);
+  const [buyTileScreenToggle, setBuyTileScreenToggle] = useState(false);
   // Secondary menus
   const [selectedSecondaryMenu, setSelectedSecondaryMenu] = useState(false);
   const [buildingsMenuSelected, setBuildingsMenuSelected] = useState(false);
@@ -21,6 +22,13 @@ const ToggleContextProvider = ({ children }) => {
 
   const openMainMenuBar = () => {
     setDisplayMainMenuBar(true);
+  };
+
+  const openBuyTileModal = () => {
+    setBuyTileScreenToggle(true);
+  };
+  const closeBuyTileModal = () => {
+    setBuyTileScreenToggle(false);
   };
 
   const closeMainMenuBar = () => {
@@ -44,7 +52,7 @@ const ToggleContextProvider = ({ children }) => {
       setBuildingsMenuSelected(false);
       setTechMenuSelected(true);
       setTroopsMenuSelected(false);
-      setDisplayMainMenuBar(false)
+      setDisplayMainMenuBar(false);
     }
     if (name === 'troops') {
       setBuildingsMenuSelected(false);
@@ -62,8 +70,8 @@ const ToggleContextProvider = ({ children }) => {
   };
 
   const closeTechMenu = () => {
-    setTechMenuSelected(false)
-  }
+    setTechMenuSelected(false);
+  };
 
   return (
     <ToggleContext.Provider
@@ -85,7 +93,10 @@ const ToggleContextProvider = ({ children }) => {
         // buildings menu
         quickOpenBuildingsMenu,
         closeTechMenu,
-        playerDataModel
+        playerDataModel,
+        buyTileScreenToggle,
+        openBuyTileModal,
+        closeBuyTileModal,
       }}
     >
       {children}

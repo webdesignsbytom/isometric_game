@@ -1,5 +1,5 @@
 export class Tile {
-  constructor(id, offX, offY, fillColour, borderColor) {
+  constructor(id, offX, offY, fillColour, borderColor, isOwned) {
     this.id = id;
     this.offX = offX;
     this.offY = offY;
@@ -7,7 +7,7 @@ export class Tile {
     this.borderColor = borderColor;
     this.isHovered = false;
     this.isActive = false;
-    this.isOwned = false;
+    this.isOwned = isOwned;
     this.tileColumnOffset = 64;
     this.tileRowOffset = 32;
   }
