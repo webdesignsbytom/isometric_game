@@ -202,8 +202,10 @@ function GameCanvas() {
           isoX + isoY <= 1
         ) {
           tile.isActive = true;
+
           if (!tile.isOwned) {
-            openBuyTileModal();
+            console.log('1 tile', tile);
+            openBuyTileModal(tile);
           }
           // Break out of the loop to prevent further tiles from being clicked
           break;
@@ -217,7 +219,7 @@ function GameCanvas() {
       isProcessingClick = false;
     }
   };
-  console.log('Player', player);
+  
   return (
     <canvas
       ref={canvasRef}

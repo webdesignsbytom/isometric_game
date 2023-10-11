@@ -13,6 +13,9 @@ const ToggleContextProvider = ({ children }) => {
   const [buildingsMenuSelected, setBuildingsMenuSelected] = useState(false);
   const [techMenuSelected, setTechMenuSelected] = useState(false);
   const [troopsMenuSelected, setTroopsMenuSelected] = useState(false);
+  
+  // Tiles
+  const [tileToPurchase, setTileToPurchase] = useState(false);
 
   const [activeNav, setActiveNav] = useState('/');
 
@@ -24,8 +27,10 @@ const ToggleContextProvider = ({ children }) => {
     setDisplayMainMenuBar(true);
   };
 
-  const openBuyTileModal = () => {
+  // Buy tile
+  const openBuyTileModal = (tile) => {
     setBuyTileScreenToggle(true);
+    setTileToPurchase(tile)
   };
   const closeBuyTileModal = () => {
     setBuyTileScreenToggle(false);
@@ -95,6 +100,8 @@ const ToggleContextProvider = ({ children }) => {
         closeTechMenu,
         playerDataModel,
         buyTileScreenToggle,
+        // Tiles
+        tileToPurchase,
         openBuyTileModal,
         closeBuyTileModal,
       }}

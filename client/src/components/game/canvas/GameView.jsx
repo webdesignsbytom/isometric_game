@@ -13,7 +13,7 @@ import PlayerDataModal from '../modals/PlayerDataModal';
 import BuyTileModal from '../modals/BuyTileModal';
 
 function GameView() {
-  const { displayMainMenuBar, techMenuSelected, playerDataModel, buyTileScreenToggle } = useContext(ToggleContext);
+  const { displayMainMenuBar, techMenuSelected, playerDataModel, buyTileScreenToggle, tileToPurchase } = useContext(ToggleContext);
   const { cantAffordBuilding } = useContext(PlayerContext);
 
   return (
@@ -22,7 +22,7 @@ function GameView() {
       {cantAffordBuilding && <CantAffordBuilding />}
       {techMenuSelected && <TechMenuBar />}
       {playerDataModel && <PlayerDataModal />}
-      {buyTileScreenToggle && <BuyTileModal />}
+      {buyTileScreenToggle && <BuyTileModal tileToPurchase={tileToPurchase}/>}
       {displayMainMenuBar ? <MainMenuBar /> : <OpenMenuButton />}
     </main>
   );

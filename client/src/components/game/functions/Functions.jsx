@@ -278,3 +278,11 @@ export const collectFromBuildingAndUpdateFunds = (
     }
   }
 };
+
+export const buyNewTile = ({ tileToPurchase, closeBuyTileModal }) => {
+  console.log('NEW TILES', tileToPurchase);
+  tileToPurchase.isOwned = true;
+  tileToPurchase.fillColour = ownedTileColourHex;
+  tileToPurchase.isActive = false;
+  closeBuyTileModal()
+}

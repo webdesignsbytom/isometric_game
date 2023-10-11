@@ -9,21 +9,28 @@ export const PlayerContext = React.createContext();
 
 const PlayerContextProvider = ({ children }) => {
   const [player, setPlayer] = useState(tempPlayerData);
-  const [cantAffordBuilding, setCantAffordBuilding] = useState(false);
-  const [playerLevelsData, setPlayerLevelsData] = useState(PlayerLevelsArray);
-  const [currentLevelData, setCurrentLevelData] = useState(PlayerLevelsArray);
+  // Modals
+  const [cantAffordBuilding, setCantAffordBuilding] = useState(false); // Open modal
+  // Levels
+  const [playerLevelsData, setPlayerLevelsData] = useState(PlayerLevelsArray); // List of levels
+  const [currentLevelData, setCurrentLevelData] = useState({}); // One level
 
   useEffect(() => {
-    const currentLevelNum = player.playerLevel
-    const foundLevel = playerLevelsData.find(e => e.level === currentLevelNum)
-    setCurrentLevelData(foundLevel)
-  }, [])
+    // Set the current level
+    const currentLevelNum = player.playerLevel;
+    const foundLevel = playerLevelsData.find(
+      (e) => e.level === currentLevelNum
+    );
+    setCurrentLevelData(foundLevel);
+  }, []);
 
+  // References
   const mouseItemRef = useRef(null);
   const mouseBuildingRef = useRef(null);
   const buildingIDNumberRef = useRef(1);
 
   const buyBuilding = (building) => {
+    // Check currency type and affordability
     if (
       building.currencyType === 'gold' &&
       building.cost > player.currencyData.gold
@@ -39,9 +46,11 @@ const PlayerContextProvider = ({ children }) => {
     } else {
       mouseItemRef.current = building;
 
+      // Preload image for new building
       const mouseBuildingImage = new Image();
       mouseBuildingImage.src = building.imageUrl;
 
+      // Onload image create building object
       mouseBuildingImage.onload = () => {
         const selectedBuilding = new Building(
           buildingIDNumberRef.current, // ID
@@ -69,22 +78,27 @@ const PlayerContextProvider = ({ children }) => {
     }
   };
 
+  // Close cant afford modal
   const closeCantAffordBuildingModal = () => {
     setCantAffordBuilding(false);
   };
+
   return (
     <PlayerContext.Provider
       value={{
+        // Player
         player,
         setPlayer,
-        buyBuilding,
+        // Mouse
         mouseItemRef,
         mouseBuildingRef,
         // Buildings
+        buyBuilding,
         cantAffordBuilding,
         closeCantAffordBuildingModal,
         buildingIDNumberRef,
-        currentLevelData
+        // Levels
+        currentLevelData,
       }}
     >
       {children}
