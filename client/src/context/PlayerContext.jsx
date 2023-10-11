@@ -11,6 +11,7 @@ const PlayerContextProvider = ({ children }) => {
   const [player, setPlayer] = useState(tempPlayerData);
   // Modals
   const [cantAffordBuilding, setCantAffordBuilding] = useState(false); // Open modal
+  const [cantAffordTile, setCantAffordTile] = useState(false); // Open modal
   // Levels
   const [playerLevelsData, setPlayerLevelsData] = useState(PlayerLevelsArray); // List of levels
   const [currentLevelData, setCurrentLevelData] = useState({}); // One level
@@ -23,7 +24,7 @@ const PlayerContextProvider = ({ children }) => {
     );
     setCurrentLevelData(foundLevel);
   }, []);
-
+  console.log('player', player);
   // References
   const mouseItemRef = useRef(null);
   const mouseBuildingRef = useRef(null);
@@ -41,7 +42,6 @@ const PlayerContextProvider = ({ children }) => {
       building.currencyType === 'gems' &&
       building.cost > player.currencyData.gems
     ) {
-      console.log('CANNOT AFFORD ITEM');
       setCantAffordBuilding(true);
     } else {
       mouseItemRef.current = building;
@@ -82,6 +82,12 @@ const PlayerContextProvider = ({ children }) => {
   const closeCantAffordBuildingModal = () => {
     setCantAffordBuilding(false);
   };
+  const closeCantAffordTileModal = () => {
+    setCantAffordBuilding(false);
+  };
+  const openCantAffordTileModal = () => {
+    setCantAffordBuilding(true);
+  };
 
   return (
     <PlayerContext.Provider
@@ -99,6 +105,10 @@ const PlayerContextProvider = ({ children }) => {
         buildingIDNumberRef,
         // Levels
         currentLevelData,
+        // Tiles
+        cantAffordTile,
+        closeCantAffordTileModal,
+        openCantAffordTileModal,
       }}
     >
       {children}

@@ -1,3 +1,5 @@
+import { startingTileCost } from '../../../utils/gameData/Constants';
+
 export class Tile {
   constructor(id, offX, offY, fillColour, borderColor, isOwned) {
     this.id = id;
@@ -10,6 +12,7 @@ export class Tile {
     this.isOwned = isOwned;
     this.tileColumnOffset = 64;
     this.tileRowOffset = 32;
+    this.cost = startingTileCost;
   }
 
   drawTile = (context) => {

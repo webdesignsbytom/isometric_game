@@ -6,14 +6,16 @@ import {
 // Components
 import { Tile } from '../canvas/Tile';
 
-export const createTileGrid = (
+export const createNewGameTileGrid = (
   originX,
   originY,
   maxGridXLength,
   maxGridYLength,
   tileColumnOffset,
   tileRowOffset,
-  tilesRef
+  tilesRef,
+  player,
+  setPlayer
 ) => {
   // Create preowned tiles array
   const numRows = 20;
@@ -73,6 +75,15 @@ export const createTileGrid = (
     }
   }
 
+  // Update player state with preowned tiles
+  let tileData = player.tileData
+  tileData.tilesArray = tilesArray;
+
+  setPlayer({
+    ...player,
+    tileData: tileData
+  })
+  
   tilesRef.current = tilesArray;
 };
 
@@ -256,6 +267,7 @@ export const collectFromBuildingAndUpdateFunds = (
       clearCanvas(canvasRef);
       drawCanvasElements();
 
+      // Update player funds
       let fundsAvailable = player.currencyData;
       let income = building.incomeAmount;
       let current = fundsAvailable.gold;
@@ -279,10 +291,28 @@ export const collectFromBuildingAndUpdateFunds = (
   }
 };
 
-export const buyNewTile = ({ tileToPurchase, closeBuyTileModal }) => {
-  console.log('NEW TILES', tileToPurchase);
+export const buyNewTile = ({ tileToPurchase, closeBuyTileModal, player, setPlayer, openCantAffordTileModal }) => {
+  if (player.currencyData.gold < tileToPurchase.cost) {
+    openCantAffordTileModal()
+    closeBuyTileModal()
+    return
+  }
+  // Update tile
   tileToPurchase.isOwned = true;
   tileToPurchase.fillColour = ownedTileColourHex;
   tileToPurchase.isActive = false;
+
+  // Update player funds
+  let fundsAvailable = player.currencyData;
+  let cost = tileToPurchase.cost
+  let playerGold = fundsAvailable.gold
+  let newAmount = playerGold - cost
+  fundsAvailable.gold = newAmount;
+
+  setPlayer({
+    ...player,
+    currencyData: fundsAvailable,
+  });
+
   closeBuyTileModal()
 }

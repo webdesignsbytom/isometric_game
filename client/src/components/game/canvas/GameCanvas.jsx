@@ -10,7 +10,7 @@ import {
   collectFromBuildingAndUpdateFunds,
   completeBuildingPurchaseGems,
   completeBuildingPurchaseGold,
-  createTileGrid,
+  createNewGameTileGrid,
   drawBuildingElements,
   drawTileGrid,
   purchaseAndPlaceNewBuilding,
@@ -69,14 +69,16 @@ function GameCanvas() {
     goldCoinRef.current = goldCoin;
 
     // Create tiles
-    createTileGrid(
+    createNewGameTileGrid(
       originX,
       originY,
       maxGridXLength,
       maxGridYLength,
       tileColumnOffset,
       tileRowOffset,
-      tilesRef
+      tilesRef,
+      player,
+      setPlayer
     );
 
     // Draw game on canvas
@@ -219,7 +221,7 @@ function GameCanvas() {
       isProcessingClick = false;
     }
   };
-  
+
   return (
     <canvas
       ref={canvasRef}
