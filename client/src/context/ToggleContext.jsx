@@ -14,6 +14,10 @@ const ToggleContextProvider = ({ children }) => {
   const [buildingsMenuSelected, setBuildingsMenuSelected] = useState(false);
   const [techMenuSelected, setTechMenuSelected] = useState(false);
   const [troopsMenuSelected, setTroopsMenuSelected] = useState(false);
+  const [guildMenuSelected, setGuildMenuSelected] = useState(false);
+  const [environmentMenuSelected, setEnvironmentMenuSelected] = useState(false);
+  const [questsMenuSelected, setQuestsMenuSelected] = useState(false);
+  const [earnGemsMenuSelected, setEarnGemsMenuSelected] = useState(false);
 
   // Tiles
   const [tileToPurchase, setTileToPurchase] = useState(false);
@@ -62,22 +66,65 @@ const ToggleContextProvider = ({ children }) => {
       setBuildingsMenuSelected(true);
       setTechMenuSelected(false);
       setTroopsMenuSelected(false);
+      setGuildMenuSelected(false);
+      setEnvironmentMenuSelected(false);
+      setQuestsMenuSelected(false);
+      setEarnGemsMenuSelected(false);
     }
     if (name === 'technology') {
       setBuildingsMenuSelected(false);
       setTechMenuSelected(true);
       setTroopsMenuSelected(false);
       setDisplayMainMenuBar(false);
+      setGuildMenuSelected(false);
+      setEnvironmentMenuSelected(false);
+      setQuestsMenuSelected(false);
+      setEarnGemsMenuSelected(false);
     }
     if (name === 'troops') {
       setBuildingsMenuSelected(false);
       setTechMenuSelected(false);
       setTroopsMenuSelected(true);
+      setGuildMenuSelected(false);
+      setEnvironmentMenuSelected(false);
+      setQuestsMenuSelected(false);
+      setEarnGemsMenuSelected(false);
     }
     if (name === 'guilds') {
       setBuildingsMenuSelected(false);
       setTechMenuSelected(false);
-      setTroopsMenuSelected(true);
+      setTroopsMenuSelected(false);
+      setGuildMenuSelected(true);
+      setEnvironmentMenuSelected(false);
+      setQuestsMenuSelected(false);
+      setEarnGemsMenuSelected(false);
+    }
+    if (name === 'environment') {
+      setBuildingsMenuSelected(false);
+      setTechMenuSelected(false);
+      setTroopsMenuSelected(false);
+      setGuildMenuSelected(false);
+      setEnvironmentMenuSelected(true);
+      setQuestsMenuSelected(false);
+      setEarnGemsMenuSelected(false);
+    }
+    if (name === 'quests') {
+      setBuildingsMenuSelected(false);
+      setTechMenuSelected(false);
+      setTroopsMenuSelected(false);
+      setGuildMenuSelected(false);
+      setEnvironmentMenuSelected(false);
+      setQuestsMenuSelected(true);
+      setEarnGemsMenuSelected(false);
+    }
+    if (name === 'earn_gems') {
+      setBuildingsMenuSelected(false);
+      setTechMenuSelected(false);
+      setTroopsMenuSelected(false);
+      setGuildMenuSelected(false);
+      setEnvironmentMenuSelected(false);
+      setQuestsMenuSelected(false);
+      setEarnGemsMenuSelected(true);
     }
   };
 
