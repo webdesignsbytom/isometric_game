@@ -8,29 +8,42 @@ const ToggleContextProvider = ({ children }) => {
   const [displayMainMenuBar, setDisplayMainMenuBar] = useState(false);
   const [playerDataModel, setPlayerDataModel] = useState(true);
   const [buyTileScreenToggle, setBuyTileScreenToggle] = useState(false);
+  const [levelCompletedModalOpen, setLevelCompletedModalOpen] = useState(false);
   // Secondary menus
   const [selectedSecondaryMenu, setSelectedSecondaryMenu] = useState(false);
   const [buildingsMenuSelected, setBuildingsMenuSelected] = useState(false);
   const [techMenuSelected, setTechMenuSelected] = useState(false);
   const [troopsMenuSelected, setTroopsMenuSelected] = useState(false);
-  
+
   // Tiles
   const [tileToPurchase, setTileToPurchase] = useState(false);
 
   const [activeNav, setActiveNav] = useState('/');
 
+  // Navigation
   const toggleNavbarOpenClosed = () => {
     setToggleNavigation(!toggleNavigation);
   };
 
+  // Main menu - troops, buildings
   const openMainMenuBar = () => {
     setDisplayMainMenuBar(true);
+  };
+
+  // Level completed modal
+  const openLevelCompletedModel = () => {
+    console.log('AAAAA');
+    setLevelCompletedModalOpen(true);
+  };
+  const closeLevelCompletedModel = () => {
+    console.log('AAAAA');
+    setLevelCompletedModalOpen(false);
   };
 
   // Buy tile
   const openBuyTileModal = (tile) => {
     setBuyTileScreenToggle(true);
-    setTileToPurchase(tile)
+    setTileToPurchase(tile);
   };
   const closeBuyTileModal = () => {
     setBuyTileScreenToggle(false);
@@ -104,6 +117,10 @@ const ToggleContextProvider = ({ children }) => {
         tileToPurchase,
         openBuyTileModal,
         closeBuyTileModal,
+        // Level completed
+        levelCompletedModalOpen,
+        openLevelCompletedModel,
+        closeLevelCompletedModel,
       }}
     >
       {children}

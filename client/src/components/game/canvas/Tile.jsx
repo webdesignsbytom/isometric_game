@@ -13,6 +13,7 @@ export class Tile {
     this.tileColumnOffset = 64;
     this.tileRowOffset = 32;
     this.cost = startingTileCost;
+    this.purchaseXp = 100;
   }
 
   drawTile = (context) => {

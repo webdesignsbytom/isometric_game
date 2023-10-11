@@ -76,14 +76,27 @@ export const createNewGameTileGrid = (
   }
 
   // Update player state with preowned tiles
-  let tileData = player.tileData
-  tileData.tilesArray = tilesArray;
+  let tileData = player.tileData;
+
+  let ownedTiles = [];
+
+  tilesArray.forEach((tile) => {
+    if (tile.isOwned) {
+      //console.log('tile', tile);
+      ownedTiles.push(tile);
+    }
+  });
+
+  // Update player
+  tileData.tilesArray = ownedTiles;
+  let numTilesOwned = ownedTiles.length;
+  tileData.tilesOwned = numTilesOwned;
 
   setPlayer({
     ...player,
-    tileData: tileData
-  })
-  
+    tileData: tileData,
+  });
+
   tilesRef.current = tilesArray;
 };
 
@@ -138,11 +151,9 @@ export const completeBuildingPurchaseGems = (
   array.push(mouseBuildingAvailable);
   buildingsRef.current = array;
 
+  // Update xp
   let currentXp = player.currentXp;
-  console.log('currentXp: ', currentXp);
-  console.log('mouseBuildingAvailable', mouseBuildingAvailable);
   let buildingXp = mouseBuildingAvailable.xpForPurchasing;
-
   let newTotalXp = currentXp + buildingXp;
 
   setPlayer({
@@ -291,11 +302,17 @@ export const collectFromBuildingAndUpdateFunds = (
   }
 };
 
-export const buyNewTile = ({ tileToPurchase, closeBuyTileModal, player, setPlayer, openCantAffordTileModal }) => {
+export const buyNewTile = ({
+  tileToPurchase,
+  closeBuyTileModal,
+  player,
+  setPlayer,
+  openCantAffordTileModal,
+}) => {
   if (player.currencyData.gold < tileToPurchase.cost) {
-    openCantAffordTileModal()
-    closeBuyTileModal()
-    return
+    openCantAffordTileModal();
+    closeBuyTileModal();
+    return;
   }
   // Update tile
   tileToPurchase.isOwned = true;
@@ -304,15 +321,21 @@ export const buyNewTile = ({ tileToPurchase, closeBuyTileModal, player, setPlaye
 
   // Update player funds
   let fundsAvailable = player.currencyData;
-  let cost = tileToPurchase.cost
-  let playerGold = fundsAvailable.gold
-  let newAmount = playerGold - cost
+  let cost = tileToPurchase.cost;
+  let playerGold = fundsAvailable.gold;
+  let newAmount = playerGold - cost;
   fundsAvailable.gold = newAmount;
+
+  // update player xp
+  let xpAvailable = tileToPurchase.purchaseXp
+  let currentXp = player.currentXp
+  let newXpAmount = currentXp + xpAvailable
 
   setPlayer({
     ...player,
     currencyData: fundsAvailable,
+    currentXp: newXpAmount
   });
 
-  closeBuyTileModal()
-}
+  closeBuyTileModal();
+};

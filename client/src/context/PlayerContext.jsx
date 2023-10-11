@@ -23,7 +23,8 @@ const PlayerContextProvider = ({ children }) => {
       (e) => e.level === currentLevelNum
     );
     setCurrentLevelData(foundLevel);
-  }, []);
+  }, [player.playerLevel]);
+
   console.log('player', player);
   // References
   const mouseItemRef = useRef(null);
