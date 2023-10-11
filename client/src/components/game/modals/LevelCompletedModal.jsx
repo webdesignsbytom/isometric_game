@@ -4,6 +4,7 @@ import { ToggleContext } from '../../../context/ToggleContext';
 
 function LevelCompletedModal() {
   const { closeLevelCompletedModel } = useContext(ToggleContext);
+  
   return (
     <article className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 outline outline-1 outline-black bg-white rounded-xl h-[200px] w-[300px] p-2 grid grid-rows-rev'>
       <div className='text-center'>LEVEL COMPLETED</div>

@@ -8,8 +8,6 @@ import { maxGridYAxisLength } from '../../../utils/gameData/Constants';
 import {
   clearCanvas,
   collectFromBuildingAndUpdateFunds,
-  completeBuildingPurchaseGems,
-  completeBuildingPurchaseGold,
   createNewGameTileGrid,
   drawBuildingElements,
   drawTileGrid,

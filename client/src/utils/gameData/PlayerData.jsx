@@ -1,7 +1,9 @@
 import { Building } from '../../components/game/canvas/Building';
+// Data
 import { BuildingsMenuArray } from './BuildingsData';
 // Images
 import PlayerImg from '../../assets/images/game/player/user.png';
+// Constants
 import { startingTileCost } from './Constants';
 
 export const tempUserData = {
@@ -19,8 +21,6 @@ let building2 = BuildingsMenuArray[1];
 buildingImage1.src = building1.imageUrl;
 buildingImage2.src = building2.imageUrl;
 
-// const tempBuilding1 = new Building(1, building1.name, buildingImage1, 100, 100, 100, 100);
-// const tempBuilding2 = new Building(2, building2.name, buildingImage2, 300, 300, 100, 100);
 const tempBuilding1 = new Building(
   1, // ID
   building1.name, // building name lowercase
@@ -67,13 +67,13 @@ const tempBuilding2 = new Building(
 export const tempPlayerData = {
   playerName: 'Tom',
   playerID: 1,
+  playerLevel: 1,
+  playerImage: PlayerImg,
+  currentXp: 0,
+  totalXp: 0,
   townData: {
     townName: 'Rascleville',
   },
-  playerLevel: 1,
-  playerImage: PlayerImg,
-  currentXp: 25,
-  totalXp: 25,
   currencyData: {
     gold: 1000,
     gems: 500,
@@ -85,6 +85,6 @@ export const tempPlayerData = {
   },
   buildingsData: {
     buildingsOwned: 0,
-    buildingsArray: [tempBuilding1, tempBuilding2],
+    buildingsArray: [],
   },
 };

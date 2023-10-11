@@ -32,11 +32,9 @@ const ToggleContextProvider = ({ children }) => {
 
   // Level completed modal
   const openLevelCompletedModel = () => {
-    console.log('AAAAA');
     setLevelCompletedModalOpen(true);
   };
   const closeLevelCompletedModel = () => {
-    console.log('AAAAA');
     setLevelCompletedModalOpen(false);
   };
 
@@ -58,7 +56,6 @@ const ToggleContextProvider = ({ children }) => {
   };
 
   const openSecondaryMenu = (name) => {
-    console.log('name', name);
     setSelectedSecondaryMenu(true);
 
     if (name === 'buildings') {
@@ -73,6 +70,11 @@ const ToggleContextProvider = ({ children }) => {
       setDisplayMainMenuBar(false);
     }
     if (name === 'troops') {
+      setBuildingsMenuSelected(false);
+      setTechMenuSelected(false);
+      setTroopsMenuSelected(true);
+    }
+    if (name === 'guilds') {
       setBuildingsMenuSelected(false);
       setTechMenuSelected(false);
       setTroopsMenuSelected(true);

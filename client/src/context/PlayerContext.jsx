@@ -25,7 +25,6 @@ const PlayerContextProvider = ({ children }) => {
     setCurrentLevelData(foundLevel);
   }, [player.playerLevel]);
 
-  console.log('player', player);
   // References
   const mouseItemRef = useRef(null);
   const mouseBuildingRef = useRef(null);
@@ -37,7 +36,6 @@ const PlayerContextProvider = ({ children }) => {
       building.currencyType === 'gold' &&
       building.cost > player.currencyData.gold
     ) {
-      console.log('CANNOT AFFORD ITEM');
       setCantAffordBuilding(true);
     } else if (
       building.currencyType === 'gems' &&

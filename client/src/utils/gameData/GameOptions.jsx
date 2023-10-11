@@ -17,4 +17,28 @@ export const MainMenuOptions = [
         name: "troops",
         image: "⚔️",
     },
+    {
+        id: 4,
+        title: "Guild",
+        name: "guild",
+        image: "👥",
+    },
+    {
+        id: 5,
+        title: "Environment",
+        name: "environment",
+        image: "🌿",
+    },
+    {
+        id: 6,
+        title: "Quests",
+        name: "quests",
+        image: "👥",
+    },
+    {
+        id: 7,
+        title: "Earn Gems",
+        name: "earn_gems",
+        image: "📋",
+    },
 ]
