@@ -33,24 +33,28 @@ async function seed() {
 
   const userTiles = await dbClient.tile.createMany({
     data: [
-			{
-				"tileIdNum": 1,
-				"playerId": '111',
-			},
-			{
-				"tileIdNum": 2,
-				"playerId": '111',
-			},
-			{
-				"tileIdNum": 3,
-				"playerId": '111',
-			},
-			{
-				"tileIdNum": 4,
-				"playerId": '111',
-			}
-		]
-  })
+      {
+        tileIdNum: 1,
+        playerId: '111',
+        hasBuilding: true,
+      },
+      {
+        tileIdNum: 2,
+        playerId: '111',
+        hasBuilding: true,
+      },
+      {
+        tileIdNum: 3,
+        playerId: '111',
+        hasBuilding: true,
+      },
+      {
+        tileIdNum: 4,
+        playerId: '111',
+        hasBuilding: true,
+      },
+    ],
+  });
 
   const testAdmin = await dbClient.user.create({
     data: {
@@ -81,49 +85,53 @@ async function seed() {
 
   const adminTiles = await dbClient.tile.createMany({
     data: [
-			{
-				"tileIdNum": 1,
-				"playerId": '222',
-			},
-			{
-				"tileIdNum": 2,
-				"playerId": '222',
-			},
-			{
-				"tileIdNum": 3,
-				"playerId": '222',
-			},
-			{
-				"tileIdNum": 4,
-				"playerId": '222',
-			}
-		]
-  })
+      {
+        tileIdNum: 1,
+        playerId: '222',
+        hasBuilding: true,
+      },
+      {
+        tileIdNum: 2,
+        playerId: '222',
+        hasBuilding: true,
+      },
+      {
+        tileIdNum: 3,
+        playerId: '222',
+        hasBuilding: true,
+      },
+      {
+        tileIdNum: 4,
+        playerId: '222',
+        hasBuilding: true,
+      },
+    ],
+  });
 
   const adminBuildings = await dbClient.building.createMany({
     data: [
-			{
-				"locationTileId": 1,
-        "buildingIdNum": 1,
-				"playerId": '222',
-			},
-			{
-				"locationTileId": 2,
-        "buildingIdNum": 2,
-				"playerId": '222',
-			},
-			{
-				"locationTileId": 3,
-        "buildingIdNum": 3,
-				"playerId": '222',
-			},
-			{
-				"locationTileId": 4,
-        "buildingIdNum": 4,
-				"playerId": '222',
-			}
-		]
-  })
+      {
+        locationTileId: 1,
+        buildingIdNum: 1,
+        playerId: '222',
+      },
+      {
+        locationTileId: 2,
+        buildingIdNum: 2,
+        playerId: '222',
+      },
+      {
+        locationTileId: 3,
+        buildingIdNum: 3,
+        playerId: '222',
+      },
+      {
+        locationTileId: 4,
+        buildingIdNum: 4,
+        playerId: '222',
+      },
+    ],
+  });
 
   const testDev = await dbClient.user.create({
     data: {

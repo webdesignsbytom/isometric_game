@@ -57,12 +57,13 @@ model Player {
 }
 
 model Tile {
-  id        String    @id @default(uuid())
-  tileIdNum Int
-  playerId  String
-  player    Player    @relation(fields: [playerId], references: [id])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  id          String    @id @default(uuid())
+  tileIdNum   Int
+  playerId    String
+  hasBuilding Boolean   @default(false)
+  player      Player    @relation(fields: [playerId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
 }
 
 model Building {

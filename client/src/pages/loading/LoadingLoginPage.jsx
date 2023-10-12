@@ -8,7 +8,7 @@ import LoadingSpinner from '../../components/utils/LoadingSpinner';
 // API
 import client from '../../api/client';
 
-function LoadingPage() {
+function LoadingLoginPage() {
   const { user } = useContext(UserContext);
   const { player, setPlayer } = useContext(PlayerContext);
 
@@ -104,4 +104,4 @@ function LoadingPage() {
   );
 }
 
-export default LoadingPage;
+export default LoadingLoginPage;
