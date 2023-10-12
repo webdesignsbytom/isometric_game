@@ -23,8 +23,8 @@ function RegisterForm() {
 
   let navigate = useNavigate();
 
-  const loginPage = () => {
-    navigate('/login', { replace: true });
+  const gamePage = () => {
+    navigate('/game', { replace: true });
   };
 
   const handleSubmitRegisterForm = (event) => {
@@ -45,7 +45,7 @@ function RegisterForm() {
           success: true,
         });
         setTimeout(() => {
-          loginPage();
+          gamePage();
         }, 2000);
       })
 
@@ -108,7 +108,7 @@ function RegisterForm() {
         onChange={handleChange}
       />
       <div className='mb-6'>
-        <CountrySelect />
+        <CountrySelect handleChange={handleChange} />
       </div>
       <div className='form-check flex justify-center mb-6'>
         <input

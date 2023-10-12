@@ -7,7 +7,7 @@ function CountrySelect({ handleChange }) {
         id='country'
         name='country'
         onChange={handleChange}
-        className='country__inputs'
+        className='py-1'
         required
       >
         <option defaultValue='United Kingdom'>United Kingdom</option>

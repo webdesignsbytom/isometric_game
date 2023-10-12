@@ -8,8 +8,8 @@ import GamePage from './pages/game/GamePage';
 function App() {
   return (
       <Routes>
-        <Route path='/home' element={<HomePage />} />
-        <Route path='/' index element={<GamePage />} />
+        <Route path='/' index element={<HomePage />} />
+        <Route path='/game' element={<GamePage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/sign-up' element={<RegisterPage />} />
       </Routes>

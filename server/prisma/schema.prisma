@@ -31,6 +31,7 @@ model User {
 model Profile {
   id        String    @id @default(uuid())
   username  String    @unique
+  country   String    @default("space")
   userId    String    @unique
   user      User      @relation(fields: [userId], references: [id])
   createdAt DateTime  @default(now())

@@ -167,7 +167,7 @@ export const registerNewUser = async (req, res) => {
   const lowerCaseUsername = username.toLowerCase();
 
   try {
-    if (!lowerCaseEmail || !password || !username) {
+    if (!lowerCaseEmail || !password || !lowerCaseUsername || !country) {
       //
       const missingField = new MissingFieldEvent(
         null,
@@ -196,7 +196,6 @@ export const registerNewUser = async (req, res) => {
       hashedPassword,
       lowerCaseUsername,
       country,
-      agreedToTerms
     );
 
     if (!createdUser) {

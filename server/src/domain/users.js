@@ -73,12 +73,11 @@ export const findUsersByRole = (role) =>
     },
   });
 
-export const createUser = (email, password, username, country, agreedToTerms) =>
+export const createUser = (email, password, username, country) =>
   dbClient.user.create({
     data: {
       email: email,
       password: password,
-      agreedToTerms: agreedToTerms,
       profile: {
         create: {
           username: username,
