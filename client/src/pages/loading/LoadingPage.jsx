@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Context
 import { UserContext } from '../../context/UserContext';
@@ -11,9 +11,6 @@ import client from '../../api/client';
 function LoadingPage() {
   const { user } = useContext(UserContext);
   const { player, setPlayer } = useContext(PlayerContext);
-
-  const [foundPlayer, setFoundPlayer] = useState({});
-  const [foundPlayerTiles, setFoundPlayerTiles] = useState({});
 
   let navigate = useNavigate();
 
@@ -28,7 +25,6 @@ function LoadingPage() {
       .get(`/player/get-player-by-id/${user.id}`)
       .then((res) => {
         let playerData = res.data.data.player;
-        console.log('PLAYER RESPONSE', playerData);
         getPlayerTiles(playerData);
       })
       .catch((err) => {
@@ -37,12 +33,10 @@ function LoadingPage() {
   };
 
   const getPlayerTiles = (playerData) => {
-    console.log('player', player);
     client
       .get(`/player/get-player-tiles/${playerData.id}`)
       .then((res) => {
         let tilesFoundData = res.data.data.tiles;
-        console.log('TILES RESPONES', tilesFoundData);
         setPlayerResData(playerData, tilesFoundData);
       })
       .catch((err) => {
@@ -51,18 +45,28 @@ function LoadingPage() {
   };
 
   const setPlayerResData = (playerData, tilesFoundData) => {
+    // Update tiles
+    let foundTilesCount = tilesFoundData.length;
+
     setPlayer({
       ...player,
       playerName: playerData.playerName,
-      tileData: { tilesArray: tilesFoundData }
+      playerID: playerData.id,
+      playerLevel: playerData.playerLevel,
+      playerImage: playerData.playerImage,
+      currentXp: playerData.currentXp,
+      totalXp: playerData.totalXp,
+      currencyData: { gold: playerData.gold, gems: playerData.gems },
+      tileData: { tilesArray: tilesFoundData, tilesOwned: foundTilesCount }
     })
+
     gamePageAfterLoad();
   };
 
   const gamePageAfterLoad = () => {
     setTimeout(() => {
       navigate('/game', { replace: true });
-    }, 2000);
+    }, 500);
   };
 
   return (

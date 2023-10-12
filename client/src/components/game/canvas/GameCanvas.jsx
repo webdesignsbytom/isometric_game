@@ -3,7 +3,10 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { ToggleContext } from '../../../context/ToggleContext';
 import { PlayerContext } from '../../../context/PlayerContext';
 // Data
-import { maxGridYAxisLength } from '../../../utils/gameData/Constants';
+import {
+  maxGridYAxisLength,
+  ownedTileColourHex,
+} from '../../../utils/gameData/Constants';
 // Functions
 import {
   clearCanvas,
@@ -22,7 +25,6 @@ function GameCanvas() {
   const { player, setPlayer, mouseBuildingRef, buildingIDNumberRef } =
     useContext(PlayerContext);
 
-  console.log('QQQQQQQQQ', player);
   // Canvas and animations
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
@@ -80,9 +82,28 @@ function GameCanvas() {
       setPlayer
     );
 
+    if (player.playerID) {
+      drawTilesOwnedByPlayer();
+    }
+
     // Draw game on canvas
     drawCanvasElements();
   }, []);
+
+  const drawTilesOwnedByPlayer = () => {
+    let tileOwnedArray = player.tileData.tilesArray;
+
+    let newTileRef = tilesRef.current;
+
+    tileOwnedArray.forEach((tile) => {
+      // Find tiles that match owned tile id
+      let foundTile = newTileRef.find((e) => e.id === tile.tileIdNum);
+      if (foundTile) {
+        foundTile.isOwned = true;
+        foundTile.fillColour = ownedTileColourHex;
+      }
+    });
+  };
 
   // Main draw loop
   const drawCanvasElements = () => {
@@ -90,18 +111,13 @@ function GameCanvas() {
     drawTileGrid(contextRef, tilesRef);
     // Draw buildings on top
     drawBuildingElements(contextRef, buildingsRef, goldCoinRef);
-
-    // Cause moue building to be under grid
-    // requestAnimationFrame(drawCanvasElements);
   };
 
   const hoverMouseFunctions = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
-
     const context = contextRef.current;
 
     clearCanvas(canvasRef);
-
     drawCanvasElements();
 
     // Check for building to place
