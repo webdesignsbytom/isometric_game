@@ -204,7 +204,7 @@ export const purchaseAndPlaceNewBuilding = (
   setPlayer,
   buildingsRef,
   buildingIDNumberRef,
-  mouseBuildingRef
+  mouseBuildingRef,
 ) => {
   for (const tile of tiles) {
     // Convert mouse coordinates to isometric coordinates

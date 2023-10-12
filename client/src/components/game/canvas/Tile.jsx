@@ -10,6 +10,7 @@ export class Tile {
     this.isHovered = false;
     this.isActive = false;
     this.isOwned = isOwned;
+    this.hasBuilding = false;
     this.tileColumnOffset = 64;
     this.tileRowOffset = 32;
     this.cost = startingTileCost;
