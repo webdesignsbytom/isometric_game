@@ -21,13 +21,17 @@ export const EVENT_MESSAGES = {
   eventNotFound: `Failed to find event`,
   createEventFail: `Failed to create event`,
   eventNotDeleted: `Failed to delete event`,
-  // Designs
-  designTag: `Design database`,
-  designNotFound: `Failed to find design`,
-  createDesignFail: `Failed to create design`,
-  designNotDeleted: `Failed to delete design`,
+  // Players
+  playerTag: `Player database`,
+  playerNotFound: `Failed to find player`,
+  createPlayerFail: `Failed to create player`,
+  playerNotDeleted: `Failed to delete player`,
+  // Tiles
+  tilesTag: `Tile database`,
+  tilesNotFound: `Failed to find tiles`,
+  tilesDbEmpty: `No tiles for user found`,
   // Users
-  userTag: `User databased`,
+  userTag: `User database`,
   userNotFound: `Failed to find user/s`,
   emailInUse: `Email already in use`,
   usernameInUse: `Username already in use`,

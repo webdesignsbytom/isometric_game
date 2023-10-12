@@ -17,8 +17,10 @@ import InProgressBar from '../modals/InProgressBar';
 
 function GameView() {
   const { displayMainMenuBar, techMenuSelected, playerDataModel, buyTileScreenToggle, tileToPurchase, levelCompletedModalOpen, inprogressUpdatesModalOpen } = useContext(ToggleContext);
-  const { cantAffordBuilding, cantAffordTile } = useContext(PlayerContext);
+  const { cantAffordBuilding, cantAffordTile, player } = useContext(PlayerContext);
 
+  console.log('PLAYER CANVAS', player);
+  console.log('uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuUU');
   return (
     <main className='relative grid h-full w-full bg-red-200 border-solid border-yellow-300 border-4'>
       <GameCanvas />

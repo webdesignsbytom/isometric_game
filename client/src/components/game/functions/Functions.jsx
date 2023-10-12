@@ -91,10 +91,10 @@ export const createNewGameTileGrid = (
   let numTilesOwned = ownedTiles.length;
   tileData.tilesOwned = numTilesOwned;
 
-  setPlayer({
-    ...player,
-    tileData: tileData,
-  });
+  // setPlayer({
+  //   ...player,
+  //   tileData: tileData,
+  // });
 
   tilesRef.current = tilesArray;
 };

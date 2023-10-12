@@ -20,6 +20,14 @@ export const findUserByEmail = (email) =>
     },
   });
 
+export const findUserLoginByEmail = (email) =>
+  dbClient.user.findUnique({
+    where: { email: email },
+    include: {
+      profile: true,
+    },
+  });
+
 export const findUserByUsername = (username) =>
   dbClient.user.findFirst({
     where: {
@@ -97,6 +105,38 @@ export const createUser = (email, password, username, country) =>
       profile: true,
     },
   });
+
+export const createUserFromSandboxData = (email, password, username, country) =>
+  dbClient.user.create({
+    data: {
+      email: email,
+      password: password,
+      profile: {
+        create: {
+          username: username,
+          country: country,
+        },
+      },
+      player: {
+        create: {
+          playerName: 'new user',
+          playerLevel: 1,
+          playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
+          currentXp: 0,
+          totalXp: 0,
+          townName: 'Rascleville',
+          gold: 1000,
+          gems: 500,
+        },
+      },
+    },
+    include: {
+      player: true,
+      profile: true,
+    },
+  });
+
+
 
 export const findVerification = (userId) =>
   dbClient.userVerification.findUnique({

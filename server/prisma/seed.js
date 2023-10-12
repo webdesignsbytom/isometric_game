@@ -17,6 +17,7 @@ async function seed() {
       },
       player: {
         create: {
+          id: '111',
           playerName: 'CPT Joe',
           playerLevel: 5,
           playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
@@ -30,6 +31,27 @@ async function seed() {
     },
   });
 
+  const userTiles = await dbClient.tile.createMany({
+    data: [
+			{
+				"tileIdNum": 1,
+				"playerId": '111',
+			},
+			{
+				"tileIdNum": 2,
+				"playerId": '111',
+			},
+			{
+				"tileIdNum": 3,
+				"playerId": '111',
+			},
+			{
+				"tileIdNum": 4,
+				"playerId": '111',
+			}
+		]
+  })
+
   const testAdmin = await dbClient.user.create({
     data: {
       email: 'admin@admin.com',
@@ -37,6 +59,7 @@ async function seed() {
       role: 'ADMIN',
       player: {
         create: {
+          id: '222',
           playerName: 'Admin Guy',
           playerLevel: 5,
           playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
@@ -55,6 +78,27 @@ async function seed() {
       },
     },
   });
+
+  const adminTiles = await dbClient.tile.createMany({
+    data: [
+			{
+				"tileIdNum": 1,
+				"playerId": '222',
+			},
+			{
+				"tileIdNum": 2,
+				"playerId": '222',
+			},
+			{
+				"tileIdNum": 3,
+				"playerId": '222',
+			},
+			{
+				"tileIdNum": 4,
+				"playerId": '222',
+			}
+		]
+  })
 
   const testDev = await dbClient.user.create({
     data: {

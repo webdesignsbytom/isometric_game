@@ -6,6 +6,7 @@ import {
   getUserByEmail,
   deleteUser,
   getUserByUsername,
+  registerNewUserFromSandboxGame,
 } from '../controllers/users.js';
 import {
   validateAuthentication,
@@ -16,6 +17,7 @@ const router = Router();
 
 router.get('/all-users', getAllUsers);
 router.post('/register', registerNewUser);
+router.post('/register-sandbox', registerNewUserFromSandboxGame);
 router.get('/user/userId/:userId', getUserById);
 router.get('/user/email/:email', getUserByEmail);
 router.get('/user/username/:username', getUserByUsername);

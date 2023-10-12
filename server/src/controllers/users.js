@@ -159,6 +159,81 @@ export const getUserByUsername = async (req, res) => {
 
 export const registerNewUser = async (req, res) => {
   console.log('create new user');
+
+  const { email, password, username, country, agreedToTerms } = req.body;
+  const lowerCaseEmail = email.toLowerCase();
+  const lowerCaseUsername = username.toLowerCase();
+
+  try {
+    // Check missing data
+    if (!lowerCaseEmail || !password || !lowerCaseUsername || !country) {
+      //
+      const missingField = new MissingFieldEvent(
+        null,
+        'Registration: Missing Field/s event'
+      );
+      myEmitterErrors.emit('error', missingField);
+      return sendMessageResponse(res, missingField.code, missingField.message);
+    }
+
+    // Check if unique names exist
+    const foundUser = await findUserByEmail(lowerCaseEmail);
+    const foundUsername = await findUserByUsername(username);
+
+    if (foundUser) {
+      return sendDataResponse(res, 400, { email: EVENT_MESSAGES.emailInUse });
+    }
+    if (foundUsername) {
+      return sendDataResponse(res, 400, {
+        username: EVENT_MESSAGES.usernameInUse,
+      });
+    }
+
+    // Encode password
+    const hashedPassword = await bcrypt.hash(password, hashRate);
+
+    // Create user
+    const createdUser = await createUser(
+      lowerCaseEmail,
+      hashedPassword,
+      lowerCaseUsername,
+      country
+    );
+
+    if (!createdUser) {
+      const notCreated = new BadRequestEvent(
+        EVENT_MESSAGES.badRequest,
+        EVENT_MESSAGES.createUserFail
+      );
+      myEmitterErrors.emit('error', notCreated);
+      return sendMessageResponse(res, notCreated.code, notCreated.message);
+    }
+
+    delete createdUser.password;
+    delete createdUser.updatedAt;
+
+    console.log('created user: ', createdUser);
+
+    // Create preowned tiles for user
+    const userTiles = await createStarterTiles(
+      createdUser.id,
+      createdUser.player.id
+    );
+
+    return sendDataResponse(res, 202, { createdUser });
+  } catch (err) {
+    // Error
+    const serverError = new RegistrationServerErrorEvent(
+      `Register Server error`
+    );
+    myEmitterErrors.emit('error', serverError);
+    sendMessageResponse(res, serverError.code, serverError.message);
+    throw err;
+  }
+};
+
+export const registerNewUserFromSandboxGame = async (req, res) => {
+  console.log('create new user');
   const { email, password, username, country, agreedToTerms } = req.body;
   const lowerCaseEmail = email.toLowerCase();
   const lowerCaseUsername = username.toLowerCase();
@@ -192,7 +267,7 @@ export const registerNewUser = async (req, res) => {
       lowerCaseEmail,
       hashedPassword,
       lowerCaseUsername,
-      country,
+      country
     );
 
     if (!createdUser) {
@@ -208,11 +283,14 @@ export const registerNewUser = async (req, res) => {
     delete createdUser.updatedAt;
 
     console.log('created user: ', createdUser);
-    const userTiles = await createStarterTiles(createdUser.id, createdUser.player.id);
-console.log('user tiles: ', userTiles);
+    const userTiles = await createStarterTiles(
+      createdUser.id,
+      createdUser.player.id
+    );
+    console.log('user tiles: ', userTiles);
 
-const foundUser2 = await findUserByEmail(createdUser.email);
-console.log('found user2: ', foundUser2);
+    const foundUser2 = await findUserByEmail(createdUser.email);
+    console.log('found user2: ', foundUser2);
     return sendDataResponse(res, 202, { createdUser, userTiles });
   } catch (err) {
     // Error
