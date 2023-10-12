@@ -49,6 +49,7 @@ export class Building {
 
   drawBuilding = (context, goldCoinRef) => {
     // Draw tile interior
+    console.log('this', this);
     // Draw the building image with the same width and height as the tile
     context.drawImage(
       this.image,
@@ -68,7 +69,7 @@ export class Building {
     this.drawBuilding(context);
   }
 
-  setPosition(context, xpos, ypos) {
+  setPosition(xpos, ypos) {
     this.offX = xpos;
     this.offY = ypos;
   }

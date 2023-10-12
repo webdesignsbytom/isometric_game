@@ -63,7 +63,7 @@ const tempBuilding2 = new Building(
 
 export const tempPlayerData = {
   playerName: 'new user',
-  playerID: 1,
+  playerID: null,
   playerLevel: 1,
   playerImage: PlayerImg,
   currentXp: 0,
@@ -75,10 +75,7 @@ export const tempPlayerData = {
     gold: 1000,
     gems: 500,
   },
-  tileData: {
-    tilesOwned: 0,
-    tilesArray: [],
-  },
+  tileData: { tilesOwned: 0, tilesArray: [] },
   buildingsData: {
     buildingsOwned: 0,
     buildingsArray: [],

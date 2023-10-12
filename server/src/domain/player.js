@@ -13,3 +13,10 @@ export const findTilesByPlayerId = (playerId) =>
       playerId: playerId,
     },
   });
+  
+export const findBuildingsByPlayerId = (playerId) =>
+  dbClient.building.findMany({
+    where: {
+      playerId: playerId,
+    },
+  });

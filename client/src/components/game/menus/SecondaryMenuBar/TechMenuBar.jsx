@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// Componentss
+// Components
 import CloseTechMenuButton from './CloseTechMenuButton';
 // Data
 import { TechnologyDataArray } from '../../../../utils/gameData/TechnologyData';
