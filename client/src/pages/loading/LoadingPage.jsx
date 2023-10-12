@@ -16,8 +16,6 @@ function LoadingPage() {
   }, []);
 
   const setUserPlayerData = () => {
-    console.log('USER', user);
-    console.log('PLAYER', player);
     let loadingPlayer = user.player
     let currentPlayer = player
     // Update player state
@@ -32,13 +30,14 @@ function LoadingPage() {
     currentPlayer.gold = loadingPlayer.gold
     currentPlayer.gems = loadingPlayer.gems
 
-    console.log('loading', loadingPlayer);
     setPlayer(currentPlayer)
     gamePageAfterLoad()
   };
 
   const gamePageAfterLoad = () => {
-    navigate('/game', { replace: true });
+    setTimeout(() => {
+      navigate('/game', { replace: true });
+    }, 2000)
   };
 
   return (

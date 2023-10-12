@@ -82,7 +82,6 @@ export const createNewGameTileGrid = (
 
   tilesArray.forEach((tile) => {
     if (tile.isOwned) {
-      //console.log('tile', tile);
       ownedTiles.push(tile);
     }
   });

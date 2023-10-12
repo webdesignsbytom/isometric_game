@@ -65,9 +65,8 @@ export const getAllUsers = async (req, res) => {
 };
 
 export const getUserById = async (req, res) => {
-  console.log('getUserById');
   const userId = req.params.userId;
-  console.log('xxx');
+
   try {
     const foundUser = await findUserById(userId);
     if (!foundUser) {
@@ -95,9 +94,7 @@ export const getUserById = async (req, res) => {
 };
 
 export const getUserByEmail = async (req, res) => {
-  console.log('getUserByEmail');
   const { email } = req.params;
-  console.log('xxx', email);
 
   const lowerCaseEmail = email.toLowerCase();
   try {
@@ -113,7 +110,6 @@ export const getUserByEmail = async (req, res) => {
       return sendMessageResponse(res, notFound.code, notFound.message);
     }
 
-    console.log('found', foundUser);
     delete foundUser.password;
     delete foundUser.agreedToTerms;
 

@@ -17,16 +17,13 @@ function PlayerDataModal() {
       let currentLevel = player.playerLevel;
       let newLevelNum = currentLevel + 1;
 
+      // Update xp
       let currentXp = player.currentXp;
-      console.log('currentXp: ', currentXp);
       let xpToRemove = currentLevelData.xpRequired;
-      console.log('xpToRemove: ', xpToRemove);
       let newXp = currentXp - xpToRemove;
-      console.log('newXp: ', newXp);
       let currentTotalXp = player.totalXp;
-      console.log('currentTotalXp: ', currentTotalXp);
       let totalXp = currentTotalXp + xpToRemove;
-      console.log('totalXp: ', totalXp);
+
       setPlayer({
         ...player,
         playerLevel: newLevelNum,
