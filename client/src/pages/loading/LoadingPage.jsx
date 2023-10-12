@@ -37,16 +37,30 @@ function LoadingPage() {
       .get(`/player/get-player-tiles/${playerData.id}`)
       .then((res) => {
         let tilesFoundData = res.data.data.tiles;
-        setPlayerResData(playerData, tilesFoundData);
+        getPlayerBuildings(playerData, tilesFoundData);
       })
       .catch((err) => {
         console.error('BBB Unable to retrieve tiles for user', err);
       });
   };
 
-  const setPlayerResData = (playerData, tilesFoundData) => {
+  const getPlayerBuildings = (playerData, tilesFoundData) => {
+    client
+      .get(`/player/get-player-buildings/${playerData.id}`)
+      .then((res) => {
+        let buildingsFoundData = res.data.data.buildings;
+        console.log('buildingsFoundData', buildingsFoundData);
+        setPlayerResData(playerData, tilesFoundData, buildingsFoundData);
+      })
+      .catch((err) => {
+        console.error('BBB Unable to retrieve tiles for user', err);
+      });
+  }
+
+  const setPlayerResData = (playerData, tilesFoundData, buildingsFoundData) => {
     // Update tiles
     let foundTilesCount = tilesFoundData.length;
+    let foundBuildingsCount = buildingsFoundData.length;
 
     setPlayer({
       ...player,
@@ -57,7 +71,8 @@ function LoadingPage() {
       currentXp: playerData.currentXp,
       totalXp: playerData.totalXp,
       currencyData: { gold: playerData.gold, gems: playerData.gems },
-      tileData: { tilesArray: tilesFoundData, tilesOwned: foundTilesCount }
+      tileData: { tilesArray: tilesFoundData, tilesOwned: foundTilesCount },
+      buildingsData: { buildingsOwned: foundBuildingsCount, buildingsArray: buildingsFoundData }
     })
 
     gamePageAfterLoad();

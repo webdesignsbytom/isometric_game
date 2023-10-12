@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { ToggleContext } from '../../../context/ToggleContext';
 import { PlayerContext } from '../../../context/PlayerContext';
 // Data
+import { BuildingsMenuArray } from '../../../utils/gameData/BuildingsData';
 import {
   maxGridYAxisLength,
   ownedTileColourHex,
@@ -18,18 +19,19 @@ import {
 } from '../functions/Functions';
 // Images
 import Gold from '../../../assets/images/game/currency/goldCoin.png';
+import { Building } from './Building';
 
 function GameCanvas() {
-  const { quickOpenBuildingsMenu, openBuyTileModal } =
-    useContext(ToggleContext);
+
+  const { quickOpenBuildingsMenu, openBuyTileModal } = useContext(ToggleContext);
   const { player, setPlayer, mouseBuildingRef, buildingIDNumberRef } =
     useContext(PlayerContext);
 
-  // Canvas and animations
+    // Canvas and animations
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const tilesRef = useRef([]);
-  const buildingsRef = useRef(player.buildingsData.buildingsArray);
+  const buildingsRef = useRef([]);
   const goldCoinRef = useRef(null);
 
   // Grid sizes
@@ -84,11 +86,61 @@ function GameCanvas() {
 
     if (player.playerID) {
       drawTilesOwnedByPlayer();
+      drawBuildingsOwnedByPlayer();
     }
 
     // Draw game on canvas
     drawCanvasElements();
   }, []);
+
+  const drawBuildingsOwnedByPlayer = () => {
+    let buildingOwnedArray = player.buildingsData.buildingsArray;
+
+    let newArray = [];
+
+    buildingOwnedArray.forEach((building) => {
+      let buildingFound = BuildingsMenuArray.find(
+        (e) => e.id === building.buildingIdNum
+      );
+
+      if (buildingFound) {
+        let tiles = tilesRef.current;
+
+        let tileMatch = tiles.find(
+          (tile) => tile.id === building.locationTileId
+        );
+
+        const newImg = new Image();
+        newImg.src = "/static/media/small_hospital.12e9fbeb6d44f01a268b.png";
+
+        const newCreatedBuilding = new Building(
+          building.buildingIdNum, // ID
+          buildingFound.name, // building name lowercase
+          buildingFound.title, // building name For Show
+          newImg, // Image
+          buildingFound.description, //description
+          buildingFound.gridSize, // gridSize
+          buildingFound.xpForPurchasing, // xp for
+          buildingFound.cost, // Cost
+          buildingFound.currencyType, // Gems/Gold
+          buildingFound.incomeSeconds, // Time to produce
+          buildingFound.incomeAmount, // Amount to produce
+          buildingFound.incomeCurrency, // Gems/Gold to produce
+          buildingFound.incomePeriod, // Text version of time
+          buildingFound.constructionTime, // seconds to build
+          buildingFound.constructionTimePeriod, // Text seconds to build
+          buildingFound.constructionImage, // Construction image
+          tileMatch.offX, // X pos
+          tileMatch.offY, // Y pos
+          buildingFound.imageHeight // Image height
+        );
+        newArray.push(newCreatedBuilding);
+        // buildingFound.setPosition(tileMatch.offX, tileMatch.offY)
+      }
+    });
+
+    buildingsRef.current = newArray;
+  };
 
   const drawTilesOwnedByPlayer = () => {
     let tileOwnedArray = player.tileData.tilesArray;

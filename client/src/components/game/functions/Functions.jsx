@@ -99,6 +99,9 @@ export const drawBuildingElements = (contextRef, buildingsRef, goldCoinRef) => {
   const context = contextRef.current;
   const buildings = buildingsRef.current;
 
+  console.log('buildings IIIIIIIIi', buildings);
+  // console.log('');console.log('buildingsRef', buildingsRef);
+
   buildings.forEach((building) => {
     if (building.payoutCollectionTime <= new Date()) {
       building.payoutReady = true;
@@ -215,7 +218,7 @@ export const purchaseAndPlaceNewBuilding = (
     // Check if the mouse is within the bounds of the tile
     if (isoX >= 0 && isoY >= 0 && isoX <= 1 && isoY <= 1 && isoX + isoY <= 1) {
       // Set building to tile position
-      mouseBuildingAvailable.setPosition(context, tile.offX, tile.offY);
+      mouseBuildingAvailable.setPosition(tile.offX, tile.offY);
 
       // Buy with gems
       if (mouseBuildingAvailable.currencyType === 'gems') {
