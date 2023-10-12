@@ -77,20 +77,20 @@ export const createNewGameTileGrid = (
   console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ', player);
 
   // Update player state with preowned tiles
-  let tileData = player.tileData;
+  // let tileData = player.tileData;
 
-  let ownedTiles = [];
+  // let ownedTiles = [];
 
-  tilesArray.forEach((tile) => {
-    if (tile.isOwned) {
-      ownedTiles.push(tile);
-    }
-  });
+  // tilesArray.forEach((tile) => {
+  //   if (tile.isOwned) {
+  //     ownedTiles.push(tile);
+  //   }
+  // });
 
-  // Update player
-  tileData.tilesArray = ownedTiles;
-  let numTilesOwned = ownedTiles.length;
-  tileData.tilesOwned = numTilesOwned;
+  // // Update player
+  // tileData.tilesArray = ownedTiles;
+  // let numTilesOwned = ownedTiles.length;
+  // tileData.tilesOwned = numTilesOwned;
 
   tilesRef.current = tilesArray;
 };
