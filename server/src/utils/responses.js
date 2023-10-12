@@ -30,6 +30,10 @@ export const EVENT_MESSAGES = {
   tilesTag: `Tile database`,
   tilesNotFound: `Failed to find tiles`,
   tilesDbEmpty: `No tiles for user found`,
+  // Buildings
+  buildingsTag: `Building database`,
+  buildingsNotFound: `Failed to find buildings`,
+  buildingsDbEmpty: `No buildings for user found`,
   // Users
   userTag: `User database`,
   userNotFound: `Failed to find user/s`,

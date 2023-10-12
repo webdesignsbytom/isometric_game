@@ -59,19 +59,20 @@ model Player {
 model Tile {
   id        String    @id @default(uuid())
   tileIdNum Int
-  playerId  String    
+  playerId  String
   player    Player    @relation(fields: [playerId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 }
 
 model Building {
-  id            String    @id @default(uuid())
-  buildingIdNum Int
-  playerId      String    
-  player        Player    @relation(fields: [playerId], references: [id])
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime? @updatedAt
+  id             String    @id @default(uuid())
+  buildingIdNum  Int
+  locationTileId Int
+  playerId       String
+  player         Player    @relation(fields: [playerId], references: [id])
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime? @updatedAt
 }
 
 // EVENTS
