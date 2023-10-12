@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-//
+// Context
 import { ToggleContext } from '../../../../context/ToggleContext';
+// Components
 import BuildingsMenuBar from './BuildingsMenuBar';
-import TechMenuBar from './TechMenuBar';
 import TroopsMenuBar from './TroopsMenuBar';
 
 function SecondaryMenuContainer() {
-  const { buildingsMenuSelected, techMenuSelected, troopsMenuSelected } =
+  const { buildingsMenuSelected, troopsMenuSelected } =
     useContext(ToggleContext);
 
   return (

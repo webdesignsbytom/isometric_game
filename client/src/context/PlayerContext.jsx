@@ -15,6 +15,7 @@ const PlayerContextProvider = ({ children }) => {
   // Levels
   const [playerLevelsData, setPlayerLevelsData] = useState(PlayerLevelsArray); // List of levels
   const [currentLevelData, setCurrentLevelData] = useState({}); // One level
+  // Troops
 
   useEffect(() => {
     // Set the current level
@@ -77,6 +78,11 @@ const PlayerContextProvider = ({ children }) => {
     }
   };
 
+  // Buy Troops
+  const buyTroop = (troop) => {
+    console.log('YYYYYYYYYYY', troop);
+  }
+
   // Close cant afford modal
   const closeCantAffordBuildingModal = () => {
     setCantAffordBuilding(false);
@@ -108,6 +114,7 @@ const PlayerContextProvider = ({ children }) => {
         cantAffordTile,
         closeCantAffordTileModal,
         openCantAffordTileModal,
+        buyTroop
       }}
     >
       {children}

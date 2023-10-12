@@ -41,4 +41,10 @@ export const MainMenuOptions = [
         name: "earn_gems",
         image: "📋",
     },
+    {
+        id: 8,
+        title: "Achievements",
+        name: "achievements",
+        image: "📋",
+    },
 ]
