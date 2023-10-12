@@ -16,7 +16,8 @@ const PlayerContextProvider = ({ children }) => {
   const [playerLevelsData, setPlayerLevelsData] = useState(PlayerLevelsArray); // List of levels
   const [currentLevelData, setCurrentLevelData] = useState({}); // One level
   // Troops
-console.log('player', player);
+
+
   useEffect(() => {
     // Set the current level
     const currentLevelNum = player.playerLevel;
@@ -25,6 +26,7 @@ console.log('player', player);
     );
     setCurrentLevelData(foundLevel);
   }, [player.playerLevel]);
+
 
   // References
   const mouseItemRef = useRef(null);
@@ -83,7 +85,7 @@ console.log('player', player);
     console.log('YYYYYYYYYYY', troop);
   }
 
-  // Close cant afford modal
+  // Cant afford modal
   const closeCantAffordBuildingModal = () => {
     setCantAffordBuilding(false);
   };

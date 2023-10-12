@@ -79,6 +79,18 @@ export const createUser = (email, password, username, country) =>
           country: country,
         },
       },
+      player: {
+        create: {
+          playerName: 'new user',
+          playerLevel: 1,
+          playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
+          currentXp: 0,
+          totalXp: 0,
+          townName: 'Rascleville',
+          gold: 1000,
+          gems: 500,
+        },
+      },
     },
   });
 
