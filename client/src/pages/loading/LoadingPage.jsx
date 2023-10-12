@@ -12,7 +12,6 @@ function LoadingPage() {
   const { user } = useContext(UserContext);
   const { player, setPlayer } = useContext(PlayerContext);
 
-  console.log('0000000000000', player);
   const [foundPlayer, setFoundPlayer] = useState({});
   const [foundPlayerTiles, setFoundPlayerTiles] = useState({});
 
@@ -25,15 +24,11 @@ function LoadingPage() {
   }, []);
 
   const getPlayerData = () => {
-    console.log('111111111111111111');
-
     client
       .get(`/player/get-player-by-id/${user.id}`)
       .then((res) => {
-        console.log('AAA res', res.data);
         let playerData = res.data.data.player;
-        console.log('AAA RES PLAYER DATA', playerData);
-        console.log('AAA', playerData);
+        console.log('PLAYER RESPONSE', playerData);
         getPlayerTiles(playerData);
       })
       .catch((err) => {
@@ -41,58 +36,30 @@ function LoadingPage() {
       });
   };
 
-  async function getPlayerTiles(playerData) {
-    console.log('2222222222222222222222 res player', playerData);
-
+  const getPlayerTiles = (playerData) => {
+    console.log('player', player);
     client
       .get(`/player/get-player-tiles/${playerData.id}`)
       .then((res) => {
-        console.log('BBB res RRRRRRRRRRRR', res.data.data.tiles);
         let tilesFoundData = res.data.data.tiles;
+        console.log('TILES RESPONES', tilesFoundData);
         setPlayerResData(playerData, tilesFoundData);
       })
       .catch((err) => {
         console.error('BBB Unable to retrieve tiles for user', err);
       });
-  }
+  };
 
   const setPlayerResData = (playerData, tilesFoundData) => {
-    console.log('3333333333333333333', tilesFoundData);
-    let updatedPlayer = player;
-    // console.log('4444444444444', updatedPlayer);
-
-    // Update player state
-    updatedPlayer.id = playerData.id;
-    updatedPlayer.playerName = playerData.playerName;
-    updatedPlayer.playerLevel = playerData.playerLevel;
-    updatedPlayer.playerImage = playerData.playerImage;
-    updatedPlayer.currentXp = playerData.currentXp;
-    updatedPlayer.totalXp = playerData.totalXp;
-    updatedPlayer.currencyData.gold = playerData.gold;
-    updatedPlayer.currencyData.gems = playerData.gems;
-
-    console.log('tilesFoundData', tilesFoundData);
-    // Update tiles
-    let foundTilesCount = tilesFoundData.length;
-    console.log('foundTilesCount', foundTilesCount);
-    console.log('11 UPDATED PLAYER', updatedPlayer);
-
-    let tileObject = updatedPlayer.tileData
-    tileObject.tilesArray = tilesFoundData
-
-    updatedPlayer.tileData.tilesOwned = foundTilesCount;
-    updatedPlayer.tileData.tilesArray = tilesFoundData;
-
-    console.log('22 UPDATED PLAYER', updatedPlayer);
-    // setPlayer(updatedPlayer);
-
-    setTimeout(() => {
-      gamePageAfterLoad();
-    }, 2000);
+    setPlayer({
+      ...player,
+      playerName: playerData.playerName,
+      tileData: { tilesArray: tilesFoundData }
+    })
+    gamePageAfterLoad();
   };
 
   const gamePageAfterLoad = () => {
-    console.log('999999999999999999999999');
     setTimeout(() => {
       navigate('/game', { replace: true });
     }, 2000);

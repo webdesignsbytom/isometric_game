@@ -22,6 +22,7 @@ function GameCanvas() {
   const { player, setPlayer, mouseBuildingRef, buildingIDNumberRef } =
     useContext(PlayerContext);
 
+  console.log('QQQQQQQQQ', player);
   // Canvas and animations
   const canvasRef = useRef(null);
   const contextRef = useRef(null);

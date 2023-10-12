@@ -74,6 +74,7 @@ export const createNewGameTileGrid = (
       id++;
     }
   }
+  console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ', player);
 
   // Update player state with preowned tiles
   let tileData = player.tileData;
@@ -90,11 +91,6 @@ export const createNewGameTileGrid = (
   tileData.tilesArray = ownedTiles;
   let numTilesOwned = ownedTiles.length;
   tileData.tilesOwned = numTilesOwned;
-
-  // setPlayer({
-  //   ...player,
-  //   tileData: tileData,
-  // });
 
   tilesRef.current = tilesArray;
 };

@@ -75,10 +75,7 @@ export const tempPlayerData = {
     gold: 1000,
     gems: 500,
   },
-  tileData: {
-    tilesOwned: 0,
-    tilesArray: [],
-  },
+  tileData: {},
   buildingsData: {
     buildingsOwned: 0,
     buildingsArray: [],
