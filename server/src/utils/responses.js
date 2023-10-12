@@ -38,6 +38,10 @@ export const EVENT_MESSAGES = {
   troopsTag: `Troop database`,
   troopsNotFound: `Failed to find troops`,
   troopsDbEmpty: `No troops for user found`,
+  // Achievements
+  achievementsTag: `Achievement database`,
+  achievementsNotFound: `Failed to find achievements`,
+  achievementsDbEmpty: `No achievements for user found`,
   // Users
   userTag: `User database`,
   userNotFound: `Failed to find user/s`,
