@@ -34,6 +34,10 @@ export const EVENT_MESSAGES = {
   buildingsTag: `Building database`,
   buildingsNotFound: `Failed to find buildings`,
   buildingsDbEmpty: `No buildings for user found`,
+  // Troops
+  troopsTag: `Troop database`,
+  troopsNotFound: `Failed to find troops`,
+  troopsDbEmpty: `No troops for user found`,
   // Users
   userTag: `User database`,
   userNotFound: `Failed to find user/s`,

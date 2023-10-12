@@ -1,4 +1,10 @@
-import { findTilesByPlayerId, findPlayerByUserId, findBuildingsByPlayerId } from '../domain/player.js';
+import {
+  findTilesByPlayerId,
+  findPlayerByUserId,
+  findBuildingsByPlayerId,
+  findTroopsByPlayerId,
+  findAchievementsByPlayerId,
+} from '../domain/player.js';
 import { myEmitterErrors } from '../event/errorEvents.js';
 import { NotFoundEvent, ServerErrorEvent } from '../event/utils/errorUtils.js';
 import {
@@ -61,13 +67,15 @@ export const getPlayerTiles = async (req, res) => {
     return sendDataResponse(res, 200, { tiles: foundTiles });
   } catch (err) {
     // Error
-    const serverError = new ServerErrorEvent(req.player, `Get player tiles by ID`);
+    const serverError = new ServerErrorEvent(
+      req.player,
+      `Get player tiles by ID`
+    );
     myEmitterErrors.emit('error', serverError);
     sendMessageResponse(res, serverError.code, serverError.message);
     throw err;
   }
 };
-
 
 export const getPlayerBuildings = async (req, res) => {
   const { playerId } = req.params;
@@ -98,7 +106,88 @@ export const getPlayerBuildings = async (req, res) => {
     return sendDataResponse(res, 200, { buildings: foundBuildings });
   } catch (err) {
     // Error
-    const serverError = new ServerErrorEvent(req.player, `Get player buildings by ID`);
+    const serverError = new ServerErrorEvent(
+      req.player,
+      `Get player buildings by ID`
+    );
+    myEmitterErrors.emit('error', serverError);
+    sendMessageResponse(res, serverError.code, serverError.message);
+    throw err;
+  }
+};
+
+export const getPlayerTroops = async (req, res) => {
+  const { playerId } = req.params;
+
+  try {
+    const foundTroops = await findTroopsByPlayerId(playerId);
+
+    if (!foundTroops) {
+      const notFound = new NotFoundEvent(
+        req.player,
+        EVENT_MESSAGES.notFound,
+        EVENT_MESSAGES.troopsNotFound
+      );
+      myEmitterErrors.emit('error', notFound);
+      return sendMessageResponse(res, notFound.code, notFound.message);
+    }
+
+    if (foundTroops.length < 1) {
+      const notFound = new NotFoundEvent(
+        req.player,
+        EVENT_MESSAGES.notFound,
+        EVENT_MESSAGES.troopsDbEmpty
+      );
+      myEmitterErrors.emit('error', notFound);
+      return sendMessageResponse(res, notFound.code, notFound.message);
+    }
+
+    return sendDataResponse(res, 200, { troops: foundTroops });
+  } catch (err) {
+    // Error
+    const serverError = new ServerErrorEvent(
+      req.player,
+      `Get player troops by ID`
+    );
+    myEmitterErrors.emit('error', serverError);
+    sendMessageResponse(res, serverError.code, serverError.message);
+    throw err;
+  }
+};
+
+export const getPlayerAchievements = async (req, res) => {
+  const { playerId } = req.params;
+
+  try {
+    const foundAchievements = await findAchievementsByPlayerId(playerId);
+
+    if (!foundAchievements) {
+      const notFound = new NotFoundEvent(
+        req.player,
+        EVENT_MESSAGES.notFound,
+        EVENT_MESSAGES.achievementsNotFound
+      );
+      myEmitterErrors.emit('error', notFound);
+      return sendMessageResponse(res, notFound.code, notFound.message);
+    }
+
+    if (foundAchievements.length < 1) {
+      const notFound = new NotFoundEvent(
+        req.player,
+        EVENT_MESSAGES.notFound,
+        EVENT_MESSAGES.achievementsDbEmpty
+      );
+      myEmitterErrors.emit('error', notFound);
+      return sendMessageResponse(res, notFound.code, notFound.message);
+    }
+
+    return sendDataResponse(res, 200, { achievements: foundAchievements });
+  } catch (err) {
+    // Error
+    const serverError = new ServerErrorEvent(
+      req.player,
+      `Get player achievements by ID`
+    );
     myEmitterErrors.emit('error', serverError);
     sendMessageResponse(res, serverError.code, serverError.message);
     throw err;

@@ -39,21 +39,23 @@ model Profile {
 }
 
 model Player {
-  id          String     @id @default(uuid())
-  playerName  String     @default("")
-  playerLevel Int        @default(1)
-  playerImage String     @default("")
-  currentXp   Int        @default(0)
-  totalXp     Int        @default(0)
-  townName    String     @default("")
-  gold        Int        @default(1000)
-  gems        Int        @default(50)
-  tiles       Tile[]
-  buildings   Building[]
-  userId      String     @unique
-  user        User       @relation(fields: [userId], references: [id])
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime?  @updatedAt
+  id           String        @id @default(uuid())
+  playerName   String        @default("")
+  playerLevel  Int           @default(1)
+  playerImage  String        @default("")
+  currentXp    Int           @default(0)
+  totalXp      Int           @default(0)
+  townName     String        @default("")
+  gold         Int           @default(1000)
+  gems         Int           @default(50)
+  tiles        Tile[]
+  buildings    Building[]
+  troops       Troop[]
+  achievements Achievement[]
+  userId       String        @unique
+  user         User          @relation(fields: [userId], references: [id])
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime?     @updatedAt
 }
 
 model Tile {
@@ -74,6 +76,24 @@ model Building {
   player         Player    @relation(fields: [playerId], references: [id])
   createdAt      DateTime  @default(now())
   updatedAt      DateTime? @updatedAt
+}
+
+model Troop {
+  id          String    @id @default(uuid())
+  troopTypeId Int
+  playerId    String
+  player      Player    @relation(fields: [playerId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+}
+
+model Achievement {
+  id            String    @id @default(uuid())
+  achievementId Int
+  playerId      String
+  player        Player    @relation(fields: [playerId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
 }
 
 // EVENTS

@@ -20,3 +20,17 @@ export const findBuildingsByPlayerId = (playerId) =>
       playerId: playerId,
     },
   });
+
+export const findTroopsByPlayerId = (playerId) =>
+  dbClient.troop.findMany({
+    where: {
+      playerId: playerId,
+    },
+  });
+
+export const findAchievementsByPlayerId = (playerId) =>
+  dbClient.achievement.findMany({
+    where: {
+      playerId: playerId,
+    },
+  });
