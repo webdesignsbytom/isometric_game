@@ -49,7 +49,7 @@ function LoadingPage() {
       .get(`/player/get-player-buildings/${playerData.id}`)
       .then((res) => {
         let buildingsFoundData = res.data.data.buildings;
-        console.log('buildingsFoundData', buildingsFoundData);
+        
         setPlayerResData(playerData, tilesFoundData, buildingsFoundData);
       })
       .catch((err) => {

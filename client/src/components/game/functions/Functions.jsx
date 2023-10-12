@@ -74,7 +74,6 @@ export const createNewGameTileGrid = (
       id++;
     }
   }
-  console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ', player);
 
   // Update player state with preowned tiles
   // let tileData = player.tileData;
@@ -98,9 +97,6 @@ export const createNewGameTileGrid = (
 export const drawBuildingElements = (contextRef, buildingsRef, goldCoinRef) => {
   const context = contextRef.current;
   const buildings = buildingsRef.current;
-
-  console.log('buildings IIIIIIIIi', buildings);
-  // console.log('');console.log('buildingsRef', buildingsRef);
 
   buildings.forEach((building) => {
     if (building.payoutCollectionTime <= new Date()) {

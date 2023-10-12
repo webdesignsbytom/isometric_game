@@ -273,7 +273,6 @@ function GameCanvas() {
           tile.isActive = true;
 
           if (!tile.isOwned) {
-            console.log('1 tile', tile);
             openBuyTileModal(tile);
           }
           // Break out of the loop to prevent further tiles from being clicked
