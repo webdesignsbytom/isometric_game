@@ -34,15 +34,15 @@ function LoginForm() {
         setLoginInProgress(false);
         setUser(res.data.data.existingUser);
       })
-      .then(() => homePage())
+      .then(() => loadGame())
 
       .catch((err) => {
         setLoginError(true);
         console.error('Unable to login', err);
       });
   };
-  const homePage = () => {
-    navigate('/game', { replace: true });
+  const loadGame = () => {
+    navigate('/loading', { replace: true });
   };
 
   const handleChange = (event) => {

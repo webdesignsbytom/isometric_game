@@ -21,9 +21,9 @@ export const login = async (req, res) => {
   }
 
   try {
-    const foundUser = await findUserByEmail(lowerCaseEmail);
-
-    const areCredentialsValid = await validateCredentials(password, foundUser)
+    const existingUser = await findUserByEmail(lowerCaseEmail);
+    console.log('FOUND USER', existingUser);
+    const areCredentialsValid = await validateCredentials(password, existingUser)
 
     if (!areCredentialsValid) {
       return sendDataResponse(res, 400, {
@@ -31,10 +31,8 @@ export const login = async (req, res) => {
       })
     }
 
-    delete foundUser.password
-    const token = createAccessToken(foundUser.id, foundUser.email)
-
-    const existingUser = await findUserByEmail(lowerCaseEmail);
+    delete existingUser.password
+    const token = createAccessToken(existingUser.id, existingUser.email)
 
     return sendDataResponse(res, 200, { token, existingUser })
 

@@ -7,6 +7,7 @@ export const findAllUsers = () =>
     },
     include: {
       profile: true,
+      player: true,
     },
   });
 
@@ -15,16 +16,17 @@ export const findUserByEmail = (email) =>
     where: { email: email },
     include: {
       profile: true,
+      player: true,
     },
   });
 
 export const findUserByUsername = (username) =>
   dbClient.user.findFirst({
-    where: { 
+    where: {
       profile: {
-        username: username 
+        username: username,
       },
-    }, 
+    },
   });
 
 export const findUserById = (userId) =>
@@ -44,8 +46,6 @@ export const findUserByIdBasic = (userId) =>
     },
   });
 
-
-
 export const resetUserLoginRecord = (recordId, newLoginTime) =>
   dbClient.loginRecord.update({
     where: {
@@ -58,7 +58,6 @@ export const resetUserLoginRecord = (recordId, newLoginTime) =>
     },
   });
 
-
 export const findUsersByRole = (role) =>
   dbClient.user.findMany({
     where: {
@@ -66,10 +65,6 @@ export const findUsersByRole = (role) =>
     },
     include: {
       profile: true,
-      cards: true,
-      packs: true,
-      bank: true,
-      loginRecord: true,
     },
   });
 
@@ -86,7 +81,6 @@ export const createUser = (email, password, username, country) =>
       },
     },
   });
-
 
 export const findVerification = (userId) =>
   dbClient.userVerification.findUnique({

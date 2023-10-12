@@ -62,7 +62,7 @@ const tempBuilding2 = new Building(
 );
 
 export const tempPlayerData = {
-  playerName: 'Tom',
+  playerName: 'new user',
   playerID: 1,
   playerLevel: 1,
   playerImage: PlayerImg,

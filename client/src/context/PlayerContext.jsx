@@ -16,7 +16,7 @@ const PlayerContextProvider = ({ children }) => {
   const [playerLevelsData, setPlayerLevelsData] = useState(PlayerLevelsArray); // List of levels
   const [currentLevelData, setCurrentLevelData] = useState({}); // One level
   // Troops
-
+console.log('player', player);
   useEffect(() => {
     // Set the current level
     const currentLevelNum = player.playerLevel;
