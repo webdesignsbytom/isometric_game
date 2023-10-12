@@ -240,7 +240,7 @@ function GameCanvas() {
         setPlayer,
         buildingsRef,
         buildingIDNumberRef,
-        mouseBuildingRef,
+        mouseBuildingRef
       );
     } else {
       for (const building of buildingsRef.current) {
@@ -275,7 +275,7 @@ function GameCanvas() {
           isoX + isoY <= 1
         ) {
           tile.isActive = true;
-
+          console.log('TILEE', tile);
           if (!tile.isOwned) {
             openBuyTileModal(tile);
           }
