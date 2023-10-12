@@ -92,6 +92,10 @@ export const createUser = (email, password, username, country) =>
         },
       },
     },
+    include: {
+      player: true,
+      profile: true,
+    },
   });
 
 export const findVerification = (userId) =>
@@ -99,6 +103,16 @@ export const findVerification = (userId) =>
     where: {
       userId: userId,
     },
+  });
+
+export const createStarterTiles = (userId, playerId) =>
+  dbClient.tile.createMany({
+    data: [
+      { tileIdNum: 1, playerId: playerId },
+      { tileIdNum: 2, playerId: playerId }, // Duplicate unique key!
+      { tileIdNum: 3, playerId: playerId },
+      { tileIdNum: 4, playerId: playerId },
+    ],
   });
 
 export const findResetRequest = (userId) =>

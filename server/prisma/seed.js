@@ -52,7 +52,7 @@ async function seed() {
           username: `admin guy`,
           country: 'uk',
         },
-      },   
+      },
     },
   });
 

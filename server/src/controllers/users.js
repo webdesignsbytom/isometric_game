@@ -13,6 +13,7 @@ import {
   deleteUserById,
   findUsersByRole,
   findUserByUsername,
+  createStarterTiles,
 } from '../domain/users.js';
 import { createAccessToken } from '../utils/tokens.js';
 // Response messages
@@ -206,17 +207,13 @@ export const registerNewUser = async (req, res) => {
     delete createdUser.password;
     delete createdUser.updatedAt;
 
-    // const uniqueString = uuid() + createdUser.id;
-    // const hashedString = await bcrypt.hash(uniqueString, hashRate);
+    console.log('created user: ', createdUser);
+    const userTiles = await createStarterTiles(createdUser.id, createdUser.player.id);
+console.log('user tiles: ', userTiles);
 
-    // await createVerificationInDB(createdUser.id, hashedString);
-    // await sendVerificationEmail(
-    //   createdUser.id,
-    //   createdUser.email,
-    //   uniqueString
-    // );
-
-    return sendDataResponse(res, 202, { createdUser });
+const foundUser2 = await findUserByEmail(createdUser.email);
+console.log('found user2: ', foundUser2);
+    return sendDataResponse(res, 202, { createdUser, userTiles });
   } catch (err) {
     // Error
     const serverError = new RegistrationServerErrorEvent(

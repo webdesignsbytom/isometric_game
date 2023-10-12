@@ -59,7 +59,7 @@ model Player {
 model Tile {
   id        String    @id @default(uuid())
   tileIdNum Int
-  playerId  String    @unique
+  playerId  String    
   player    Player    @relation(fields: [playerId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
@@ -68,7 +68,7 @@ model Tile {
 model Building {
   id            String    @id @default(uuid())
   buildingIdNum Int
-  playerId      String    @unique
+  playerId      String    
   player        Player    @relation(fields: [playerId], references: [id])
   createdAt     DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
