@@ -12,7 +12,7 @@ function GameOverviewMenuBar() {
       {/* Player data */}
       <section>
         <div>
-          <h4>{player.playerName}</h4>
+          <h4 className='font-semibold'>{player.townData.townName}</h4>
         </div>
       </section>
       {/* Currency */}

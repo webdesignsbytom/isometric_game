@@ -3,12 +3,9 @@ import { Building } from '../../components/game/canvas/Building';
 import { BuildingsMenuArray } from './BuildingsData';
 // Images
 import PlayerImg from '../../assets/images/game/player/user.png';
-// Constants
-import { startingTileCost } from './Constants';
 
 export const tempUserData = {
   id: 1,
-  username: 'tom',
   email: 'tom@tom.com',
 };
 
@@ -79,7 +76,6 @@ export const tempPlayerData = {
     gems: 500,
   },
   tileData: {
-    tilePrice: startingTileCost,
     tilesOwned: 0,
     tilesArray: [],
   },

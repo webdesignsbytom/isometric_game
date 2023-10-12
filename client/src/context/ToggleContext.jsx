@@ -6,9 +6,12 @@ export const ToggleContext = React.createContext();
 const ToggleContextProvider = ({ children }) => {
   const [toggleNavigation, setToggleNavigation] = useState(false);
   const [displayMainMenuBar, setDisplayMainMenuBar] = useState(false);
+  // Modals
   const [playerDataModel, setPlayerDataModel] = useState(true);
   const [buyTileScreenToggle, setBuyTileScreenToggle] = useState(false);
   const [levelCompletedModalOpen, setLevelCompletedModalOpen] = useState(false);
+  const [inprogressUpdatesModalOpen, setInprogressUpdatesModalOpen] =
+    useState(true);
   // Secondary menus
   const [selectedSecondaryMenu, setSelectedSecondaryMenu] = useState(false);
   const [buildingsMenuSelected, setBuildingsMenuSelected] = useState(false);
@@ -40,6 +43,14 @@ const ToggleContextProvider = ({ children }) => {
   };
   const closeLevelCompletedModel = () => {
     setLevelCompletedModalOpen(false);
+  };
+
+  // In progress i.e buildings being built, tech being leatned
+  const openInProgressModel = () => {
+    setInprogressUpdatesModalOpen(true);
+  };
+  const closeInProgressModel = () => {
+    setInprogressUpdatesModalOpen(false);
   };
 
   // Buy tile
@@ -170,6 +181,14 @@ const ToggleContextProvider = ({ children }) => {
         levelCompletedModalOpen,
         openLevelCompletedModel,
         closeLevelCompletedModel,
+        // In Progress
+        inprogressUpdatesModalOpen,
+        openInProgressModel,
+        closeInProgressModel,
+        guildMenuSelected,
+        environmentMenuSelected,
+        questsMenuSelected,
+        earnGemsMenuSelected,
       }}
     >
       {children}
