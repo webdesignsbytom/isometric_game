@@ -23,11 +23,16 @@ async function seed() {
           playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
           currentXp: 100,
           totalXp: 800,
-          cityName: 'space town',
           gold: 3333,
           gems: 2222,
+          city: {
+            create: {
+              cityName: 'space town',
+            }
+          }
         },
       },
+      
     },
   });
 
@@ -229,9 +234,13 @@ async function seed() {
           playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
           currentXp: 100,
           totalXp: 800,
-          cityName: 'Adminiville',
           gold: 3333,
           gems: 2222,
+          city: {
+            create: {
+              cityName: 'Adminiville',
+            }
+          }
         },
       },
       profile: {
@@ -240,6 +249,7 @@ async function seed() {
           country: 'uk',
         },
       },
+      
     },
   });
 
@@ -466,9 +476,13 @@ async function seed() {
           playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
           currentXp: 0,
           totalXp: 0,
-          cityName: 'DevVilles',
           gold: 100000,
           gems: 100000,
+          city: {
+            create: {
+              cityName: 'DevVilles',
+            }
+          }
         },
       },
       profile: {
@@ -477,6 +491,7 @@ async function seed() {
           country: 'united kingdom',
         },
       },
+      
     },
   });
 

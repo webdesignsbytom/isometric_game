@@ -305,12 +305,11 @@ export const updatePlayerData = async (req, res) => {
   }
 };
 
-
 export const updatePlayerFunds = async (req, res) => {
   const { playerId } = req.params;
   const { gold, gems } = req.body;
-  
-console.log('playerID', playerId, gold, gems);
+
+  console.log('playerID', playerId, gold, gems);
   try {
     // Check missing data
     if (!playerId) {
@@ -323,11 +322,7 @@ console.log('playerID', playerId, gold, gems);
       return sendMessageResponse(res, missingField.code, missingField.message);
     }
 
-    const updatedPlayer = await updatePlayerFundsData(
-      playerId,
-      gold,
-      gems
-    );
+    const updatedPlayer = await updatePlayerFundsData(playerId, gold, gems);
 
     return sendDataResponse(res, 200, { updatedPlayer: updatedPlayer });
   } catch (err) {
@@ -342,15 +337,28 @@ console.log('playerID', playerId, gold, gems);
   }
 };
 
-
 export const levelCompletedPlayerUpdate = async (req, res) => {
   const { playerId } = req.params;
-  const { gold, gems } = req.body;
-  
-console.log('playerID', playerId, gold, gems);
+  const {
+    currencyData,
+    cityData,
+    playerLevel,
+    currentXp,
+    totalXp,
+    battleData,
+  } = req.body;
+
   try {
     // Check missing data
-    if (!playerId) {
+    if (
+      !playerId ||
+      !playerLevel ||
+      !currentXp ||
+      !totalXp ||
+      !battleData ||
+      !currencyData ||
+      !cityData
+    ) {
       //
       const missingField = new MissingFieldEvent(
         null,
@@ -362,11 +370,14 @@ console.log('playerID', playerId, gold, gems);
 
     const updatedPlayer = await updatePlayerOnLevelComplete(
       playerId,
-      gold,
-      gems
+      playerLevel,
+      currentXp,
+      totalXp,
+      currencyData.gold,
+      currencyData.gems
     );
 
-    return sendDataResponse(res, 200, { updatedPlayer: updatedPlayer });
+    return sendDataResponse(res, 200, { player: updatedPlayer });
   } catch (err) {
     // Error
     const serverError = new ServerErrorEvent(

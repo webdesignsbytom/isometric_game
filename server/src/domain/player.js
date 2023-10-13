@@ -86,14 +86,19 @@ export const updatePlayerFundsData = (
 
 export const updatePlayerOnLevelComplete = (
   playerId,
-  gold,
-  gems
+      playerLevel,
+      currentXp,
+      totalXp,
+      gold,
+      gems
 ) =>
   dbClient.player.update({
     where: {
       id: playerId,
     },
     data: {
+      currentXp: currentXp,
+      totalXp: totalXp,
       gold: gold,
       gems: gems
     },

@@ -26,6 +26,7 @@ export const EVENT_MESSAGES = {
   playerNotFound: `Failed to find player`,
   createPlayerFail: `Failed to create player`,
   playerNotDeleted: `Failed to delete player`,
+  updatePlayerFail: `Failed to update player`,
   // Tiles
   tilesTag: `Tile database`,
   tilesNotFound: `Failed to find tiles`,

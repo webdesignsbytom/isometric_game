@@ -45,7 +45,6 @@ model Player {
   playerImage  String        @default("")
   currentXp    Int           @default(0)
   totalXp      Int           @default(0)
-  cityName     String        @default("")
   gold         Int           @default(1000)
   gems         Int           @default(50)
   tiles        Tile[]
@@ -53,6 +52,7 @@ model Player {
   troops       Troop[]
   achievements Achievement[]
   city         City?
+  battle       Battle?
   userId       String        @unique
   user         User          @relation(fields: [userId], references: [id])
   createdAt    DateTime      @default(now())
@@ -63,11 +63,24 @@ model City {
   id          String    @id @default(uuid())
   playerId    String    @unique
   cityName    String
-  cityHealth  Int    @default(1000)
-  cityDefense Int    @default(100)
+  cityHealth  Int       @default(1000)
+  cityDefense Int       @default(100)
   player      Player    @relation(fields: [playerId], references: [id])
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
+}
+
+model Battle {
+  id        String    @id @default(uuid())
+  strength  Int       @default(10)
+  defense   Int       @default(10)
+  health    Int       @default(100)
+  speed     Int       @default(10)
+  accuracy  Int       @default(10)
+  playerId  String    @unique
+  player    Player    @relation(fields: [playerId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 model Tile {

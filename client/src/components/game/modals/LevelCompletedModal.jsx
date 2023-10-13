@@ -12,10 +12,10 @@ function LevelCompletedModal() {
   useEffect(() => {
     if (player.playerId) {
       console.log('DDDDD PLAYER', player);
-      let body = player.currencyData
+      let body = player
 
       client
-        .patch(`/player/${player.playerId}/update-player-funds`, body, false)
+        .patch(`/player/${player.playerId}/level-completed-update`, body, false)
         .then((res) => {
           console.log('result', res.data);
         })
