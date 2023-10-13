@@ -21,7 +21,7 @@ function BuyTileModal({ tileToPurchase }) {
         <div className='text-center'>Buy Tile</div>
         <div className='text-center text-xl font-bold'>
           <span>🪙 </span>
-          {startingTileCost}
+          {startingTileCost * player.tileData.tilesOwned}
         </div>
       </section>
       <section className='grid grid-cols-2 gap-1'>

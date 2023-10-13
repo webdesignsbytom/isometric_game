@@ -1,4 +1,5 @@
 // Data
+import client from '../../../api/client';
 import {
   ownedTileColourHex,
   unownedTileColourHex,
@@ -204,7 +205,7 @@ export const purchaseAndPlaceNewBuilding = (
   setPlayer,
   buildingsRef,
   buildingIDNumberRef,
-  mouseBuildingRef,
+  mouseBuildingRef
 ) => {
   for (const tile of tiles) {
     // Convert mouse coordinates to isometric coordinates
@@ -236,6 +237,20 @@ export const purchaseAndPlaceNewBuilding = (
           buildingIDNumberRef
         );
       }
+
+      client
+    .post(
+      `/player/buy-building/${player.playerId}/${mouseBuildingAvailable.id}/${tile.id}`,
+      null,
+      false
+    )
+    .then((res) => {
+      console.log('res', res.data);
+    })
+
+    .catch((err) => {
+      console.error('Unable to buy tile', err);
+    });
       // Break out of the loop to prevent further tiles from being clicked
       break;
     }
@@ -321,15 +336,28 @@ export const buyNewTile = ({
   fundsAvailable.gold = newAmount;
 
   // update player xp
-  let xpAvailable = tileToPurchase.purchaseXp
-  let currentXp = player.currentXp
-  let newXpAmount = currentXp + xpAvailable
+  let xpAvailable = tileToPurchase.purchaseXp;
+  let currentXp = player.currentXp;
+  let newXpAmount = currentXp + xpAvailable;
 
   setPlayer({
     ...player,
     currencyData: fundsAvailable,
-    currentXp: newXpAmount
+    currentXp: newXpAmount,
   });
+  client
+    .post(
+      `/player/buy-tile/${player.playerId}/${tileToPurchase.id}`,
+      null,
+      false
+    )
+    .then((res) => {
+      console.log('res', res.data);
+    })
+
+    .catch((err) => {
+      console.error('Unable to buy tile', err);
+    });
 
   closeBuyTileModal();
 };
