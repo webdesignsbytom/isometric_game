@@ -271,7 +271,6 @@ function GameCanvas() {
           isoY <= 1 &&
           isoX + isoY <= 1
         ) {
-          console.log('TILE', tile);
           tile.isActive = true;
           if (!tile.isOwned) {
             openBuyTileModal(tile);

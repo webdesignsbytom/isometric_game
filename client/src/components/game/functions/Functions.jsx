@@ -331,7 +331,6 @@ export const buyNewTile = ({
     currencyData: fundsAvailable,
     currentXp: newXpAmount,
   });
-console.log('player', player);
   client
     .post(
       `/player/buy-tile/${player.playerId}/${tileToPurchase.id}`,
