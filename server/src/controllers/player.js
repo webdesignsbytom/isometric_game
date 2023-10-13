@@ -310,6 +310,7 @@ export const updatePlayerData = async (req, res) => {
 export const updatePlayerFunds = async (req, res) => {
   const { playerId } = req.params;
   const { gold, gems } = req.body;
+  
 console.log('playerID', playerId, gold, gems);
   try {
     // Check missing data

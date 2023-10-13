@@ -6,13 +6,12 @@ import { ToggleContext } from '../../../context/ToggleContext';
 function PlayerDataModal() {
   const { player, currentLevelData, setPlayer } = useContext(PlayerContext);
   const { openLevelCompletedModel } = useContext(ToggleContext);
-console.log('curreretn level data:', currentLevelData);
+
   // Calculate the percentage of xpCompleted
   const xpCompleted =
     (player.currentXp / currentLevelData.xpRequired) * 200 || 1;
 
   useEffect(() => {
-    console.log('WWWW PLAYER', player);
     if (player.currentXp >= currentLevelData.xpRequired) {
       // Update level number
       let currentLevel = player.playerLevel;
