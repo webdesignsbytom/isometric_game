@@ -84,7 +84,7 @@ function GameCanvas() {
       setPlayer
     );
 
-    if (player.playerID) {
+    if (player.playerId) {
       drawTilesOwnedByPlayer();
       drawBuildingsOwnedByPlayer();
     }
@@ -102,7 +102,6 @@ function GameCanvas() {
       let buildingFound = BuildingsMenuArray.find(
         (e) => e.id === building.buildingIdNum
       );
-      console.log('SSSSSSSS ', buildingFound);
 
       if (buildingFound) {
         let tiles = tilesRef.current;
@@ -111,9 +110,7 @@ function GameCanvas() {
           (tile) => tile.id === building.locationTileId
         );
         let img = buildingFound.imageUrl;
-        console.log('11 img', img);
 
-        console.log('11 building.imageUrl', buildingFound.imageUrl);
         const newImg = new Image();
         newImg.src = '/static/media/small_hospital.12e9fbeb6d44f01a268b.png';
 
@@ -274,8 +271,8 @@ function GameCanvas() {
           isoY <= 1 &&
           isoX + isoY <= 1
         ) {
+          console.log('TILE', tile);
           tile.isActive = true;
-          console.log('TILEE', tile);
           if (!tile.isOwned) {
             openBuyTileModal(tile);
           }

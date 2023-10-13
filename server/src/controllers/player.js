@@ -1,12 +1,13 @@
 import {
-  findTilesByPlayerId,
+  findTilesByplayerId,
   findPlayerByUserId,
-  findBuildingsByPlayerId,
-  findTroopsByPlayerId,
-  findAchievementsByPlayerId,
+  findBuildingsByplayerId,
+  findTroopsByplayerId,
+  findAchievementsByplayerId,
+  createNewTileForPlayer,
 } from '../domain/player.js';
 import { myEmitterErrors } from '../event/errorEvents.js';
-import { NotFoundEvent, ServerErrorEvent } from '../event/utils/errorUtils.js';
+import { MissingFieldEvent, NotFoundEvent, ServerErrorEvent } from '../event/utils/errorUtils.js';
 import {
   EVENT_MESSAGES,
   sendDataResponse,
@@ -42,7 +43,7 @@ export const getPlayerTiles = async (req, res) => {
   const { playerId } = req.params;
 
   try {
-    const foundTiles = await findTilesByPlayerId(playerId);
+    const foundTiles = await findTilesByplayerId(playerId);
 
     if (!foundTiles) {
       const notFound = new NotFoundEvent(
@@ -81,7 +82,7 @@ export const getPlayerBuildings = async (req, res) => {
   const { playerId } = req.params;
 
   try {
-    const foundBuildings = await findBuildingsByPlayerId(playerId);
+    const foundBuildings = await findBuildingsByplayerId(playerId);
 
     if (!foundBuildings) {
       const notFound = new NotFoundEvent(
@@ -120,7 +121,7 @@ export const getPlayerTroops = async (req, res) => {
   const { playerId } = req.params;
 
   try {
-    const foundTroops = await findTroopsByPlayerId(playerId);
+    const foundTroops = await findTroopsByplayerId(playerId);
 
     if (!foundTroops) {
       const notFound = new NotFoundEvent(
@@ -159,7 +160,7 @@ export const getPlayerAchievements = async (req, res) => {
   const { playerId } = req.params;
 
   try {
-    const foundAchievements = await findAchievementsByPlayerId(playerId);
+    const foundAchievements = await findAchievementsByplayerId(playerId);
 
     if (!foundAchievements) {
       const notFound = new NotFoundEvent(
@@ -187,6 +188,40 @@ export const getPlayerAchievements = async (req, res) => {
     const serverError = new ServerErrorEvent(
       req.player,
       `Get player achievements by ID`
+    );
+    myEmitterErrors.emit('error', serverError);
+    sendMessageResponse(res, serverError.code, serverError.message);
+    throw err;
+  }
+};
+
+export const buyNewTile = async (req, res) => {
+  const { playerId, tileId } = req.params;
+  console.log('playerId', playerId);
+  console.log('tileId', tileId);
+  let newId = Number(tileId);
+  try {
+    
+     // Check missing data
+     if (!playerId || !tileId) {
+      //
+      const missingField = new MissingFieldEvent(
+        null,
+        'Registration: Missing Field/s event'
+      );
+      myEmitterErrors.emit('error', missingField);
+      return sendMessageResponse(res, missingField.code, missingField.message);
+    }
+
+    const newTile = await createNewTileForPlayer(playerId, newId) 
+    console.log('newTile', newTile);
+
+    return sendDataResponse(res, 200, { tile: newTile });
+  } catch (err) {
+    // Error
+    const serverError = new ServerErrorEvent(
+      req.player,
+      `Buy new tile error`
     );
     myEmitterErrors.emit('error', serverError);
     sendMessageResponse(res, serverError.code, serverError.message);

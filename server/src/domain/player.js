@@ -7,30 +7,38 @@ export const findPlayerByUserId = (userId) =>
     },
   });
 
-export const findTilesByPlayerId = (playerId) =>
+export const findTilesByplayerId = (playerId) =>
   dbClient.tile.findMany({
     where: {
       playerId: playerId,
     },
   });
   
-export const findBuildingsByPlayerId = (playerId) =>
+export const findBuildingsByplayerId = (playerId) =>
   dbClient.building.findMany({
     where: {
       playerId: playerId,
     },
   });
 
-export const findTroopsByPlayerId = (playerId) =>
+export const findTroopsByplayerId = (playerId) =>
   dbClient.troop.findMany({
     where: {
       playerId: playerId,
     },
   });
 
-export const findAchievementsByPlayerId = (playerId) =>
+export const findAchievementsByplayerId = (playerId) =>
   dbClient.achievement.findMany({
     where: {
       playerId: playerId,
+    },
+  });
+
+export const createNewTileForPlayer = (playerId, tileId)  =>
+  dbClient.tile.create({
+    data: {
+      playerId: playerId,
+      tileIdNum: tileId
     },
   });

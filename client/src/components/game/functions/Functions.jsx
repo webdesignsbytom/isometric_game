@@ -1,4 +1,5 @@
 // Data
+import client from '../../../api/client';
 import {
   ownedTileColourHex,
   unownedTileColourHex,
@@ -204,7 +205,7 @@ export const purchaseAndPlaceNewBuilding = (
   setPlayer,
   buildingsRef,
   buildingIDNumberRef,
-  mouseBuildingRef,
+  mouseBuildingRef
 ) => {
   for (const tile of tiles) {
     // Convert mouse coordinates to isometric coordinates
@@ -321,15 +322,29 @@ export const buyNewTile = ({
   fundsAvailable.gold = newAmount;
 
   // update player xp
-  let xpAvailable = tileToPurchase.purchaseXp
-  let currentXp = player.currentXp
-  let newXpAmount = currentXp + xpAvailable
+  let xpAvailable = tileToPurchase.purchaseXp;
+  let currentXp = player.currentXp;
+  let newXpAmount = currentXp + xpAvailable;
 
   setPlayer({
     ...player,
     currencyData: fundsAvailable,
-    currentXp: newXpAmount
+    currentXp: newXpAmount,
   });
+console.log('player', player);
+  client
+    .post(
+      `/player/buy-tile/${player.playerId}/${tileToPurchase.id}`,
+      null,
+      false
+    )
+    .then((res) => {
+      console.log('res', res.data);
+    })
+
+    .catch((err) => {
+      console.error('Unable to buy tile', err);
+    });
 
   closeBuyTileModal();
 };

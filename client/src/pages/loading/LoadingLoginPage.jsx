@@ -65,7 +65,7 @@ function LoadingLoginPage() {
     setPlayer({
       ...player,
       playerName: playerData.playerName,
-      playerID: playerData.id,
+      playerId: playerData.id,
       playerLevel: playerData.playerLevel,
       playerImage: playerData.playerImage,
       currentXp: playerData.currentXp,
