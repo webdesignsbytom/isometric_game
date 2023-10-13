@@ -7,12 +7,14 @@ export const findPlayerByUserId = (userId) =>
     },
   });
 
+
 export const findTilesByPlayerId = (playerId) =>
   dbClient.tile.findMany({
     where: {
       playerId: playerId,
     },
   });
+
 
 export const findBuildingsByPlayerId = (playerId) =>
   dbClient.building.findMany({
@@ -21,6 +23,7 @@ export const findBuildingsByPlayerId = (playerId) =>
     },
   });
 
+
 export const findTroopsByPlayerId = (playerId) =>
   dbClient.troop.findMany({
     where: {
@@ -28,12 +31,14 @@ export const findTroopsByPlayerId = (playerId) =>
     },
   });
 
+  
 export const findAchievementsByPlayerId = (playerId) =>
   dbClient.achievement.findMany({
     where: {
       playerId: playerId,
     },
   });
+
 
 export const createNewTileForPlayer = (playerId, tileId) =>
   dbClient.tile.create({
@@ -43,6 +48,7 @@ export const createNewTileForPlayer = (playerId, tileId) =>
     },
   });
 
+
 export const createNewBuildingForPlayer = (playerId, buildingId, tileId) =>
   dbClient.building.create({
     data: {
@@ -51,6 +57,7 @@ export const createNewBuildingForPlayer = (playerId, buildingId, tileId) =>
       locationTileId: tileId,
     },
   });
+
 
 export const updatePlayerDataXpAndLevel = (
   playerId,
@@ -69,6 +76,7 @@ export const updatePlayerDataXpAndLevel = (
     },
   });
 
+
 export const updatePlayerFundsData = (
   playerId,
   gold,
@@ -84,6 +92,7 @@ export const updatePlayerFundsData = (
     },
   });
 
+
 export const updatePlayerOnLevelComplete = (
   playerId,
       playerLevel,
@@ -97,6 +106,7 @@ export const updatePlayerOnLevelComplete = (
       id: playerId,
     },
     data: {
+      playerLevel: playerLevel,
       currentXp: currentXp,
       totalXp: totalXp,
       gold: gold,

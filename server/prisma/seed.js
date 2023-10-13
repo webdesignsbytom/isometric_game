@@ -19,12 +19,12 @@ async function seed() {
         create: {
           id: '111',
           playerName: 'CPT Joe',
-          playerLevel: 5,
+          playerLevel: 1,
           playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
-          currentXp: 100,
-          totalXp: 800,
-          gold: 3333,
-          gems: 2222,
+          currentXp: 0,
+          totalXp: 0,
+          gold: 1000,
+          gems: 500,
           city: {
             create: {
               cityName: 'space town',
@@ -233,12 +233,12 @@ async function seed() {
         create: {
           id: '222',
           playerName: 'Admin Guy',
-          playerLevel: 5,
+          playerLevel: 1,
           playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
-          currentXp: 100,
-          totalXp: 800,
-          gold: 3333,
-          gems: 2222,
+          currentXp: 0,
+          totalXp: 0,
+          gold: 2000,
+          gems: 1000,
           city: {
             create: {
               cityName: 'Adminiville',
@@ -490,7 +490,13 @@ async function seed() {
             }
           },
           battle: {
-            create: {}
+            create: {
+              strength: 1000,
+              defense: 1000,
+              speed: 1000,
+              accuracy: 1000,
+              health: 100000,
+            }
           }
         },
       },

@@ -282,15 +282,13 @@ export const registerNewUserFromSandboxGame = async (req, res) => {
     delete createdUser.password;
     delete createdUser.updatedAt;
 
-    console.log('created user: ', createdUser);
     const userTiles = await createStarterTiles(
       createdUser.id,
       createdUser.player.id
     );
-    console.log('user tiles: ', userTiles);
 
     const foundUser2 = await findUserByEmail(createdUser.email);
-    console.log('found user2: ', foundUser2);
+    
     return sendDataResponse(res, 202, { createdUser, userTiles });
   } catch (err) {
     // Error
