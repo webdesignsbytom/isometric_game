@@ -13,7 +13,7 @@ export const findTilesByplayerId = (playerId) =>
       playerId: playerId,
     },
   });
-  
+
 export const findBuildingsByplayerId = (playerId) =>
   dbClient.building.findMany({
     where: {
@@ -35,19 +35,36 @@ export const findAchievementsByplayerId = (playerId) =>
     },
   });
 
-export const createNewTileForPlayer = (playerId, tileId)  =>
+export const createNewTileForPlayer = (playerId, tileId) =>
   dbClient.tile.create({
     data: {
       playerId: playerId,
-      tileIdNum: tileId
+      tileIdNum: tileId,
     },
   });
 
-export const createNewBuildingForPlayer = (playerId, buildingId, tileId)  =>
+export const createNewBuildingForPlayer = (playerId, buildingId, tileId) =>
   dbClient.building.create({
     data: {
       playerId: playerId,
       buildingIdNum: buildingId,
       locationTileId: tileId,
+    },
+  });
+
+export const updatePlayerDataXpAndLevel = (
+  playerId,
+  currentXp,
+  totalXp,
+  playerLevel
+) =>
+  dbClient.player.update({
+    where: {
+      id: playerId,
+    },
+    data: {
+      currentXp: currentXp,
+      totalXp: totalXp,
+      playerLevel: playerLevel,
     },
   });
