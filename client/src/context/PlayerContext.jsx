@@ -12,6 +12,7 @@ const PlayerContextProvider = ({ children }) => {
   // Modals
   const [cantAffordBuilding, setCantAffordBuilding] = useState(false); // Open modal
   const [cantAffordTile, setCantAffordTile] = useState(false); // Open modal
+  const [cantAffordTroop, setCantAffordTroop] = useState(false); // Open modal
   // Levels
   const [playerLevelsData, setPlayerLevelsData] = useState(PlayerLevelsArray); // List of levels
   const [currentLevelData, setCurrentLevelData] = useState({}); // One level
@@ -33,6 +34,8 @@ const PlayerContextProvider = ({ children }) => {
 
   const buyBuilding = (building) => {
     // Check currency type and affordability
+    console.log('BUY BUILDING JSX', building);
+
     if (
       building.currencyType === 'gold' &&
       building.cost > player.currencyData.gold
@@ -81,6 +84,20 @@ const PlayerContextProvider = ({ children }) => {
   // Buy Troops
   const buyTroop = (troop) => {
     console.log('YYYYYYYYYYY', troop);
+    // Check currency type and affordability
+    if (
+      troop.currencyType === 'gold' &&
+      troop.cost > player.currencyData.gold
+    ) {
+      setCantAffordTroop(true);
+    } else if (
+      troop.currencyType === 'gems' &&
+      troop.cost > player.currencyData.gems
+    ) {
+      setCantAffordTroop(true);
+    } else {
+
+    }
   };
 
   // Cant afford modal

@@ -94,6 +94,7 @@ function GameCanvas() {
   }, []);
 
   const drawBuildingsOwnedByPlayer = () => {
+
     let buildingOwnedArray = player.buildingsData.buildingsArray;
 
     let newArray = [];
@@ -103,16 +104,16 @@ function GameCanvas() {
         (e) => e.id === building.buildingIdNum
       );
 
+      console.log('building found', buildingFound);
       if (buildingFound) {
         let tiles = tilesRef.current;
 
         let tileMatch = tiles.find(
           (tile) => tile.id === building.locationTileId
         );
-        let img = buildingFound.imageUrl;
-
+          
         const newImg = new Image();
-        newImg.src = '/static/media/small_hospital.12e9fbeb6d44f01a268b.png';
+        newImg.src = require(`../../../assets/images${buildingFound.imageEndpoint}`)
 
         const newCreatedBuilding = new Building(
           building.buildingIdNum, // ID
@@ -172,7 +173,6 @@ function GameCanvas() {
 
     clearCanvas(canvasRef);
     drawCanvasElements();
-
     // Check for building to place
     const mouseBuildingAvailable = mouseBuildingRef.current;
     // Tiles

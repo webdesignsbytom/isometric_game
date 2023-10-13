@@ -96,6 +96,7 @@ export const createNewGameTileGrid = (
 };
 
 export const drawBuildingElements = (contextRef, buildingsRef, goldCoinRef) => {
+  console.log('66666666666666666666666666');
   const context = contextRef.current;
   const buildings = buildingsRef.current;
 
@@ -103,8 +104,10 @@ export const drawBuildingElements = (contextRef, buildingsRef, goldCoinRef) => {
     if (building.payoutCollectionTime <= new Date()) {
       building.payoutReady = true;
     }
+    console.log('7777777777777777777777777');
     building.drawBuilding(context, goldCoinRef);
   });
+  console.log('888888888888888888888888');
 };
 
 export const drawTileGrid = (contextRef, tilesRef) => {
@@ -238,19 +241,22 @@ export const purchaseAndPlaceNewBuilding = (
         );
       }
 
-      client
-    .post(
-      `/player/buy-building/${player.playerId}/${mouseBuildingAvailable.id}/${tile.id}`,
-      null,
-      false
-    )
-    .then((res) => {
-      console.log('res', res.data);
-    })
+      if (player.playerId) {
+        client
+          .post(
+            `/player/buy-building/${player.playerId}/${mouseBuildingAvailable.id}/${tile.id}`,
+            null,
+            false
+          )
+          .then((res) => {
+            console.log('res', res.data);
+          })
 
-    .catch((err) => {
-      console.error('Unable to buy tile', err);
-    });
+          .catch((err) => {
+            console.error('Unable to buy tile', err);
+          });
+      }
+
       // Break out of the loop to prevent further tiles from being clicked
       break;
     }
@@ -345,19 +351,22 @@ export const buyNewTile = ({
     currencyData: fundsAvailable,
     currentXp: newXpAmount,
   });
-  client
-    .post(
-      `/player/buy-tile/${player.playerId}/${tileToPurchase.id}`,
-      null,
-      false
-    )
-    .then((res) => {
-      console.log('res', res.data);
-    })
 
-    .catch((err) => {
-      console.error('Unable to buy tile', err);
-    });
+  if (player.playerId) {
+    client
+      .post(
+        `/player/buy-tile/${player.playerId}/${tileToPurchase.id}`,
+        null,
+        false
+      )
+      .then((res) => {
+        console.log('res', res.data);
+      })
+
+      .catch((err) => {
+        console.error('Unable to buy tile', err);
+      });
+  }
 
   closeBuyTileModal();
 };

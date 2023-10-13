@@ -31,12 +31,14 @@ import Park9 from '../../assets/images/game/buildings/parks/park9.png';
 import Construction1 from '../../assets/images/game/buildings/construction/construction-step1.png';
 import Construction2 from '../../assets/images/game/buildings/construction/construction-step2.png';
 
+console.log('Construction1', Construction1);
 export const BuildingsMenuArray = [
   {
     id: 1,
     name: 'building_1',
     title: 'Building 1',
     imageUrl: Bld1,
+    imageEndpoint: '/game/buildings/buildings/bld.png',
     description: 'A building',
     gridSize: 1,
     xpForPurchasing: 10,
@@ -70,6 +72,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Bld2,
+    imageEndpoint: '/game/buildings/buildings/bld2.png',
     description: 'A building',
   },
 
@@ -91,6 +94,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Bld3,
+    imageEndpoint: '/game/buildings/buildings/bld3.png',
     description: 'A building',
   },
 
@@ -112,6 +116,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Bld4,
+    imageEndpoint: '/game/buildings/services/small_hospital.png',
     description: 'A building',
   },
 
@@ -133,6 +138,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Bld5,
+    imageEndpoint: '/game/buildings/buildings/bld5.png',
     description: 'A building',
   },
 
@@ -154,6 +160,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 100,
     imageUrl: Bld6,
+    imageEndpoint: '/game/buildings/buildings/bld6.png',
     description: 'A building',
   },
 
@@ -175,6 +182,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Bld7,
+    imageEndpoint: '/game/buildings/buildings/bld7.png',
     description: 'A building',
   },
 
@@ -196,6 +204,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Bld8,
+    imageEndpoint: '/game/buildings/buildings/bld8.png',
     description: 'A building',
   },
 
@@ -217,6 +226,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Bld9,
+    imageEndpoint: '/game/buildings/buildings/bld9.png',
     description: 'A building',
   },
 
@@ -238,6 +248,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Bld10,
+    imageEndpoint: '/game/buildings/buildings/bld10.png',
     description: 'A building',
   },
 
@@ -259,6 +270,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Bld11,
+    imageEndpoint: '/game/buildings/buildings/bld11.png',
     description: 'A building',
   },
 
@@ -280,6 +292,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Bld12,
+    imageEndpoint: '/game/buildings/buildings/bld12.png',
     description: 'A building',
   },
 
@@ -301,6 +314,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Bld13,
+    imageEndpoint: '/game/buildings/buildings/bld13.png',
     description: 'A building',
   },
 
@@ -322,6 +336,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Bld14,
+    imageEndpoint: '/game/buildings/buildings/bld14.png',
     description: 'A building',
   },
 
@@ -343,6 +358,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Cafe1,
+    imageEndpoint: '/game/buildings/shops/cafe1.png',
     description: 'A building',
   },
 
@@ -364,6 +380,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Home1,
+    imageEndpoint: '/game/buildings/buildings/home1.png',
     description: 'A building',
   },
 
@@ -385,6 +402,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Home2,
+    imageEndpoint: '/game/buildings/buildings/home2.png',
     description: 'A building',
   },
 
@@ -406,6 +424,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Home3,
+    imageEndpoint: '/game/buildings/buildings/home3.png',
     description: 'A building',
   },
 
@@ -427,6 +446,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Shop1,
+    imageEndpoint: '/game/buildings/shops/shop1.png',
     description: 'A building',
   },
 
@@ -448,6 +468,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Shop2,
+    imageEndpoint: '/game/buildings/shops/shop2.png',
     description: 'A building',
   },
 
@@ -469,6 +490,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: 60000,
     imageHeight: 60,
     imageUrl: Cafe1,
+    imageEndpoint: '/game/buildings/buildings/bld.png',
     description: 'A building',
   },
 
@@ -490,6 +512,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: null,
     imageHeight: 60,
     imageUrl: Park1,
+    imageEndpoint: '/game/buildings/parks/park.png',
     description: 'A building',
   },
 
@@ -511,6 +534,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: null,
     imageHeight: 60,
     imageUrl: Park2,
+    imageEndpoint: '/game/buildings/parks/park2.png',
     description: 'A building',
   },
 
@@ -532,6 +556,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: null,
     imageHeight: 60,
     imageUrl: Park3,
+    imageEndpoint: '/game/buildings/parks/park3.png',
     description: 'A building',
   },
 
@@ -553,6 +578,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: null,
     imageHeight: 60,
     imageUrl: Park4,
+    imageEndpoint: '/game/buildings/parks/park4.png',
     description: 'A building',
   },
 
@@ -574,6 +600,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: null,
     imageHeight: 60,
     imageUrl: Park5,
+    imageEndpoint: '/game/buildings/parks/park5.png',
     description: 'A building',
   },
 
@@ -595,6 +622,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: null,
     imageHeight: 60,
     imageUrl: Park6,
+    imageEndpoint: '/game/buildings/parks/park6.png',
     description: 'A building',
   },
 
@@ -616,6 +644,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: null,
     imageHeight: 60,
     imageUrl: Park7,
+    imageEndpoint: '/game/buildings/parks/park7.png',
     description: 'A building',
   },
 
@@ -637,6 +666,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: null,
     imageHeight: 60,
     imageUrl: Park8,
+    imageEndpoint: '/game/buildings/parks/park8.png',
     description: 'A building',
   },
 
@@ -658,6 +688,7 @@ export const BuildingsMenuArray = [
     incomeSeconds: null,
     imageHeight: 60,
     imageUrl: Park9,
+    imageEndpoint: '/game/buildings/parks/park9.png',
     description: 'A building',
   },
 ];

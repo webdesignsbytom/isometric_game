@@ -34,6 +34,10 @@ function HomePage() {
                     <span>START NEW GAME</span>
                   </Link>
                 </div>
+                <div>
+                  <img src="client\src\assets\images\game\buildings\buildings\bld9.png" alt="xxxxx" />
+                  <img src={require('../../assets/images/game/buildings/buildings/bld8.png')} alt='yyyy'/>
+                </div>
               </article>
             </section>
           </div>

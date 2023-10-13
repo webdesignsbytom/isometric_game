@@ -4,6 +4,9 @@ import { PlayerContext } from '../../../../context/PlayerContext';
 
 function BuildingItem({ building }) {
   const { buyBuilding } = useContext(PlayerContext);
+  console.log('BUILDING ITEM JSX', building);
+
+  
   return (
     <article
       onClick={() => buyBuilding(building)}

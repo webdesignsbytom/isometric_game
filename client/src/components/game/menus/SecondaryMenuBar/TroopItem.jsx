@@ -4,6 +4,7 @@ import { PlayerContext } from '../../../../context/PlayerContext';
 
 function TroopItem({ troop }) {
   const { buyTroop } = useContext(PlayerContext);
+
   return (
     <article
       onClick={() => buyTroop(troop)}
@@ -11,12 +12,12 @@ function TroopItem({ troop }) {
     >
       <div className='px-[2px] text-sm font-semibold text-center'><h6>{troop.title}</h6></div>
       <div className='grid items-center justify-center'>
-        {/* <img
+        <img
           className='w-[50px] h-[50px] object-contain'
           src={troop.imageUrl}
           alt={troop.title}
-        /> */}
-        <div className='text-4xl'>{troop.imageUrl}</div>
+        />
+        {/* <div className='text-4xl'>{troop.imageUrl}</div> */}
       </div>
       <div className='text-center'>
         {troop.currencyType === 'gold' && <span>🪙</span>}
