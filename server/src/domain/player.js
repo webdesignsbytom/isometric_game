@@ -42,3 +42,12 @@ export const createNewTileForPlayer = (playerId, tileId)  =>
       tileIdNum: tileId
     },
   });
+
+export const createNewBuildingForPlayer = (playerId, buildingId, tileId)  =>
+  dbClient.building.create({
+    data: {
+      playerId: playerId,
+      buildingIdNum: buildingId,
+      locationTileId: tileId,
+    },
+  });

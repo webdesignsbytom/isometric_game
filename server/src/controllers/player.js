@@ -5,9 +5,14 @@ import {
   findTroopsByplayerId,
   findAchievementsByplayerId,
   createNewTileForPlayer,
+  createNewBuildingForPlayer,
 } from '../domain/player.js';
 import { myEmitterErrors } from '../event/errorEvents.js';
-import { MissingFieldEvent, NotFoundEvent, ServerErrorEvent } from '../event/utils/errorUtils.js';
+import {
+  MissingFieldEvent,
+  NotFoundEvent,
+  ServerErrorEvent,
+} from '../event/utils/errorUtils.js';
 import {
   EVENT_MESSAGES,
   sendDataResponse,
@@ -201,9 +206,8 @@ export const buyNewTile = async (req, res) => {
   console.log('tileId', tileId);
   let newId = Number(tileId);
   try {
-    
-     // Check missing data
-     if (!playerId || !tileId) {
+    // Check missing data
+    if (!playerId || !tileId) {
       //
       const missingField = new MissingFieldEvent(
         null,
@@ -213,15 +217,50 @@ export const buyNewTile = async (req, res) => {
       return sendMessageResponse(res, missingField.code, missingField.message);
     }
 
-    const newTile = await createNewTileForPlayer(playerId, newId) 
+    const newTile = await createNewTileForPlayer(playerId, newId);
     console.log('newTile', newTile);
 
     return sendDataResponse(res, 200, { tile: newTile });
   } catch (err) {
     // Error
+    const serverError = new ServerErrorEvent(req.player, `Buy new tile error`);
+    myEmitterErrors.emit('error', serverError);
+    sendMessageResponse(res, serverError.code, serverError.message);
+    throw err;
+  }
+};
+
+export const buyNewBuilding = async (req, res) => {
+  const { playerId, buildingId, tileId } = req.params;
+  console.log('playerId', playerId);
+  console.log('buildingId', buildingId);
+  let newBuildingId = Number(buildingId);
+  let newTileId = Number(tileId);
+  try {
+    // Check missing data
+    if (!playerId || !buildingId || !tileId) {
+      //
+      const missingField = new MissingFieldEvent(
+        null,
+        'Registration: Missing Field/s event'
+      );
+      myEmitterErrors.emit('error', missingField);
+      return sendMessageResponse(res, missingField.code, missingField.message);
+    }
+
+    const newBuilding = await createNewBuildingForPlayer(
+      playerId,
+      newBuildingId,
+      newTileId
+    );
+    console.log('newBuilding', newBuilding);
+
+    return sendDataResponse(res, 200, { building: newBuilding });
+  } catch (err) {
+    // Error
     const serverError = new ServerErrorEvent(
       req.player,
-      `Buy new tile error`
+      `Buy new building error`
     );
     myEmitterErrors.emit('error', serverError);
     sendMessageResponse(res, serverError.code, serverError.message);

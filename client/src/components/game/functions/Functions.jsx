@@ -237,6 +237,20 @@ export const purchaseAndPlaceNewBuilding = (
           buildingIDNumberRef
         );
       }
+
+      client
+    .post(
+      `/player/buy-building/${player.playerId}/${mouseBuildingAvailable.id}/${tile.id}`,
+      null,
+      false
+    )
+    .then((res) => {
+      console.log('res', res.data);
+    })
+
+    .catch((err) => {
+      console.error('Unable to buy tile', err);
+    });
       // Break out of the loop to prevent further tiles from being clicked
       break;
     }
