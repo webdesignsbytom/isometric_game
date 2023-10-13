@@ -19,50 +19,29 @@ async function seed() {
         create: {
           id: '111',
           playerName: 'CPT Joe',
-          playerLevel: 5,
+          playerLevel: 1,
           playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
-          currentXp: 100,
-          totalXp: 800,
-          townName: 'space town',
-          gold: 3333,
-          gems: 2222,
+          currentXp: 0,
+          totalXp: 0,
+          gold: 1000,
+          gems: 500,
+          city: {
+            create: {
+              cityName: 'space town',
+            }
+          },
+          battle: {
+            create: {}
+          }
         },
       },
+      
     },
   });
 
   const userTiles = await dbClient.tile.createMany({
     data: [
-      {
-        tileIdNum: 1,
-        playerId: '111',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 2,
-        playerId: '111',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 3,
-        playerId: '111',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 4,
-        playerId: '111',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 5,
-        playerId: '111',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 6,
-        playerId: '111',
-        hasBuilding: true,
-      },
+
       {
         tileIdNum: 110,
         playerId: '111',
@@ -225,13 +204,20 @@ async function seed() {
         create: {
           id: '222',
           playerName: 'Admin Guy',
-          playerLevel: 5,
+          playerLevel: 1,
           playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
-          currentXp: 100,
-          totalXp: 800,
-          townName: 'Adminiville',
-          gold: 3333,
-          gems: 2222,
+          currentXp: 0,
+          totalXp: 0,
+          gold: 2000,
+          gems: 1000,
+          city: {
+            create: {
+              cityName: 'Adminiville',
+            }
+          },
+          battle: {
+            create: {}
+          }
         },
       },
       profile: {
@@ -240,41 +226,13 @@ async function seed() {
           country: 'uk',
         },
       },
+      
     },
   });
 
   const adminTiles = await dbClient.tile.createMany({
     data: [
-      {
-        tileIdNum: 1,
-        playerId: '222',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 2,
-        playerId: '222',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 3,
-        playerId: '222',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 4,
-        playerId: '222',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 5,
-        playerId: '222',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 6,
-        playerId: '222',
-        hasBuilding: true,
-      },
+
       {
         tileIdNum: 110,
         playerId: '222',
@@ -431,22 +389,22 @@ async function seed() {
   const adminBuildings = await dbClient.building.createMany({
     data: [
       {
-        locationTileId: 1,
+        locationTileId: 110,
         buildingIdNum: 1,
         playerId: '222',
       },
       {
-        locationTileId: 2,
+        locationTileId: 111,
         buildingIdNum: 2,
         playerId: '222',
       },
       {
-        locationTileId: 3,
+        locationTileId: 112,
         buildingIdNum: 3,
         playerId: '222',
       },
       {
-        locationTileId: 4,
+        locationTileId: 113,
         buildingIdNum: 4,
         playerId: '222',
       },
@@ -466,9 +424,22 @@ async function seed() {
           playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
           currentXp: 0,
           totalXp: 0,
-          townName: 'DevVilles',
           gold: 100000,
           gems: 100000,
+          city: {
+            create: {
+              cityName: 'DevVilles',
+            }
+          },
+          battle: {
+            create: {
+              strength: 1000,
+              defense: 1000,
+              speed: 1000,
+              accuracy: 1000,
+              health: 100000,
+            }
+          }
         },
       },
       profile: {
@@ -477,6 +448,7 @@ async function seed() {
           country: 'united kingdom',
         },
       },
+      
     },
   });
 
@@ -485,58 +457,28 @@ async function seed() {
       {
         locationTileId: 1,
         buildingIdNum: 1,
-        playerId: '222',
+        playerId: 'tomdev',
       },
       {
         locationTileId: 2,
         buildingIdNum: 2,
-        playerId: '222',
+        playerId: 'tomdev',
       },
       {
         locationTileId: 3,
         buildingIdNum: 3,
-        playerId: '222',
+        playerId: 'tomdev',
       },
       {
         locationTileId: 4,
         buildingIdNum: 4,
-        playerId: '222',
+        playerId: 'tomdev',
       },
     ],
   });
 
   const devTiles = await dbClient.tile.createMany({
     data: [
-      {
-        tileIdNum: 1,
-        playerId: 'tomdev',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 2,
-        playerId: 'tomdev',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 3,
-        playerId: 'tomdev',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 4,
-        playerId: 'tomdev',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 5,
-        playerId: 'tomdev',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 6,
-        playerId: 'tomdev',
-        hasBuilding: true,
-      },
       {
         tileIdNum: 110,
         playerId: 'tomdev',

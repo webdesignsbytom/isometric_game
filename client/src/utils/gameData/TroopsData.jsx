@@ -17,6 +17,7 @@ export const TroopsAvailableArray = [
     defense: 10,
     health: 100,
     imageUrl: Axeman,
+    imageEndpoint: '/game/troops/axeman.png',
     description: 'Im an axe warrior',
   },
   {
@@ -31,6 +32,7 @@ export const TroopsAvailableArray = [
     defense: 10,
     health: 100,
     imageUrl: Warrior,
+    imageEndpoint: '/game/troops/warrior.png',
     description: 'Im an warrior',
   },
   {
@@ -45,6 +47,7 @@ export const TroopsAvailableArray = [
     defense: 10,
     health: 100,
     imageUrl: Assassin,
+    imageEndpoint: '/game/troops/assassin.png',
     description: 'Im an assassin',
   },
   {
@@ -59,6 +62,7 @@ export const TroopsAvailableArray = [
     defense: 10,
     health: 100,
     imageUrl: Knight,
+    imageEndpoint: '/game/troops/knight.png',
     description: 'Im an knight',
   },
 ];

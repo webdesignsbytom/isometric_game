@@ -31,7 +31,6 @@ import Park9 from '../../assets/images/game/buildings/parks/park9.png';
 import Construction1 from '../../assets/images/game/buildings/construction/construction-step1.png';
 import Construction2 from '../../assets/images/game/buildings/construction/construction-step2.png';
 
-console.log('Construction1', Construction1);
 export const BuildingsMenuArray = [
   {
     id: 1,

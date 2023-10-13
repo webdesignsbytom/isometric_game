@@ -7,3 +7,6 @@ export const startingTileCost = 10;
 
 // Game basics
 export const gameOfficialName = 'ISO GAME'
+
+// Levels
+export const maxNumOfLevels = 1000

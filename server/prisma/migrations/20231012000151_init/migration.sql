@@ -35,7 +35,7 @@ CREATE TABLE "Player" (
     "playerImage" TEXT NOT NULL DEFAULT '',
     "currentXp" INTEGER NOT NULL DEFAULT 0,
     "totalXp" INTEGER NOT NULL DEFAULT 0,
-    "townName" TEXT NOT NULL DEFAULT '',
+    "cityName" TEXT NOT NULL DEFAULT '',
     "gold" INTEGER NOT NULL DEFAULT 1000,
     "gems" INTEGER NOT NULL DEFAULT 50,
     "userId" TEXT NOT NULL,

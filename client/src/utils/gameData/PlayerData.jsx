@@ -68,12 +68,21 @@ export const tempPlayerData = {
   playerImage: PlayerImg,
   currentXp: 0,
   totalXp: 0,
-  townData: {
-    townName: 'Rascleville',
+  cityData: {
+    cityName: 'Rascleville',
+    cityHealth: 1000,
+    cityDefense: 10,
   },
   currencyData: {
     gold: 1000,
     gems: 500,
+  },
+  battleData: {
+    strength: 10,
+    defense: 10,
+    health: 100,
+    speed: 10,
+    accuracy: 10,
   },
   tileData: { tilesOwned: 0, tilesArray: [] },
   buildingsData: {

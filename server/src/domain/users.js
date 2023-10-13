@@ -94,9 +94,13 @@ export const createUser = (email, password, username, country) =>
           playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
           currentXp: 0,
           totalXp: 0,
-          townName: 'Rascleville',
           gold: 1000,
           gems: 500,
+          city: {
+            create: {
+              cityName: '',
+            },
+          },
         },
       },
     },
@@ -124,9 +128,13 @@ export const createUserFromSandboxData = (email, password, username, country) =>
           playerImage: '/static/media/user.de1d5839e4c2ea173e6d.png',
           currentXp: 0,
           totalXp: 0,
-          townName: 'Rascleville',
           gold: 1000,
           gems: 500,
+          city: {
+            create: {
+              cityName: '',
+            },
+          },
         },
       },
     },
@@ -135,8 +143,6 @@ export const createUserFromSandboxData = (email, password, username, country) =>
       profile: true,
     },
   });
-
-
 
 export const findVerification = (userId) =>
   dbClient.userVerification.findUnique({
@@ -148,14 +154,14 @@ export const findVerification = (userId) =>
 export const createStarterTiles = (userId, playerId) =>
   dbClient.tile.createMany({
     data: [
-      { tileIdNum: 1, playerId: playerId },
-      { tileIdNum: 2, playerId: playerId },
-      { tileIdNum: 3, playerId: playerId },
-      { tileIdNum: 4, playerId: playerId },
-      { tileIdNum: 5, playerId: playerId },
-      { tileIdNum: 6, playerId: playerId },
+      { tileIdNum: 95, playerId: playerId },
+      { tileIdNum: 96, playerId: playerId },
+      { tileIdNum: 97, playerId: playerId },
+      { tileIdNum: 98, playerId: playerId },
+      { tileIdNum: 99, playerId: playerId },
+      { tileIdNum: 100, playerId: playerId },
       { tileIdNum: 110, playerId: playerId },
-      { tileIdNum: 111, playerId: playerId }, 
+      { tileIdNum: 111, playerId: playerId },
       { tileIdNum: 112, playerId: playerId },
       { tileIdNum: 113, playerId: playerId },
       { tileIdNum: 114, playerId: playerId },
