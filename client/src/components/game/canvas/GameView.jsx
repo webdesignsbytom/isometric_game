@@ -16,6 +16,7 @@ import LevelCompletedModal from '../modals/LevelCompletedModal';
 import InProgressBar from '../modals/InProgressBar';
 import RightMenuBar from '../menus/RightSideMenu/RightMenuBar';
 import TroopsOwnedMenu from '../menus/Troops/TroopsOwnedMenu';
+import CityMenuBar from '../menus/CityMenu/CityMenuBar';
 
 function GameView() {
   const { displayMainMenuBar, techMenuSelected, playerDataModel, buyTileScreenToggle, tileToPurchase, levelCompletedModalOpen, inprogressUpdatesModalOpen, troopMenuSelected } = useContext(ToggleContext);
@@ -25,6 +26,7 @@ function GameView() {
     <main className='relative grid h-full w-full bg-red-200 border-solid border-yellow-300 border-4'>
       <GameCanvas />
       <RightMenuBar />
+      <CityMenuBar />
       {cantAffordBuilding && <CantAffordBuilding />}
       {cantAffordTile && <CantAffordTile />}
       {techMenuSelected && <TechMenuBar />}
