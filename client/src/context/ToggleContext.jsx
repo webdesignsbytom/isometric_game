@@ -16,6 +16,7 @@ const ToggleContextProvider = ({ children }) => {
   const [selectedSecondaryMenu, setSelectedSecondaryMenu] = useState(false);
   const [buildingsMenuSelected, setBuildingsMenuSelected] = useState(false);
   const [techMenuSelected, setTechMenuSelected] = useState(false);
+  const [troopMenuSelected, setTroopMenuSelected] = useState(false);
   const [troopsMenuSelected, setTroopsMenuSelected] = useState(false);
   const [guildMenuSelected, setGuildMenuSelected] = useState(false);
   const [environmentMenuSelected, setEnvironmentMenuSelected] = useState(false);
@@ -151,6 +152,14 @@ const ToggleContextProvider = ({ children }) => {
     setTechMenuSelected(false);
   };
 
+  const openTroopMenu = () => {
+    setTroopMenuSelected(true);
+  };
+  
+  const closeTroopMenu = () => {
+    setTroopMenuSelected(false);
+  };
+
   return (
     <ToggleContext.Provider
       value={{
@@ -189,6 +198,10 @@ const ToggleContextProvider = ({ children }) => {
         environmentMenuSelected,
         questsMenuSelected,
         earnGemsMenuSelected,
+        // Troops
+        troopMenuSelected,
+        closeTroopMenu,
+        openTroopMenu,
       }}
     >
       {children}

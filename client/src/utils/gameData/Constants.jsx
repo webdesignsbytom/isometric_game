@@ -10,3 +10,6 @@ export const gameOfficialName = 'ISO GAME'
 
 // Levels
 export const maxNumOfLevels = 1000
+
+// Images
+export const closeModalIcon = '✘';

@@ -14,17 +14,21 @@ import BuyTileModal from '../modals/BuyTileModal';
 import CantAffordTile from '../modals/CantAffordTile';
 import LevelCompletedModal from '../modals/LevelCompletedModal';
 import InProgressBar from '../modals/InProgressBar';
+import RightMenuBar from '../menus/SecondaryMenuBar/RightSideMenu/RightMenuBar';
+import TroopsOwnedMenu from '../menus/SecondaryMenuBar/TroopsOwnedMenu';
 
 function GameView() {
-  const { displayMainMenuBar, techMenuSelected, playerDataModel, buyTileScreenToggle, tileToPurchase, levelCompletedModalOpen, inprogressUpdatesModalOpen } = useContext(ToggleContext);
+  const { displayMainMenuBar, techMenuSelected, playerDataModel, buyTileScreenToggle, tileToPurchase, levelCompletedModalOpen, inprogressUpdatesModalOpen, troopMenuSelected } = useContext(ToggleContext);
   const { cantAffordBuilding, cantAffordTile } = useContext(PlayerContext);
 
   return (
     <main className='relative grid h-full w-full bg-red-200 border-solid border-yellow-300 border-4'>
       <GameCanvas />
+      <RightMenuBar />
       {cantAffordBuilding && <CantAffordBuilding />}
       {cantAffordTile && <CantAffordTile />}
       {techMenuSelected && <TechMenuBar />}
+      {troopMenuSelected && <TroopsOwnedMenu />}
       {levelCompletedModalOpen && <LevelCompletedModal />}
       {inprogressUpdatesModalOpen && <InProgressBar />}
       {playerDataModel && <PlayerDataModal />}
