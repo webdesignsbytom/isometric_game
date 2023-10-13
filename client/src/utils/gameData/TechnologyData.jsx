@@ -16,7 +16,7 @@ export const TechnologyDataArray = [
     id: 1,
     name: 'maths_1',
     title: 'Maths Lv.1',
-    timeToResearch: 25,
+    timeToResearch: 25000,
     productionCost: 10,
     improvementTitle:
       'Better Mathematics creates a better economy. Income x2 Gold',
@@ -33,7 +33,7 @@ export const TechnologyDataArray = [
     id: 2,
     name: 'coffee_1',
     title: 'Coffee Lv.1',
-    timeToResearch: 25,
+    timeToResearch: 25000,
     productionCost: 10,
     improvementTitle:
       'Better Mathematics creates a better economy. Income x2 Gold',
@@ -50,7 +50,7 @@ export const TechnologyDataArray = [
     id: 3,
     name: 'factory_1',
     title: 'Factory Lv.1',
-    timeToResearch: 25,
+    timeToResearch: 25000,
     productionCost: 10,
     improvementTitle:
       'Better Mathematics creates a better economy. Income x2 Gold',
@@ -67,7 +67,7 @@ export const TechnologyDataArray = [
     id: 4,
     name: 'fillingMachine_1',
     title: 'FillingMachine Lv.1',
-    timeToResearch: 25,
+    timeToResearch: 25000,
     productionCost: 10,
     improvementTitle:
       'Better Mathematics creates a better economy. Income x2 Gold',
@@ -84,7 +84,7 @@ export const TechnologyDataArray = [
     id: 5,
     name: 'nutrients_1',
     title: 'Nutrients Lv.1',
-    timeToResearch: 25,
+    timeToResearch: 25000,
     productionCost: 10,
     improvementTitle:
       'Better Mathematics creates a better economy. Income x2 Gold',
@@ -101,7 +101,7 @@ export const TechnologyDataArray = [
     id: 6,
     name: 'packingMachine_1',
     title: 'Packing Machine Lv.1',
-    timeToResearch: 25,
+    timeToResearch: 25000,
     productionCost: 10,
     improvementTitle:
       'Better Mathematics creates a better economy. Income x2 Gold',
@@ -118,7 +118,7 @@ export const TechnologyDataArray = [
     id: 7,
     name: 'pointer_1',
     title: 'Pointer Lv.1',
-    timeToResearch: 25,
+    timeToResearch: 25000,
     productionCost: 10,
     improvementTitle:
       'Better Mathematics creates a better economy. Income x2 Gold',
@@ -135,7 +135,7 @@ export const TechnologyDataArray = [
     id: 8,
     name: 'solarPanel_1',
     title: 'SolarPanel Lv.1',
-    timeToResearch: 25,
+    timeToResearch: 25000,
     productionCost: 10,
     improvementTitle:
       'Better Mathematics creates a better economy. Income x2 Gold',
@@ -152,7 +152,7 @@ export const TechnologyDataArray = [
     id: 9,
     name: 'testTube_1',
     title: 'TestTube Lv.1',
-    timeToResearch: 25,
+    timeToResearch: 25000,
     productionCost: 10,
     improvementTitle:
       'Better Mathematics creates a better economy. Income x2 Gold',
@@ -169,7 +169,7 @@ export const TechnologyDataArray = [
     id: 10,
     name: 'ultraviolet_1',
     title: 'Ultraviolet Lv.1',
-    timeToResearch: 25,
+    timeToResearch: 25000,
     productionCost: 10,
     improvementTitle:
       'Better Mathematics creates a better economy. Income x2 Gold',
@@ -186,7 +186,7 @@ export const TechnologyDataArray = [
     id: 11,
     name: 'ultrasonic_1',
     title: 'Ultrasonic Lv.1',
-    timeToResearch: 25,
+    timeToResearch: 25000,
     productionCost: 10,
     improvementTitle:
       'Better Mathematics creates a better economy. Income x2 Gold',
@@ -203,7 +203,7 @@ export const TechnologyDataArray = [
     id: 12,
     name: 'waterPump_1',
     title: 'WaterPump Lv.1',
-    timeToResearch: 25,
+    timeToResearch: 25000,
     productionCost: 10,
     improvementTitle:
       'Better Mathematics creates a better economy. Income x2 Gold',

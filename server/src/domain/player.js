@@ -7,28 +7,28 @@ export const findPlayerByUserId = (userId) =>
     },
   });
 
-export const findTilesByplayerId = (playerId) =>
+export const findTilesByPlayerId = (playerId) =>
   dbClient.tile.findMany({
     where: {
       playerId: playerId,
     },
   });
 
-export const findBuildingsByplayerId = (playerId) =>
+export const findBuildingsByPlayerId = (playerId) =>
   dbClient.building.findMany({
     where: {
       playerId: playerId,
     },
   });
 
-export const findTroopsByplayerId = (playerId) =>
+export const findTroopsByPlayerId = (playerId) =>
   dbClient.troop.findMany({
     where: {
       playerId: playerId,
     },
   });
 
-export const findAchievementsByplayerId = (playerId) =>
+export const findAchievementsByPlayerId = (playerId) =>
   dbClient.achievement.findMany({
     where: {
       playerId: playerId,
@@ -73,6 +73,21 @@ export const updatePlayerFundsData = (
   playerId,
   gold,
       gems
+) =>
+  dbClient.player.update({
+    where: {
+      id: playerId,
+    },
+    data: {
+      gold: gold,
+      gems: gems
+    },
+  });
+
+export const updatePlayerOnLevelComplete = (
+  playerId,
+  gold,
+  gems
 ) =>
   dbClient.player.update({
     where: {

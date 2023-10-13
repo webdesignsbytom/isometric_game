@@ -1,13 +1,14 @@
 import {
-  findTilesByplayerId,
+  findTilesByPlayerId,
   findPlayerByUserId,
-  findBuildingsByplayerId,
-  findTroopsByplayerId,
-  findAchievementsByplayerId,
+  findBuildingsByPlayerId,
+  findTroopsByPlayerId,
+  findAchievementsByPlayerId,
   createNewTileForPlayer,
   createNewBuildingForPlayer,
   updatePlayerDataXpAndLevel,
   updatePlayerFundsData,
+  updatePlayerOnLevelComplete,
 } from '../domain/player.js';
 import { myEmitterErrors } from '../event/errorEvents.js';
 import {
@@ -50,7 +51,7 @@ export const getPlayerTiles = async (req, res) => {
   const { playerId } = req.params;
 
   try {
-    const foundTiles = await findTilesByplayerId(playerId);
+    const foundTiles = await findTilesByPlayerId(playerId);
 
     if (!foundTiles) {
       const notFound = new NotFoundEvent(
@@ -89,7 +90,7 @@ export const getPlayerBuildings = async (req, res) => {
   const { playerId } = req.params;
 
   try {
-    const foundBuildings = await findBuildingsByplayerId(playerId);
+    const foundBuildings = await findBuildingsByPlayerId(playerId);
 
     if (!foundBuildings) {
       const notFound = new NotFoundEvent(
@@ -128,7 +129,7 @@ export const getPlayerTroops = async (req, res) => {
   const { playerId } = req.params;
 
   try {
-    const foundTroops = await findTroopsByplayerId(playerId);
+    const foundTroops = await findTroopsByPlayerId(playerId);
 
     if (!foundTroops) {
       const notFound = new NotFoundEvent(
@@ -167,7 +168,7 @@ export const getPlayerAchievements = async (req, res) => {
   const { playerId } = req.params;
 
   try {
-    const foundAchievements = await findAchievementsByplayerId(playerId);
+    const foundAchievements = await findAchievementsByPlayerId(playerId);
 
     if (!foundAchievements) {
       const notFound = new NotFoundEvent(
@@ -204,8 +205,7 @@ export const getPlayerAchievements = async (req, res) => {
 
 export const buyNewTile = async (req, res) => {
   const { playerId, tileId } = req.params;
-  console.log('playerId', playerId);
-  console.log('tileId', tileId);
+
   let newId = Number(tileId);
   try {
     // Check missing data
@@ -234,8 +234,7 @@ export const buyNewTile = async (req, res) => {
 
 export const buyNewBuilding = async (req, res) => {
   const { playerId, buildingId, tileId } = req.params;
-  console.log('playerId', playerId);
-  console.log('buildingId', buildingId);
+
   let newBuildingId = Number(buildingId);
   let newTileId = Number(tileId);
   try {
@@ -298,7 +297,7 @@ export const updatePlayerData = async (req, res) => {
     // Error
     const serverError = new ServerErrorEvent(
       req.player,
-      `Buy new building error`
+      `Update player xp error`
     );
     myEmitterErrors.emit('error', serverError);
     sendMessageResponse(res, serverError.code, serverError.message);
@@ -335,7 +334,44 @@ console.log('playerID', playerId, gold, gems);
     // Error
     const serverError = new ServerErrorEvent(
       req.player,
-      `Buy new building error`
+      `Updating player funds error`
+    );
+    myEmitterErrors.emit('error', serverError);
+    sendMessageResponse(res, serverError.code, serverError.message);
+    throw err;
+  }
+};
+
+
+export const levelCompletedPlayerUpdate = async (req, res) => {
+  const { playerId } = req.params;
+  const { gold, gems } = req.body;
+  
+console.log('playerID', playerId, gold, gems);
+  try {
+    // Check missing data
+    if (!playerId) {
+      //
+      const missingField = new MissingFieldEvent(
+        null,
+        'Registration: Missing Field/s event'
+      );
+      myEmitterErrors.emit('error', missingField);
+      return sendMessageResponse(res, missingField.code, missingField.message);
+    }
+
+    const updatedPlayer = await updatePlayerOnLevelComplete(
+      playerId,
+      gold,
+      gems
+    );
+
+    return sendDataResponse(res, 200, { updatedPlayer: updatedPlayer });
+  } catch (err) {
+    // Error
+    const serverError = new ServerErrorEvent(
+      req.player,
+      `Level completed player update error`
     );
     myEmitterErrors.emit('error', serverError);
     sendMessageResponse(res, serverError.code, serverError.message);
