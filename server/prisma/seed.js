@@ -41,36 +41,7 @@ async function seed() {
 
   const userTiles = await dbClient.tile.createMany({
     data: [
-      {
-        tileIdNum: 1,
-        playerId: '111',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 2,
-        playerId: '111',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 3,
-        playerId: '111',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 4,
-        playerId: '111',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 5,
-        playerId: '111',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 6,
-        playerId: '111',
-        hasBuilding: true,
-      },
+
       {
         tileIdNum: 110,
         playerId: '111',
@@ -261,36 +232,7 @@ async function seed() {
 
   const adminTiles = await dbClient.tile.createMany({
     data: [
-      {
-        tileIdNum: 1,
-        playerId: '222',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 2,
-        playerId: '222',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 3,
-        playerId: '222',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 4,
-        playerId: '222',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 5,
-        playerId: '222',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 6,
-        playerId: '222',
-        hasBuilding: true,
-      },
+
       {
         tileIdNum: 110,
         playerId: '222',
@@ -447,22 +389,22 @@ async function seed() {
   const adminBuildings = await dbClient.building.createMany({
     data: [
       {
-        locationTileId: 1,
+        locationTileId: 110,
         buildingIdNum: 1,
         playerId: '222',
       },
       {
-        locationTileId: 2,
+        locationTileId: 111,
         buildingIdNum: 2,
         playerId: '222',
       },
       {
-        locationTileId: 3,
+        locationTileId: 112,
         buildingIdNum: 3,
         playerId: '222',
       },
       {
-        locationTileId: 4,
+        locationTileId: 113,
         buildingIdNum: 4,
         playerId: '222',
       },
@@ -515,58 +457,28 @@ async function seed() {
       {
         locationTileId: 1,
         buildingIdNum: 1,
-        playerId: '222',
+        playerId: 'tomdev',
       },
       {
         locationTileId: 2,
         buildingIdNum: 2,
-        playerId: '222',
+        playerId: 'tomdev',
       },
       {
         locationTileId: 3,
         buildingIdNum: 3,
-        playerId: '222',
+        playerId: 'tomdev',
       },
       {
         locationTileId: 4,
         buildingIdNum: 4,
-        playerId: '222',
+        playerId: 'tomdev',
       },
     ],
   });
 
   const devTiles = await dbClient.tile.createMany({
     data: [
-      {
-        tileIdNum: 1,
-        playerId: 'tomdev',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 2,
-        playerId: 'tomdev',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 3,
-        playerId: 'tomdev',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 4,
-        playerId: 'tomdev',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 5,
-        playerId: 'tomdev',
-        hasBuilding: true,
-      },
-      {
-        tileIdNum: 6,
-        playerId: 'tomdev',
-        hasBuilding: true,
-      },
       {
         tileIdNum: 110,
         playerId: 'tomdev',

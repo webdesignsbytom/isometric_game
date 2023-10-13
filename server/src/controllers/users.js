@@ -212,8 +212,6 @@ export const registerNewUser = async (req, res) => {
     delete createdUser.password;
     delete createdUser.updatedAt;
 
-    console.log('created user: ', createdUser);
-
     // Create preowned tiles for user
     const userTiles = await createStarterTiles(
       createdUser.id,
