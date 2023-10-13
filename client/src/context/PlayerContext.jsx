@@ -34,7 +34,6 @@ const PlayerContextProvider = ({ children }) => {
 
   const buyBuilding = (building) => {
     // Check currency type and affordability
-    console.log('BUY BUILDING JSX', building);
 
     if (
       building.currencyType === 'gold' &&

@@ -96,7 +96,6 @@ export const createNewGameTileGrid = (
 };
 
 export const drawBuildingElements = (contextRef, buildingsRef, goldCoinRef) => {
-  console.log('66666666666666666666666666');
   const context = contextRef.current;
   const buildings = buildingsRef.current;
 
@@ -104,10 +103,8 @@ export const drawBuildingElements = (contextRef, buildingsRef, goldCoinRef) => {
     if (building.payoutCollectionTime <= new Date()) {
       building.payoutReady = true;
     }
-    console.log('7777777777777777777777777');
     building.drawBuilding(context, goldCoinRef);
   });
-  console.log('888888888888888888888888');
 };
 
 export const drawTileGrid = (contextRef, tilesRef) => {
