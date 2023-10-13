@@ -103,3 +103,28 @@ export const updatePlayerOnLevelComplete = (
       gems: gems
     },
   });
+
+export const updateCityOnLevelComplete = (playerId, newCityDefense, newCityHealth) =>
+  dbClient.city.update({
+    where: {
+      playerId: playerId,
+    },
+    data: {
+      cityHealth: newCityHealth,
+      cityDefense: newCityDefense,
+    },
+  });
+
+export const updateBattleOnLevelComplete = (playerId, newStrength, newDefense, newSpeed, newAccuracy, newHealth) =>
+  dbClient.battle.update({
+    where: {
+      playerId: playerId,
+    },
+    data: {
+       strength: newStrength,
+       accuracy: newAccuracy,
+       speed: newSpeed,
+       defense: newDefense,
+       health: newHealth,
+    },
+  });

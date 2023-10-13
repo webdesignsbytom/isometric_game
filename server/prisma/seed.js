@@ -29,6 +29,9 @@ async function seed() {
             create: {
               cityName: 'space town',
             }
+          },
+          battle: {
+            create: {}
           }
         },
       },
@@ -240,6 +243,9 @@ async function seed() {
             create: {
               cityName: 'Adminiville',
             }
+          },
+          battle: {
+            create: {}
           }
         },
       },
@@ -482,6 +488,9 @@ async function seed() {
             create: {
               cityName: 'DevVilles',
             }
+          },
+          battle: {
+            create: {}
           }
         },
       },

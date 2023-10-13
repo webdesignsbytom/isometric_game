@@ -9,13 +9,22 @@ import {
   updatePlayerDataXpAndLevel,
   updatePlayerFundsData,
   updatePlayerOnLevelComplete,
+  updateCityOnLevelComplete,
+  updateBattleOnLevelComplete,
 } from '../domain/player.js';
 import { myEmitterErrors } from '../event/errorEvents.js';
 import {
+  BadRequestEvent,
   MissingFieldEvent,
   NotFoundEvent,
   ServerErrorEvent,
 } from '../event/utils/errorUtils.js';
+import {
+  levelIncreaseBattleDataNum,
+  levelIncreaseBattleHealthDataNum,
+  levelIncreaseCityDefenseDataNum,
+  levelIncreaseCityHealthDataNum,
+} from '../game/constants.js';
 import {
   EVENT_MESSAGES,
   sendDataResponse,
@@ -368,6 +377,7 @@ export const levelCompletedPlayerUpdate = async (req, res) => {
       return sendMessageResponse(res, missingField.code, missingField.message);
     }
 
+    // Update player
     const updatedPlayer = await updatePlayerOnLevelComplete(
       playerId,
       playerLevel,
@@ -377,7 +387,46 @@ export const levelCompletedPlayerUpdate = async (req, res) => {
       currencyData.gems
     );
 
-    return sendDataResponse(res, 200, { player: updatedPlayer });
+    if (!updatedPlayer) {
+      const notCreated = new BadRequestEvent(
+        EVENT_MESSAGES.badRequest,
+        EVENT_MESSAGES.updatePlayerFail
+      );
+      myEmitterErrors.emit('error', notCreated);
+      return sendMessageResponse(res, notCreated.code, notCreated.message);
+    }
+
+    // Update city
+    let newCityDefense = cityData.cityDefense + levelIncreaseCityDefenseDataNum;
+    let newCityHealth = cityData.cityHealth + levelIncreaseCityHealthDataNum;
+
+    const updatedCity = await updateCityOnLevelComplete(
+      playerId,
+      newCityDefense,
+      newCityHealth
+    );
+
+    // Update Battle
+    let newStrength = battleData.strength + levelIncreaseBattleDataNum;
+    let newDefense = battleData.defense + levelIncreaseBattleDataNum;
+    let newSpeed = battleData.speed + levelIncreaseBattleDataNum;
+    let newAccuracy = battleData.accuracy + levelIncreaseBattleDataNum;
+    let newHealth = battleData.health + levelIncreaseBattleHealthDataNum;
+
+    const updatedBattle = await updateBattleOnLevelComplete(
+      playerId,
+      newStrength,
+      newDefense,
+      newSpeed,
+      newAccuracy,
+      newHealth
+    );
+
+    return sendDataResponse(res, 200, {
+      player: updatedPlayer,
+      city: updatedCity,
+      battle: updatedBattle,
+    });
   } catch (err) {
     // Error
     const serverError = new ServerErrorEvent(
