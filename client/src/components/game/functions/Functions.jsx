@@ -349,11 +349,13 @@ export const buyNewTile = ({
     currentXp: newXpAmount,
   });
 
+  let body = { newAmount, newXpAmount, currentXp }
+
   if (player.playerId) {
     client
       .post(
         `/player/buy-tile/${player.playerId}/${tileToPurchase.id}`,
-        null,
+        body,
         false
       )
       .then((res) => {

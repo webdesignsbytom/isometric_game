@@ -138,3 +138,15 @@ export const updateBattleOnLevelComplete = (playerId, newStrength, newDefense, n
        health: newHealth,
     },
   });
+
+export const updatePlayerAfterTilePurchase = (playerId, newAmount, newXpAmount, currentXp) =>
+  dbClient.player.update({
+    where: {
+      id: playerId,
+    },
+    data: {
+       gold: newAmount,
+       totalXp: newXpAmount,
+       currentXp: currentXp,
+    },
+  });

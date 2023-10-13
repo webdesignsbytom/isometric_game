@@ -11,6 +11,7 @@ import {
   updatePlayerOnLevelComplete,
   updateCityOnLevelComplete,
   updateBattleOnLevelComplete,
+  updatePlayerAfterTilePurchase,
 } from '../domain/player.js';
 import { myEmitterErrors } from '../event/errorEvents.js';
 import {
@@ -214,7 +215,8 @@ export const getPlayerAchievements = async (req, res) => {
 
 export const buyNewTile = async (req, res) => {
   const { playerId, tileId } = req.params;
-
+  const { newAmount, newXpAmount, currentXp } = req.body;
+  console.log('{ newAmount, newXpAmount }', newAmount, newXpAmount);
   let newId = Number(tileId);
   try {
     // Check missing data
@@ -231,6 +233,13 @@ export const buyNewTile = async (req, res) => {
     const newTile = await createNewTileForPlayer(playerId, newId);
     console.log('newTile', newTile);
 
+    const updatedPlayer = await updatePlayerAfterTilePurchase(
+      playerId,
+      newAmount,
+      newXpAmount,
+      currentXp
+    );
+    console.log('updatedPlayer', updatedPlayer);
     return sendDataResponse(res, 200, { tile: newTile });
   } catch (err) {
     // Error
@@ -347,6 +356,9 @@ export const updatePlayerFunds = async (req, res) => {
 };
 
 export const levelCompletedPlayerUpdate = async (req, res) => {
+  console.log(
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+  );
   const { playerId } = req.params;
   const {
     currencyData,
@@ -356,22 +368,67 @@ export const levelCompletedPlayerUpdate = async (req, res) => {
     totalXp,
     battleData,
   } = req.body;
-
+  console.log(
+    'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
+    currencyData,
+    cityData,
+    playerLevel,
+    currentXp,
+    totalXp,
+    battleData
+  );
   try {
     // Check missing data
-    if (
-      !playerId ||
-      !playerLevel ||
-      !currentXp ||
-      !totalXp ||
-      !battleData ||
-      !currencyData ||
-      !cityData
-    ) {
+    if (!playerId) {
       //
       const missingField = new MissingFieldEvent(
         null,
-        'Registration: Missing Field/s event'
+        'Update: Missing Field/s event playerId'
+      );
+      myEmitterErrors.emit('error', missingField);
+      return sendMessageResponse(res, missingField.code, missingField.message);
+    }
+    if (!playerLevel) {
+      //
+      const missingField = new MissingFieldEvent(
+        null,
+        'Update: Missing Field/s event playerLevel'
+      );
+      myEmitterErrors.emit('error', missingField);
+      return sendMessageResponse(res, missingField.code, missingField.message);
+    }
+    if (!totalXp) {
+      //
+      const missingField = new MissingFieldEvent(
+        null,
+        'Update: Missing Field/s event totalXp'
+      );
+      myEmitterErrors.emit('error', missingField);
+      return sendMessageResponse(res, missingField.code, missingField.message);
+    }
+    if (!battleData) {
+      //
+      const missingField = new MissingFieldEvent(
+        null,
+        'Update: Missing Field/s event missingField'
+      );
+      myEmitterErrors.emit('error', missingField);
+      return sendMessageResponse(res, missingField.code, missingField.message);
+    }
+    if (!currencyData) {
+      //
+      const missingField = new MissingFieldEvent(
+        null,
+        'Update: Missing Field/s event currencyData'
+      );
+      myEmitterErrors.emit('error', missingField);
+      return sendMessageResponse(res, missingField.code, missingField.message);
+    }
+    if (!cityData) {
+      //
+      const missingField = new MissingFieldEvent(
+        null,
+        'Update: Missing Field/s event cityData'
       );
       myEmitterErrors.emit('error', missingField);
       return sendMessageResponse(res, missingField.code, missingField.message);
