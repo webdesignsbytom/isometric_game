@@ -25,6 +25,7 @@ function LoadingLoginPage() {
       .get(`/player/get-player-by-id/${user.id}`)
       .then((res) => {
         let playerData = res.data.data.player;
+        console.log('player data', playerData);
         getPlayerTiles(playerData);
       })
       .catch((err) => {

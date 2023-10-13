@@ -68,3 +68,18 @@ export const updatePlayerDataXpAndLevel = (
       playerLevel: playerLevel,
     },
   });
+
+export const updatePlayerFundsData = (
+  playerId,
+  gold,
+      gems
+) =>
+  dbClient.player.update({
+    where: {
+      id: playerId,
+    },
+    data: {
+      gold: gold,
+      gems: gems
+    },
+  });

@@ -7,6 +7,7 @@ import {
   createNewTileForPlayer,
   createNewBuildingForPlayer,
   updatePlayerDataXpAndLevel,
+  updatePlayerFundsData,
 } from '../domain/player.js';
 import { myEmitterErrors } from '../event/errorEvents.js';
 import {
@@ -290,6 +291,42 @@ export const updatePlayerData = async (req, res) => {
       currentXp,
       totalXp,
       playerLevel
+    );
+
+    return sendDataResponse(res, 200, { updatedPlayer: updatedPlayer });
+  } catch (err) {
+    // Error
+    const serverError = new ServerErrorEvent(
+      req.player,
+      `Buy new building error`
+    );
+    myEmitterErrors.emit('error', serverError);
+    sendMessageResponse(res, serverError.code, serverError.message);
+    throw err;
+  }
+};
+
+
+export const updatePlayerFunds = async (req, res) => {
+  const { playerId } = req.params;
+  const { gold, gems } = req.body;
+console.log('playerID', playerId, gold, gems);
+  try {
+    // Check missing data
+    if (!playerId) {
+      //
+      const missingField = new MissingFieldEvent(
+        null,
+        'Registration: Missing Field/s event'
+      );
+      myEmitterErrors.emit('error', missingField);
+      return sendMessageResponse(res, missingField.code, missingField.message);
+    }
+
+    const updatedPlayer = await updatePlayerFundsData(
+      playerId,
+      gold,
+      gems
     );
 
     return sendDataResponse(res, 200, { updatedPlayer: updatedPlayer });
