@@ -1,11 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // Components
 import Navbar from '../../components/nav/Navbar';
 // Data
 import { gameOfficialName } from '../../utils/gameData/Constants';
 // Form
 import LoginForm from '../../components/forms/LoginForm';
-import { Link } from 'react-router-dom';
 
 function HomePage() {
   return (
@@ -14,13 +14,13 @@ function HomePage() {
         <Navbar />
         <main className='grid bg-green-200 h-full w-full overflow-hidden'>
           <div className='py-4 grid w-full items-center mx-auto'>
-            <section className='grid h-full w-1/3 mx-auto outline outline-2 outline-black rounded-xl'>
+            <section className='grid h-full w-1/3 mx-auto outline outline-2 outline-black rounded-xl bg-gray-100 px-4'>
               <article className='p-1 mt-2 grid grid-flow-row'>
                 <div className='mb-4 text-center'>
-                  <h2>Welcome To</h2>
-                  <h1>{gameOfficialName}</h1>
+                  <h2 className='italic text-xl'>Welcome To</h2>
+                  <h1 className='font-bold text-3xl'>{gameOfficialName}</h1>
                 </div>
-                <div className='grid outline-1 outline-black outline p-1'>
+                <div className='grid outline-1 outline-black outline p-4 h-fit'>
                   <LoginForm />
                 </div>
                 <div className='grid justify-center items-center h-fit gap-2 mt-2'>
