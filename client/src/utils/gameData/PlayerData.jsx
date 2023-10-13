@@ -1,4 +1,4 @@
-import { Building } from '../../components/game/canvas/Building';
+import { Building } from '../../components/game/Objects/Building';
 // Data
 import { BuildingsMenuArray } from './BuildingsData';
 // Images

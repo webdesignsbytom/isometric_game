@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 // Data
 import { tempPlayerData } from '../utils/gameData/PlayerData';
-import { Building } from '../components/game/canvas/Building';
+import { Building } from '../components/game/Objects/Building';
 import { PlayerLevelsArray } from '../utils/gameData/PlayerLevels';
 // Context
 export const PlayerContext = React.createContext();

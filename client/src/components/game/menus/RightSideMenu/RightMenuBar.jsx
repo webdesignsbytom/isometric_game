@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 // Context
-import { ToggleContext } from '../../../../../context/ToggleContext';
+import { ToggleContext } from '../../../../context/ToggleContext';
 
 function RightMenuBar() {
   const { openTroopMenu } = useContext(ToggleContext);

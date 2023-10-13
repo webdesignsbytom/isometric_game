@@ -8,14 +8,14 @@ import { ToggleContext } from '../../../context/ToggleContext';
 import { PlayerContext } from '../../../context/PlayerContext';
 // Components
 import CantAffordBuilding from '../modals/CantAffordBuilding';
-import TechMenuBar from '../menus/SecondaryMenuBar/TechMenuBar';
+import TechMenuBar from '../menus/Tech/TechMenuBar';
 import PlayerDataModal from '../modals/PlayerDataModal';
 import BuyTileModal from '../modals/BuyTileModal';
 import CantAffordTile from '../modals/CantAffordTile';
 import LevelCompletedModal from '../modals/LevelCompletedModal';
 import InProgressBar from '../modals/InProgressBar';
-import RightMenuBar from '../menus/SecondaryMenuBar/RightSideMenu/RightMenuBar';
-import TroopsOwnedMenu from '../menus/SecondaryMenuBar/TroopsOwnedMenu';
+import RightMenuBar from '../menus/RightSideMenu/RightMenuBar';
+import TroopsOwnedMenu from '../menus/Troops/TroopsOwnedMenu';
 
 function GameView() {
   const { displayMainMenuBar, techMenuSelected, playerDataModel, buyTileScreenToggle, tileToPurchase, levelCompletedModalOpen, inprogressUpdatesModalOpen, troopMenuSelected } = useContext(ToggleContext);

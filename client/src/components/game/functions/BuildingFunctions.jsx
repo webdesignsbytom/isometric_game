@@ -1,7 +1,7 @@
 // Data
 import { BuildingsMenuArray } from '../../../utils/gameData/BuildingsData';
 // Object
-import { Building } from '../canvas/Building';
+import { Building } from '../Objects/Building';
 
 export const drawBuildingsOwnedByPlayer = (player, tilesRef, buildingsRef) => {
 

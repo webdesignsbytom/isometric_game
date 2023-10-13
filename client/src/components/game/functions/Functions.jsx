@@ -5,7 +5,7 @@ import {
   unownedTileColourHex,
 } from '../../../utils/gameData/Constants';
 // Components
-import { Tile } from '../canvas/Tile';
+import { Tile } from '../Objects/Tile';
 
 export const createNewGameTileGrid = (
   originX,
@@ -15,8 +15,6 @@ export const createNewGameTileGrid = (
   tileColumnOffset,
   tileRowOffset,
   tilesRef,
-  player,
-  setPlayer
 ) => {
   // Create preowned tiles array
   const numRows = 20;
@@ -75,22 +73,6 @@ export const createNewGameTileGrid = (
       id++;
     }
   }
-
-  // Update player state with preowned tiles
-  // let tileData = player.tileData;
-
-  // let ownedTiles = [];
-
-  // tilesArray.forEach((tile) => {
-  //   if (tile.isOwned) {
-  //     ownedTiles.push(tile);
-  //   }
-  // });
-
-  // // Update player
-  // tileData.tilesArray = ownedTiles;
-  // let numTilesOwned = ownedTiles.length;
-  // tileData.tilesOwned = numTilesOwned;
 
   tilesRef.current = tilesArray;
 };

@@ -19,7 +19,7 @@ import {
 } from '../functions/Functions';
 // Images
 import Gold from '../../../assets/images/game/currency/goldCoin.png';
-import { Building } from './Building';
+import { Building } from '../Objects/Building';
 import { drawBuildingsOwnedByPlayer } from '../functions/BuildingFunctions';
 
 function GameCanvas() {

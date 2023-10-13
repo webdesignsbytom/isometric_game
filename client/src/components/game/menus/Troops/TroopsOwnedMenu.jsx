@@ -1,6 +1,6 @@
 import React from 'react';
 // Components
-import CloseTroopsMenuButton from './CloseTroopsMenuButton';
+import CloseTroopsMenuButton from '../SecondaryMenuBar/CloseTroopsMenuButton';
 
 function TroopsOwnedMenu() {
   return (
