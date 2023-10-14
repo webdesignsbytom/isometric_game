@@ -35,38 +35,40 @@ function PlayerDataModal() {
   }, [player.currentXp]);
 
   return (
-    <section className='absolute top-1 right-1 h-[120px] w-[220px] outline outline-1 outline-black rounded-lg bg-yellow-200'>
+    <section className='absolute top-1 right-1 outline outline-1 outline-black rounded-lg bg-yellow-200 p-1'>
       <div className='grid grid-rows-rev gap-1'>
         <div className='grid grid-cols-reg gap-1'>
-          <section>
+          <section className='grid items-center justify-center pl-1'>
             <img
               className='grid h-[50px] w-[50px] rounded-full object-contain'
               src={player.playerImage}
               alt='Player avatar'
             />
           </section>
-          <section className='grid w-full h-full'>
-            <div>{player.playerName}</div>
-            <div>
-              <span className='text-sm font-semibold leading-4'>Level </span>
-              <span className='text-sm font-semibold leading-4'>
-                {player.playerLevel}
-              </span>
-            </div>
-            <div>
-              <span className='text-ss font-semibold leading-4'>
-                XP REQUIRED
-              </span>
-              <span className='text-sm font-semibold leading-4'>
-                {currentLevelData.xpRequired}
-              </span>
+          <section className='grid w-full h-fit p-1'>
+            <div className='bg-red-500 grid grid-rows-3 leading-5 outline outline-1 outline-black rounded'>
+              <div>
+                <span className='text-sm font-semibold'>
+                  {player.playerName}
+                </span>
+              </div>
+              <div>
+                <span className='text-sm font-semibold leading-4'>Level </span>
+                <span className='text-sm font-semibold leading-4'>
+                  {player.playerLevel}
+                </span>
+              </div>
+              <div>
+                
+              </div>
             </div>
           </section>
         </div>
-        <section className='px-2'>
+        <section className='px-2 mb-2'>
           <div className='bg-red-500 relative w-[200px] h-[11px] grid items-center justify-start outline outline-1 outline-black rounded overflow-hidden'>
             <div
-              className={`bg-blue-600 h-[9px] outline outline-1 outline-black rounded mt-[0.1px]`}
+              title={`XP ${player.currentXp}`}
+              className={`bg-blue-600 h-[9px] outline outline-1 outline-black rounded cursor-pointer`}
               style={{ width: xpCompleted }}
             ></div>
             <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs pb-0.5 font-semibold'>
