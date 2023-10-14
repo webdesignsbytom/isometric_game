@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 // Context
 import { ToggleContext } from '../../../context/ToggleContext';
 import { PlayerContext } from '../../../context/PlayerContext';
@@ -9,11 +9,21 @@ import { buyNewTile } from '../functions/Functions';
 
 function BuyTileModal({ tileToPurchase }) {
   const { closeBuyTileModal } = useContext(ToggleContext);
-  const {
-    player,
-    setPlayer,
-    openCantAffordTileModal,
-  } = useContext(PlayerContext);
+  const { player, setPlayer, openCantAffordTileModal } =
+    useContext(PlayerContext);
+
+  const [purchasePrice, setPurchasePrice] = useState(0);
+  console.log('AAAA PLAYER', player);
+
+  useEffect(() => {
+    console.log('startingTileCost', startingTileCost);
+    console.log('player.tileData.tilesOwned', player.tileData.tilesOwned);
+
+    let price = startingTileCost * player.tileData.tilesOwned + 100;
+    console.log('price', price);
+    
+    setPurchasePrice(price);
+  }, [player]);
 
   return (
     <article className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 outline outline-1 outline-black bg-white rounded-xl h-[200px] w-[300px] p-2 grid'>
@@ -21,7 +31,7 @@ function BuyTileModal({ tileToPurchase }) {
         <div className='text-center'>Buy Tile</div>
         <div className='text-center text-xl font-bold'>
           <span>🪙 </span>
-          {startingTileCost * player.tileData.tilesOwned}
+          {purchasePrice}
         </div>
       </section>
       <section className='grid grid-cols-2 gap-1'>
@@ -34,6 +44,7 @@ function BuyTileModal({ tileToPurchase }) {
                 player,
                 setPlayer,
                 openCantAffordTileModal,
+                purchasePrice,
               })
             }
             className='bg-orange-800 px-2 py-1 rounded-xl active:scale-95 hover:brightness-95'

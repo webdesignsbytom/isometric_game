@@ -14,7 +14,7 @@ export const createNewGameTileGrid = (
   maxGridYLength,
   tileColumnOffset,
   tileRowOffset,
-  tilesRef,
+  tilesRef
 ) => {
   // Create preowned tiles array
   const numRows = 20;
@@ -197,6 +197,7 @@ export const purchaseAndPlaceNewBuilding = (
     // Check if the mouse is within the bounds of the tile
     if (isoX >= 0 && isoY >= 0 && isoX <= 1 && isoY <= 1 && isoX + isoY <= 1) {
       // Set building to tile position
+
       mouseBuildingAvailable.setPosition(tile.offX, tile.offY);
 
       // Buy with gems
@@ -302,12 +303,14 @@ export const buyNewTile = ({
   player,
   setPlayer,
   openCantAffordTileModal,
+  purchasePrice,
 }) => {
-  if (player.currencyData.gold < tileToPurchase.cost) {
+  if (player.currencyData.gold < purchasePrice) {
     openCantAffordTileModal();
     closeBuyTileModal();
     return;
   }
+
   // Update tile
   tileToPurchase.isOwned = true;
   tileToPurchase.fillColour = ownedTileColourHex;
@@ -315,7 +318,7 @@ export const buyNewTile = ({
 
   // Update player funds
   let fundsAvailable = player.currencyData;
-  let cost = tileToPurchase.cost;
+  let cost = purchasePrice;
   let playerGold = fundsAvailable.gold;
   let newAmount = playerGold - cost;
   fundsAvailable.gold = newAmount;
@@ -331,7 +334,7 @@ export const buyNewTile = ({
     currentXp: newXpAmount,
   });
 
-  let body = { newAmount, newXpAmount, currentXp }
+  let body = { newAmount, newXpAmount, currentXp };
 
   if (player.playerId) {
     client
@@ -348,6 +351,15 @@ export const buyNewTile = ({
         console.error('Unable to buy tile', err);
       });
   }
+
+  let newTileNum = player.tileData.tilesArray.length;
+  let currentArray = player.tileData.tilesArray;
+  currentArray.push(tileToPurchase);
+
+  setPlayer({
+    ...player,
+    tileData: { tilesOwned: newTileNum, tilesArray: currentArray },
+  });
 
   closeBuyTileModal();
 };
