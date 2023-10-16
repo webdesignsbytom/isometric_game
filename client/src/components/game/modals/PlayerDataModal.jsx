@@ -46,7 +46,7 @@ function PlayerDataModal() {
             />
           </section>
           <section className='grid w-full h-fit p-1'>
-            <div className='bg-red-500 grid grid-rows-3 leading-5 outline outline-1 outline-black rounded'>
+            <div className='bg-red-500 grid grid-rows-3 leading-5 outline outline-1 outline-black rounded p-1'>
               <div>
                 <span className='text-sm font-semibold'>
                   {player.playerName}
@@ -65,7 +65,7 @@ function PlayerDataModal() {
           </section>
         </div>
         <section className='px-2 mb-2'>
-          <div className='bg-red-500 relative w-[200px] h-[11px] grid items-center justify-start outline outline-1 outline-black rounded overflow-hidden'>
+          <div title={`XP ${player.currentXp}`} className='bg-red-500 cursor-pointer relative w-[200px] h-[11px] grid items-center justify-start outline outline-1 outline-black rounded overflow-hidden'>
             <div
               title={`XP ${player.currentXp}`}
               className={`bg-blue-600 h-[9px] outline outline-1 outline-black rounded cursor-pointer`}
