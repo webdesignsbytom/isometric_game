@@ -1,11 +1,41 @@
 // Data
 import client from '../../../api/client';
 import {
+  maxGridXAxisLength,
+  maxGridYAxisLength,
   ownedTileColourHex,
+  tileColumnOffset,
+  tileRowOffset,
   unownedTileColourHex,
 } from '../../../utils/gameData/Constants';
 // Components
 import { Tile } from '../Objects/Tile';
+
+export const createGameGrid = (tilesRef, originX, originY) => {
+  let id = 1;
+  let tilesArray = [];
+
+  for (let Xi = maxGridXAxisLength - 1; Xi >= 0; Xi--) {
+    for (let Yi = 0; Yi < maxGridYAxisLength; Yi++) {
+      const offX =
+        (Xi * tileColumnOffset) / 2 + (Yi * tileColumnOffset) / 2 + originX;
+      const offY =
+        (Yi * tileRowOffset) / 2 - (Xi * tileRowOffset) / 2 + originY;
+
+      const tile = new Tile(
+        id,
+        offX,
+        offY,
+        unownedTileColourHex,
+        'black',
+        false
+      );
+      tilesArray.push(tile);
+    }
+  }
+
+  tilesRef.current = tilesArray;
+};
 
 export const createNewGameTileGrid = (
   originX,

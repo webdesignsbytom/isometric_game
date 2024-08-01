@@ -7,11 +7,13 @@ import { BuildingsMenuArray } from '../../../utils/gameData/BuildingsData';
 import {
   maxGridYAxisLength,
   ownedTileColourHex,
+  tileColumnOffset,
 } from '../../../utils/gameData/Constants';
 // Functions
 import {
   clearCanvas,
   collectFromBuildingAndUpdateFunds,
+  createGameGrid,
   createNewGameTileGrid,
   drawBuildingElements,
   drawTileGrid,
@@ -38,10 +40,6 @@ function GameCanvas() {
   // Grid sizes
   const maxGridXLength = maxGridYAxisLength;
   const maxGridYLength = maxGridYAxisLength;
-
-  // Isometric offset
-  const tileColumnOffset = 64; // pixels
-  const tileRowOffset = 32; // pixels
 
   // Don't allow clicking on two tiles
   let isProcessingClick = false;
@@ -72,33 +70,33 @@ function GameCanvas() {
     goldCoin.src = Gold;
     goldCoinRef.current = goldCoin;
 
-    // Create tiles
-    createNewGameTileGrid(
-      originX,
-      originY,
-      maxGridXLength,
-      maxGridYLength,
-      tileColumnOffset,
-      tileRowOffset,
-      tilesRef,
-      player,
-      setPlayer
-    );
-
+    // // Create tiles
+    createGameGrid(tilesRef, originX, originY);
+    // createNewGameTileGrid(
+    //   originX,
+    //   originY,
+    //   maxGridXLength,
+    //   maxGridYLength,
+    //   tileColumnOffset,
+    //   tileRowOffset,
+    //   tilesRef,
+    //   player,
+    //   setPlayer
+    // );
+    // drawTilesOwnedByPlayer()
     if (player.playerId) {
+      console.log('ZXXXXXXXXXX');
       drawTilesOwnedByPlayer();
-      drawBuildingsOwnedByPlayer(player, tilesRef, buildingsRef);
+      // drawBuildingsOwnedByPlayer(player, tilesRef, buildingsRef);
     }
 
-    // Draw game on canvas
-    drawCanvasElements();
+    // // Draw game on canvas
+    // drawCanvasElements();
   }, []);
-
-  
 
   const drawTilesOwnedByPlayer = () => {
     let tileOwnedArray = player.tileData.tilesArray;
-
+    console.log('tileOwnedArray', tileOwnedArray);
     let newTileRef = tilesRef.current;
 
     tileOwnedArray.forEach((tile) => {

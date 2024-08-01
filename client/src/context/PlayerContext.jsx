@@ -20,7 +20,6 @@ const PlayerContextProvider = ({ children }) => {
 
   useEffect(() => {
     // Set the current level
-    console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
     const currentLevelNum = player.playerLevel;
     console.log('CURRENT LEVEL: ' , currentLevelNum);
     const foundLevel = playerLevelsData.find(
